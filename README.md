@@ -9,7 +9,7 @@
 
 The commercial Ais.Net license gives you the full rights to create and distribute software on your own terms without any open source license obligations. With the commercial license you also have access to official Ais.Net support and close strategic relationship with endjin to ensure your development goals are met.
 
-Ais.Net is also available under the Open Software License v. 3.0 (OSL-3.0) open source license. The OSL-3.0 is a Copyleft license, and is ideal for use cases such as open source projects with open source distribution, student/academic purposes, hobby projects, internal research projects without external distribution, or other projects where all Open Software License v. 3.0 obligations can be met. 
+Ais.Net is also available under the [Open Software License v. 3.0 (OSL-3.0)](https://choosealicense.com/licenses/osl-3.0/) open source license. The OSL-3.0 is a Copyleft license, and is ideal for use cases such as open source projects with open source distribution, student/academic purposes, hobby projects, internal research projects without external distribution, or other projects where all Open Software License v. 3.0 obligations can be met. 
 
 For any licensing questions, please email [&#108;&#105;&#99;&#101;&#110;&#115;&#105;&#110;&#103;&#64;&#101;&#110;&#100;&#106;&#105;&#110;&#46;&#99;&#111;&#109;](&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#99;&#101;&#110;&#115;&#105;&#110;&#103;&#64;&#101;&#110;&#100;&#106;&#105;&#110;&#46;&#99;&#111;&#109;)
 
