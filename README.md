@@ -1,17 +1,21 @@
 # Ais.Net
 [![Build Status](https://dev.azure.com/endjin-labs/Ais.Net/_apis/build/status/ais-dotnet.Ais.Net?branchName=master)](https://dev.azure.com/endjin-labs/Ais.Net/_build/latest?definitionId=2&branchName=master)
+[![GitHub license](https://img.shields.io/badge/License-Open%20Software%20License%203.0-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-NLOD-blue.svg)](https://data.norge.no/nlod/en/2.0)
 
 .NET Standard, high performance, zero allocation AIS decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core.
 
 ## Licenses
 
-[![GitHub license](https://img.shields.io/badge/license-Open%20Software%20License%203.0-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-Open%20Software%20License%203.0-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
 
 The commercial Ais.Net license gives you the full rights to create and distribute software on your own terms without any open source license obligations. With the commercial license you also have access to official Ais.Net support and close strategic relationship with endjin to ensure your development goals are met.
 
 Ais.Net is also available under the [Open Software License v. 3.0 (OSL-3.0)](https://choosealicense.com/licenses/osl-3.0/) open source license. The OSL-3.0 is a Copyleft license, and is ideal for use cases such as open source projects with open source distribution, student/academic purposes, hobby projects, internal research projects without external distribution, or other projects where all Open Software License v. 3.0 obligations can be met. 
 
 For any licensing questions, please email [&#108;&#105;&#99;&#101;&#110;&#115;&#105;&#110;&#103;&#64;&#101;&#110;&#100;&#106;&#105;&#110;&#46;&#99;&#111;&#109;](&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#105;&#99;&#101;&#110;&#115;&#105;&#110;&#103;&#64;&#101;&#110;&#100;&#106;&#105;&#110;&#46;&#99;&#111;&#109;)
+
+[![GitHub license](https://img.shields.io/badge/License-NLOD-blue.svg)](https://data.norge.no/nlod/en/2.0)
 
 The data used by the AIS.NET executable specifications and samples is licensed under the [Norwegian license for public data (NLOD)](https://data.norge.no/nlod/en/2.0).
 
