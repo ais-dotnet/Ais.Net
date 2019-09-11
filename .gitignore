@@ -8,13 +8,16 @@
 *.user
 *.userosscache
 *.sln.docstates
+[Ll]ocal.settings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
 # Build results
+[D]rops/
+[Bb]uild[Aa]rtefacts/
 [Dd]ebug/
-[Dd]ebugPublic/
+[Dd]ebug[Pp]ublic/
 [Rr]elease/
 [Rr]eleases/
 x64/
@@ -328,3 +331,9 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Cobertura code coverage file
+coverage.cobertura.xml
+
+# VS Code config files
+/.vscode

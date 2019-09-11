@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace />
+
+    <IsPackable>false</IsPackable>
+    <NoWarn>RCS1029;RCS1089;SA1600</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.0.225" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.225" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ais.Net\Ais.Net.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.msbuild" Version="2.6.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Ais\Net\Specs\AisMessageTypes\LongRangeAisBroadcastParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LongRangeAisBroadcastParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\AisMessageTypes\PositionReportClassAParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PositionReportClassAParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\AisMessageTypes\PositionReportClassBParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PositionReportClassBParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\AisStringsSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AisStringsSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\AisMessageTypes\PositionReportExtendedClassBParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PositionReportExtendedClassBParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\AisMessageTypes\StaticAndVoyageRelatedDataParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StaticAndVoyageRelatedDataParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\AisMessageTypes\StaticDataReportParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StaticDataReportParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\NmeaAisBitVectorParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NmeaAisBitVectorParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\NmeaLineToAisStreamAdapterSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NmeaLineToAisStreamAdapterSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\NmeaStreamParserSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NmeaStreamParserSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\ParsePayloadSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ParsePayloadSpecs.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Ais\Net\Specs\SentenceLayerSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SentenceLayerSpecs.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

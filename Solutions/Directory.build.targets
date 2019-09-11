@@ -1,0 +1,13 @@
+<Project>
+  <ItemGroup>
+    <!--
+    Ensure that if anyone adds a local.settings.json, it will get copied to the output folder
+    without needing to manually configure it in Solution Explorer. (We don't want to do that
+    because these local settings files don't get checked in, so not everyone has them. So you'd end
+    up with project files specifying options for files that aren't actually there.)
+    -->
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

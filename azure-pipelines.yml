@@ -1,17 +1,23 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
-- master
+  branches:
+    include:
+    - master
+    - feature/*
+  tags:
+    include:
+    - '*'
 
-pool:
-  vmImage: 'ubuntu-latest'
+resources:
+  repositories:
+    - repository: recommended_practices
+      type: github
+      name: endjin/Endjin.RecommendedPractices.AzureDevopsPipelines.GitHub
+      endpoint: ais-dotnet-github
 
-variables:
-  buildConfiguration: 'Release'
-
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+jobs:
+- template: templates/build.and.release.yml@recommended_practices
+  parameters:
+    vmImage: 'ubuntu-latest'
+    service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
+    service_connection_github: $(Endjin_Service_Connection_GitHub)
+    solution_to_build: $(Endjin_Solution_To_Build)
