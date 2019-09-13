@@ -21,8 +21,8 @@
 
   <PropertyGroup>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
-    <PackageDescription>AIS message parser</PackageDescription>
-    <PackageTags>ais</PackageTags>
+    <PackageDescription>High performance, zero allocation AIS message decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core. Sponsored by endjin.</PackageDescription>
+    <PackageTags>ais;aisvdm;aivdo;nmea;marine;iot;aiforearth;endjin</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
