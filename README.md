@@ -6,6 +6,22 @@
 
 .NET Standard, high performance, zero allocation AIS decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core.
 
+## Supported Message Types
+
+This library has been developed to support specific applications, so it only supports message types that have been needed to date in those applications. The following message types are currently supported.
+
+| ID(s) | Name |
+| --- | --- |
+| 1, 2, 3 | Position Report Class A |
+| 5 | Static Voyage Related Data |
+| 18 | Standard Class B CS Position Report |
+| 19 | Extended Class B CS Position Report |
+| 24 | Static Data Report |
+| 27 | Long Range AIS Broadcast message |
+
+See https://gpsd.gitlab.io/gpsd/AIVDM.html for a complete list of message types.
+
+
 ## Licenses
 
 [![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
