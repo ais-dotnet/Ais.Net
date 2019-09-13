@@ -2,7 +2,7 @@
 [![#](https://img.shields.io/nuget/v/Ais.Net.svg)](https://www.nuget.org/packages/Ais.Net/) [![Build Status](https://dev.azure.com/endjin-labs/Ais.Net/_apis/build/status/ais-dotnet.Ais.Net?branchName=master)](https://dev.azure.com/endjin-labs/Ais.Net/_build/latest?definitionId=2&branchName=master)
 [![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
 [![GitHub license](https://img.shields.io/badge/License-NLOD-blue.svg)](https://data.norge.no/nlod/en/2.0)
-[![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Corvus.Extensions/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)
+[![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)
 
 .NET Standard, high performance, zero allocation AIS decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core.
 
