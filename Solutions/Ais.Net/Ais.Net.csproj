@@ -22,7 +22,7 @@
   <PropertyGroup>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <PackageDescription>High performance, zero allocation AIS message decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core. Sponsored by endjin.</PackageDescription>
-    <PackageTags>ais;aisvdm;aivdo;nmea;marine;iot;aiforearth;endjin</PackageTags>
+    <PackageTags>ais;aisvdm;aivdo;nmea;marine;gis;iot;aiforearth;endjin</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
