@@ -21,3 +21,14 @@ jobs:
     service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
     service_connection_github: $(Endjin_Service_Connection_GitHub)
     solution_to_build: $(Endjin_Solution_To_Build)
+
+- job: Benchmark
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore & Build'
+    inputs:
+      command: 'run'
+      projects: $(Build.SourcesDirectory)/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
+      arguments: '--configuration Release'
