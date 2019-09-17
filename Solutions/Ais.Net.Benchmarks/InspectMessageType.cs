@@ -11,7 +11,7 @@ namespace Ais.Net.Benchmarks
 
         public static async Task Process1000MessageFromFile()
         {
-            await NmeaStreamParser.ParseFileAsync(@"TestData\Ais1000Lines.nm4", processor);
+            await NmeaStreamParser.ParseFileAsync("TestData/Ais1000Lines.nm4", processor);
         }
 
         private class TestProcessor : INmeaAisMessageStreamProcessor
