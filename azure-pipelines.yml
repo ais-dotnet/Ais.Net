@@ -41,4 +41,4 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: Benchmark'
     inputs:
-      PathtoPublish: '$(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/bin/Release/netcoreapp2.2/BenchmarkDotNet.Artifacts/results'
+      PathtoPublish: '$(Build.SourcesDirectory)/BenchmarkDotNet.Artifacts/results'
