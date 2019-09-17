@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace />
+    <LangVersion>latest</LangVersion>
 
     <IsPackable>false</IsPackable>
     <NoWarn>RCS1029;RCS1089;SA1600</NoWarn>
