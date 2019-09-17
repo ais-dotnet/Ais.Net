@@ -39,6 +39,7 @@ jobs:
       projects: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
       arguments: '--configuration Release --no-build'
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: Benchmark'
+    displayName: 'Publish Artifact: benchmark'
     inputs:
+      artifactName: 'benchmark'
       PathtoPublish: '$(Build.SourcesDirectory)/BenchmarkDotNet.Artifacts/results'
