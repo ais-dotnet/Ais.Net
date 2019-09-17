@@ -29,6 +29,12 @@ jobs:
   - task: DotNetCoreCLI@2
     displayName: 'Restore & Build'
     inputs:
+      command: 'build'
+      projects: $(SolutionToBuild)
+      arguments: '--configuration Release /p:Version=$(GitVersion.SemVer)'
+      versioningScheme: byBuildNumber  - task: DotNetCoreCLI@2
+    displayName: 'Run benchmarks'
+    inputs:
       command: 'run'
       projects: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
-      arguments: '--configuration Release'
+      arguments: '--configuration Release --no-build'
