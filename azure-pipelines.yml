@@ -27,7 +27,7 @@ jobs:
       inputs:
         command: 'run'
         projects: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
-        arguments: '--configuration Release --no-build $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts /p:Version=$(GitVersion.SemVer)'
+        arguments: '--configuration Release --no-build $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts $(GitVersion.SemVer)'
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: benchmark'
       inputs:
