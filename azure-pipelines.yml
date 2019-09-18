@@ -21,25 +21,15 @@ jobs:
     service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
     service_connection_github: $(Endjin_Service_Connection_GitHub)
     solution_to_build: $(Endjin_Solution_To_Build)
-
-- job: Benchmark
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore & Build'
-    inputs:
-      command: 'build'
-      projects: $(Endjin_Solution_To_Build)
-      arguments: '--configuration Release'
-  - task: DotNetCoreCLI@2
-    displayName: 'Run benchmarks'
-    inputs:
-      command: 'run'
-      projects: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
-      arguments: '--configuration Release --no-build'
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: benchmark'
-    inputs:
-      artifactName: 'benchmark'
-      PathtoPublish: '$(Build.SourcesDirectory)/BenchmarkDotNet.Artifacts/results'
+    postSpecs:
+    - task: DotNetCoreCLI@2
+      displayName: 'Run benchmarks'
+      inputs:
+        command: 'run'
+        projects: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
+        arguments: '--configuration Release --no-build $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: benchmark'
+      inputs:
+        artifactName: 'benchmark'
+        PathtoPublish: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts/results'
