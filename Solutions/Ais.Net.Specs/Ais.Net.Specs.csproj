@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\Common.NetCore_2_2.proj" />
+
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace />
-    <LangVersion>latest</LangVersion>
 
     <IsPackable>false</IsPackable>
-    <NoWarn>RCS1029;RCS1089;SA1600</NoWarn>
+    <NoWarn>RCS1029;RCS1089;SA1600;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,13 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="coverlet.msbuild" Version="2.6.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
