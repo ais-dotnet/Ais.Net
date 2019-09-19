@@ -44,4 +44,4 @@ jobs:
       displayName: 'Publish Artifact: docsite'
       inputs:
         artifactName: 'docsite'
-        PathtoPublish: '$(Build.SourcesDirectory)/Solutions/Ais.Net/Documentation/_site'
+        PathtoPublish: '$(Build.SourcesDirectory)/Documentation/_site'
