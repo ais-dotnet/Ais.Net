@@ -40,3 +40,8 @@ jobs:
         mono docfx/docfx.exe $(Build.SourcesDirectory)/Documentation/docfx.json
       displayName: "docfx build"
       failOnStderr: true
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: docsite'
+      inputs:
+        artifactName: 'docsite'
+        PathtoPublish: '$(Build.SourcesDirectory)/Solutions/Ais.Net/Documentation/_site'
