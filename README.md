@@ -35,7 +35,7 @@ with an Intel Core i9-9900K CPU 3.60GHz CPU:
 ```
 
 The test processes 1 million messages, so to get the per-message timings, we divide by 1 million (so
-ms in this table indicate ns per message). This demonstrates a per-message cost of 400ns to extract the
+`ms` in this table indicate ns per message). This demonstrates a per-message cost of 404ns to extract the
 position data, or 348ns just to inspect the message type. Note that these tests read data from a file, so
 this includes all the IO overhead involved in getting hold of the data to be processed. (These messages are
 in NMEA format by the way.)
