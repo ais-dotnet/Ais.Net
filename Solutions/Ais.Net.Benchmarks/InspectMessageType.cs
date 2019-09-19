@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Ais.Net.Benchmarks
 {
-    public static class InspectMessageType
+    internal static class InspectMessageType
     {
         private static TestProcessor processor = new TestProcessor();
 
-        public static async Task Process1000MessageFromFile()
+        public static async Task ProcessMessagesFromFile(string path)
         {
-            await NmeaStreamParser.ParseFileAsync("TestData/Ais1000Lines.nm4", processor);
+            await NmeaStreamParser.ParseFileAsync(path, processor);
         }
 
         private class TestProcessor : INmeaAisMessageStreamProcessor

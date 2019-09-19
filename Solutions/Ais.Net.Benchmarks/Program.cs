@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 
@@ -32,7 +33,7 @@ namespace Ais.Net.Benchmarks
         /// </remarks>
         static void Main(string[] args)
         {
-            IConfig config = DefaultConfig.Instance;
+            IConfig config = DefaultConfig.Instance.With(MemoryDiagnoser.Default);
             if (args.Length > 0)
             {
                 string artifactsPath = args[0];
