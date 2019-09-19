@@ -1,22 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿// <copyright file="ReadAllPositions.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
 
 namespace Ais.Net.Benchmarks
 {
+    using System;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Benchmark that measures how quickly we can read messages from a file and read out any
+    /// location data they contain.
+    /// </summary>
     internal static class ReadAllPositions
     {
-        private static StatsScanner processor = new StatsScanner();
+        private static readonly StatsScanner Processor = new StatsScanner();
 
-        public static async Task Process1000MessagesFromFile(string path)
+        /// <summary>
+        /// Execute the benchmark.
+        /// </summary>
+        /// <param name="path">The file from which to read messages.</param>
+        /// <returns>A task that completes when the benchmark has finished.</returns>
+        public static async Task ProcessMessagesFromFile(string path)
         {
-            await NmeaStreamParser.ParseFileAsync(path, processor);
+            await NmeaStreamParser.ParseFileAsync(path, Processor).ConfigureAwait(false);
         }
 
         private class StatsScanner : INmeaAisMessageStreamProcessor
         {
             public long SummedLongs { get; private set; } = 0;
+
             public long SummedLats { get; private set; } = 0;
+
             public int PositionsCount { get; private set; } = 0;
 
             /// <inheritdoc/>
@@ -30,31 +44,22 @@ namespace Ais.Net.Benchmarks
                 {
                     var parsedPosition = new NmeaAisPositionReportClassAParser(asciiPayload, padding);
                     AddPosition(parsedPosition.Latitude10000thMins, parsedPosition.Longitude10000thMins);
-                    //this.SummedLats += parsedPosition.Latitude10000thMins;
-                    //this.SummedLongs += parsedPosition.Longitude10000thMins;
-                    //this.PositionsCount += 1;
                 }
                 else if (messageType == 18)
                 {
                     var parsedPosition = new NmeaAisPositionReportClassBParser(asciiPayload, padding);
                     AddPosition(parsedPosition.Latitude10000thMins, parsedPosition.Longitude10000thMins);
-                    //this.SummedLats += parsedPosition.Latitude10000thMins;
-                    //this.SummedLongs += parsedPosition.Longitude10000thMins;
-                    //this.PositionsCount += 1;
                 }
                 else if (messageType == 19)
                 {
                     var parsedPosition = new NmeaAisPositionReportExtendedClassBParser(asciiPayload, padding);
                     AddPosition(parsedPosition.Latitude10000thMins, parsedPosition.Longitude10000thMins);
-                    //this.SummedLats += parsedPosition.Latitude10000thMins;
-                    //this.SummedLongs += parsedPosition.Longitude10000thMins;
-                    //this.PositionsCount += 1;
                 }
 
-                void AddPosition(int latitude10000thMins, int Longitude10000thMins)
+                void AddPosition(int latitude10000thMins, int longitude10000thMins)
                 {
                     this.SummedLats += latitude10000thMins;
-                    this.SummedLongs += Longitude10000thMins;
+                    this.SummedLongs += longitude10000thMins;
                     this.PositionsCount += 1;
                 }
             }

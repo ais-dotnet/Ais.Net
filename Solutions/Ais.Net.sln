@@ -10,13 +10,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C5F2C5B-609C-45A3-8D2C-87D74A35EC9E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Common.Net.proj = Common.Net.proj
+		Common.NetCore_2_2.proj = Common.NetCore_2_2.proj
 		Common.NetStandard_2_0.proj = Common.NetStandard_2_0.proj
 		Directory.build.props = Directory.build.props
 		stylecop.json = stylecop.json
 		StyleCop.ruleset = StyleCop.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ais.Net.Benchmarks", "Ais.Net.Benchmarks\Ais.Net.Benchmarks.csproj", "{8D30433E-DD03-4011-89B3-0DB0998BDC24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ais.Net.Benchmarks", "Ais.Net.Benchmarks\Ais.Net.Benchmarks.csproj", "{8D30433E-DD03-4011-89B3-0DB0998BDC24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,22 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="InspectMessageType.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
 
 namespace Ais.Net.Benchmarks
 {
+    using System;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Benchmark that measures how quickly we can read messages from a file and discover their
+    /// types.
+    /// </summary>
     internal static class InspectMessageType
     {
-        private static TestProcessor processor = new TestProcessor();
+        private static readonly TestProcessor Processor = new TestProcessor();
 
+        /// <summary>
+        /// Execute the benchmark.
+        /// </summary>
+        /// <param name="path">The file from which to read messages.</param>
+        /// <returns>A task that completes when the benchmark has finished.</returns>
         public static async Task ProcessMessagesFromFile(string path)
         {
-            await NmeaStreamParser.ParseFileAsync(path, processor);
+            await NmeaStreamParser.ParseFileAsync(path, Processor).ConfigureAwait(false);
         }
 
         private class TestProcessor : INmeaAisMessageStreamProcessor
         {
-            private int[] messageTypeCounts = new int[30];
+            private readonly int[] messageTypeCounts = new int[30];
 
             public void OnCompleted()
             {

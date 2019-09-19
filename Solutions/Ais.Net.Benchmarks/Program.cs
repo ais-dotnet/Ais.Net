@@ -1,11 +1,18 @@
-﻿using System.IO;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Diagnosers;
-using BenchmarkDotNet.Jobs;
-using BenchmarkDotNet.Running;
+﻿// <copyright file="Program.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
 
 namespace Ais.Net.Benchmarks
 {
+    using System.IO;
+    using BenchmarkDotNet.Configs;
+    using BenchmarkDotNet.Diagnosers;
+    using BenchmarkDotNet.Jobs;
+    using BenchmarkDotNet.Running;
+
+    /// <summary>
+    /// Program entry point type.
+    /// </summary>
     internal static class Program
     {
         /// <summary>
@@ -31,7 +38,7 @@ namespace Ais.Net.Benchmarks
         /// rebuilding things.
         /// </p>
         /// </remarks>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             IConfig config = DefaultConfig.Instance.With(MemoryDiagnoser.Default);
             if (args.Length > 0)
@@ -47,7 +54,7 @@ namespace Ais.Net.Benchmarks
                 config = config.With(Job.Default.With(new Argument[] { new MsBuildArgument($"/p:Version={version}") }));
             }
 
-            BenchmarkRunner.Run<AllBenchmarks>(config);
+            BenchmarkRunner.Run<AisNetBenchmarks>(config);
         }
     }
 }

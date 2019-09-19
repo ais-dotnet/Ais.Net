@@ -1,15 +1,25 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using BenchmarkDotNet.Attributes;
+﻿// <copyright file="AisNetBenchmarks.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
 
 namespace Ais.Net.Benchmarks
 {
-    [JsonExporterAttribute.Full]
-    public class AllBenchmarks
-    {
-        const string TestPath1kLines = "TestData/Ais1000Lines.nm4";
-        const string TestPath1mLines = "TestData/Ais1000000Lines.nm4";
+    using System.IO;
+    using System.Threading.Tasks;
+    using BenchmarkDotNet.Attributes;
 
+    /// <summary>
+    /// Defines all of the benchmarks and global setup/teardown.
+    /// </summary>
+    [JsonExporterAttribute.Full]
+    public class AisNetBenchmarks
+    {
+        private const string TestPath1kLines = "TestData/Ais1000Lines.nm4";
+        private const string TestPath1mLines = "TestData/Ais1000000Lines.nm4";
+
+        /// <summary>
+        /// Invoked by BenchmarkDotNet before running all benchmarks.
+        /// </summary>
         [GlobalSetup]
         public void GlobalSetup()
         {
@@ -39,16 +49,28 @@ namespace Ais.Net.Benchmarks
             }
         }
 
+        /// <summary>
+        /// Invoked by BenchmarkDotNet after running all benchmarks.
+        /// </summary>
         [GlobalCleanup]
         public void GlobalCleanup()
         {
             File.Delete(TestPath1mLines);
         }
 
+        /// <summary>
+        /// Benchmark: measure the speed at which we can perform the most minimal amount of
+        /// processing of messages in a file.
+        /// </summary>
+        /// <returns>A task that completes when the benchmark has finished.</returns>
         [Benchmark]
-        public Task InspectMessageTypesFromFile1M() => InspectMessageType.ProcessMessagesFromFile(TestPath1mLines);
+        public Task InspectMessageTypesFromNorwayFile1M() => InspectMessageType.ProcessMessagesFromFile(TestPath1mLines);
 
+        /// <summary>
+        /// Benchmark: measure the speed at which we can read location data from message in a file.
+        /// </summary>
+        /// <returns>A task that completes when the benchmark has finished.</returns>
         [Benchmark]
-        public Task ReadPositionsFromFile1M() => ReadAllPositions.Process1000MessagesFromFile(TestPath1mLines);
+        public Task ReadPositionsFromNorwayFile1M() => ReadAllPositions.ProcessMessagesFromFile(TestPath1mLines);
     }
 }
