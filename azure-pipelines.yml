@@ -33,3 +33,12 @@ jobs:
       inputs:
         artifactName: 'benchmark'
         PathtoPublish: '$(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts/results'
+
+    - bash: |
+      wget -q https://github.com/dotnet/docfx/releases/download/v2.45.1/docfx.zip
+      unzip docfx.zip -d docfx
+      mono docfx/docfx.exe docfx.json
+      if ($lastexitcode -ne 0){
+        throw ("Error generating document")
+      }
+      displayName: "docfx build"
