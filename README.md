@@ -21,6 +21,33 @@ This library has been developed to support specific applications, so it only sup
 
 See https://gpsd.gitlab.io/gpsd/AIVDM.html for a complete list of message types.
 
+## Performance
+
+The benchmark suite is a work in progress, but it currently measures two basic scenarios: discovering
+message types, and extracting position data. Here are the results of executing these benchmarks on a system
+with an Intel Core i9-9900K CPU 3.60GHz CPU:
+
+```
+|                              Method |     Mean |    Error |   StdDev |     Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------------------------------------ |---------:|---------:|---------:|----------:|------:|------:|----------:|
+| InspectMessageTypesFromNorwayFile1M | 347.5 ms | 3.960 ms | 3.704 ms | 1000.0000 |     - |     - |   3.57 KB |
+|       ReadPositionsFromNorwayFile1M | 403.5 ms | 5.395 ms | 5.046 ms | 1000.0000 |     - |     - |   3.57 KB |
+```
+
+The test processes 1 million messages, so to get the per-message timings, we divide by 1 million (so
+`ms` in this table indicate ns per message). This demonstrates a per-message cost of 404ns to extract the
+position data, or 348ns just to inspect the message type. Note that these tests read data from a file, so
+this includes all the IO overhead involved in getting hold of the data to be processed. (These messages are
+in NMEA format by the way.)
+
+Note that the `1000.0000` Gen 0 GCs is slightly misleading. BenchmarkDotNet reports the number of GCs per
+1,000 executions of the benchmark. But in this case the benchmarks take long enough that it only executes
+them once each per iteration. The number it shows is the number of GCs multiplied by 1,000, then divided by
+the number of times it executed the benchmark (i.e. 1), so what this actually shows is that there was a single GC. We seem to see this whether we parse 1,000, 1,000,000, or 10,000,000 messages, so although we're
+not quite sure why we get an GC at all, the important point here is that the memory overhead is fixed, no
+matter how many messages you process.
+
+
 ## Licenses
 
 [![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
