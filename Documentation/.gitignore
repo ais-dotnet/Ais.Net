@@ -1,0 +1,4 @@
+# When we run docfx, its 'build' phase generates the deployable web content in the
+# _site directory. Since this is regenerated automatically each time we run docfx,
+# we do not need to commit _site to source control.
+_site/
