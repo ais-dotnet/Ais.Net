@@ -37,8 +37,6 @@ jobs:
     - bash: |
         wget -q https://github.com/dotnet/docfx/releases/download/v2.45.1/docfx.zip
         unzip docfx.zip -d docfx
-        mono docfx/docfx.exe docfx.json
-        if ($lastexitcode -ne 0){
-          throw ("Error generating document")
-        }
+        mono docfx/docfx.exe $(Build.SourcesDirectory)/Documentation/docfx.json
       displayName: "docfx build"
+      failOnStderr: true
