@@ -98,43 +98,4 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisMessageTypes\LongRangeAisBroadcastParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisMessageTypes\PositionReportClassAParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisMessageTypes\PositionReportClassBParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisMessageTypes\PositionReportExtendedClassBParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisMessageTypes\StaticAndVoyageRelatedDataParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisMessageTypes\StaticDataReportParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\AisStringsSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\NmeaAisBitVectorParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\NmeaLineToAisStreamAdapterSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\NmeaStreamParserSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\ParsePayloadSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Ais\Net\Specs\SentenceLayerSpecs.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </SpecFlowFeatureFiles>
-  </ItemGroup>
-
 </Project>
