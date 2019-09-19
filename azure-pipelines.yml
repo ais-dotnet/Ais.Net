@@ -28,7 +28,7 @@ jobs:
         command: 'run'
         projects: $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj
         arguments: '--configuration Release --no-build $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts $(GitVersion.SemVer)'
-    - powershell: 'gci $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks'
+    - powershell: 'gci -r $(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks'
       displayName: 'Show folder contents'
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: benchmark'
