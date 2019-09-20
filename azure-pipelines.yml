@@ -54,6 +54,6 @@ jobs:
         git config user.name ais-dotnet
         git add *
         git commit --allow-empty -m "Documentation for $(GitVersion.PreReleaseTag)"
-        git push
+        git push origin gh-pages
       displayName: 'Publish documentation to GitHub Pages'
       condition: and(succeeded(), or(variables['Endjin.ForceDocPublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
