@@ -4,7 +4,7 @@
 [![GitHub license](https://img.shields.io/badge/License-NLOD-blue.svg)](https://data.norge.no/nlod/en/2.0)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)
 
-.NET Standard, high performance, zero allocation AIS decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core.
+.NET Standard, high performance, zero allocation AIS decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core. Documentation is available at https://ais-dotnet.github.io/Ais.Net/
 
 ## Supported Message Types
 
