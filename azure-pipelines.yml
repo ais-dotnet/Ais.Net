@@ -46,7 +46,7 @@ jobs:
         artifactName: 'docsite'
         PathtoPublish: '$(Build.SourcesDirectory)/Documentation/_site'
 
-    - task: AccidentalFish.githubpages-publish.AccidentalFish.GitHubPages-Publish.GitHubPagesPublish@0
+    - task: GitHubPagesPublish@1
       displayName: 'Publish documentation to GitHub Pages'
       condition: and(succeeded(), or(variables['Endjin.ForceDocPublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
       inputs:
