@@ -48,7 +48,7 @@ jobs:
 
     - bash: |
         git clone https://endjin-github:$(GitHub_Pages_PAT)@github.com/ais-dotnet/Ais.Net.git --branch=gh-pages $(System.DefaultWorkingDirectory)/ghpages
-        cp $(Build.SourcesDirectory)/Documentation/_site
+        cp $(Build.SourcesDirectory)/Documentation/_site/* $(System.DefaultWorkingDirectory)/ghpages -r
         git config core.autocrlf false
         git config user.email GitHub@endjin.com
         git config user.name ais-dotnet
