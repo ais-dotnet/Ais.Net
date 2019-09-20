@@ -55,4 +55,3 @@ jobs:
         githubemail: 'GitHub@endjin.com'
         githubaccesstoken: $(GitHub_Pages_PAT)
         repositoryname: 'Ais.Net'
-
