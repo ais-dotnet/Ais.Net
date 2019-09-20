@@ -46,14 +46,14 @@ jobs:
         artifactName: 'docsite'
         PathtoPublish: '$(Build.SourcesDirectory)/Documentation/_site'
 
-    - task: GitHubPagesPublish@1
+    - bash: |
+        git clone https://endjin-github:$(GitHub_Pages_PAT)@github.com/ais-dotnet/Ais.Net.git --branch=gh-pages $(System.DefaultWorkingDirectory)/ghpages
+        cp $(Build.SourcesDirectory)/Documentation/_site
+        git config core.autocrlf false
+        git config user.email GitHub@endjin.com
+        git config user.name ais-dotnet
+        git add *
+        git commit --allow-empty -m "Documentation for $(GitVersion.PreReleaseTag)"
+        git push
       displayName: 'Publish documentation to GitHub Pages'
       condition: and(succeeded(), or(variables['Endjin.ForceDocPublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
-      inputs:
-        docPath: '$(Build.SourcesDirectory)/Documentation/_site'
-        githubusername: 'ais-dotnet'
-        githubemail: 'GitHub@endjin.com'
-        githubaccesstoken: $(GitHub_Pages_PAT)
-        repositoryname: 'Ais.Net'
-        branchname: 'gh-pages'
-        commitmessage: 'Documentation for $(GitVersion.PreReleaseTag)'
