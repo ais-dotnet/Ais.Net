@@ -1,0 +1,5 @@
+# The .yml and .manifest files in this directory are created by the docfx 'metadata' phase.
+# Their contents are derived from the Ais.Net project, and are regenerated each time we
+# run docfx, so there is no need to commit them to source control.
+*.yml
+.manifest
