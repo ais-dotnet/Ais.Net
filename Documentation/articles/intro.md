@@ -36,10 +36,10 @@ void OnNext(
 allocations, so it and guarantees only that the data passed to `OnNext` remains available until `OnNext` returns. See
 the [Low-allocation design](#low-allocation-design) section later for more details
 
-These arguments may seem a little odd at first, because `NmeaLineParser` defines `Payload` and `Padding` properties,
-and in many cases these will report the same value as the 2nd and 3rd arguments. But in cases where a single AIS
-message is split across multiple NMEA sentences, the `firstLine` argument will provide only the first sentence,
-whereas the `asciiPayload` and `padding` will provide the entire payload, assembled from multiple
+The `OnNext` method's arguments may seem a little odd at first, because `NmeaLineParser` defines `Payload` and
+`Padding` properties, and in many cases these will report the same value as the 2nd and 3rd arguments. But in cases
+where a single AIS message is split across multiple NMEA sentences, the `firstLine` argument will provide only the
+first sentence, whereas the `asciiPayload` and `padding` will provide the entire payload, assembled from multiple
 individual sentences if necessary. You should therefore always use the 2nd and 3rd arguments to access the payload;
 the `firstLine` is provided so that you can get hold of the other data from the NMEA sentence.
 
@@ -86,7 +86,7 @@ if (messageType >= 1 && messageType <= 3)
 
 Each of the parser types defines a property for each field in the corresponding AIS message type. For the most part
 these are pretty straightforward. The one potentially surprising feature is that none of the text fields returns a
-`string`. That's because the goal of this library to to minimize allocations, and to return a `string` it is usually
+`string`. That's because the goal of this library is to minimize allocations, and to return a `string` it is usually
 necessary to allocate space for it on the GC heap. (The only exception is if the string can have one of a small set of
 known values, in which case you can return the same one every time for any particular value, instead of necessarily
 allocating a new one every time.) Text is instead represented using `NmeaAisTextFieldParser`.
@@ -95,7 +95,8 @@ allocating a new one every time.) Text is instead represented using `NmeaAisText
 in ASCII form into a `Span<byte>`. If you really want it as a `string` you can always do this:
 
 ```csharp
-var parser = new NmeaAisStaticAndVoyageRelatedDataParser(lineParser.Payload, lineParser.Padding);
+var parser = new NmeaAisStaticAndVoyageRelatedDataParser(
+    lineParser.Payload, lineParser.Padding);
 Span<byte> vesselNameAscii = stackalloc byte[(int)parser.VesselName.CharacterCount];
 parser.VesselName.WriteAsAscii(vesselNameAscii);
 // CAUTION: this will cause an allocation. Don't do this unless you have to
@@ -110,7 +111,7 @@ method converts from this into ASCII as it copies the data out.
 ## Low-allocation design
 
 Ais.Net is designed to minimize GC overhead. As with any library there is some initial memory
-overhead to pay simple to use the code, but once you are up and running it is possible to
+overhead to pay simply to use the code, but once you are up and running it is possible to
 process messages with no per-message allocations.
 
 The benchmarks built into the library source repository include a test that extracts location
