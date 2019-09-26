@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Ais.Net </title>
+    <title>Introduction to Ais.Net </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Ais.Net ">
+    <meta name="title" content="Introduction to Ais.Net ">
     <meta name="generator" content="docfx 2.45.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -67,10 +67,174 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="aisnet">Ais.Net</h1>
+<h1 id="introduction-to-aisnet">Introduction to Ais.Net</h1>
 
-<p>Ais.Net is a high-performance parser for NMEA/AIS messages.</p>
-<p>TBD: conceptual documentation to follow.</p>
+<p>Ais.Net is a high-performance parser for NMEA/AIS messages. It uses a low-allocation design to
+enable efficient, high-throughput processing of NMEA sentences containing AIS messages.</p>
+<h2 id="basic-usage">Basic usage</h2>
+<p>The normal way to process messages with this library is to implement the
+<a href="https://ais-dotnet.github.io/Ais.Net/api/Ais.Net.INmeaAisMessageStreamProcessor.html">INmeaAisMessageStreamProcessor</a>
+interface, and then call one of the methods provided by
+<a href="https://ais-dotnet.github.io/Ais.Net/api/Ais.Net.NmeaStreamParser.html">NmeaStreamParser</a>.
+For example, if the data you want to process is in a file, you can call <code>NmeaStreamParser.ParseFileAsync</code>. The
+<code>ReadAllPositions</code> class in the <code>Ais.Net.Benchmarks</code> project does this:</p>
+<pre><code class="lang-csharp">public static async Task ProcessMessagesFromFile(string path)
+{
+    await NmeaStreamParser.ParseFileAsync(path, Processor).ConfigureAwait(false);
+}
+</code></pre>
+<p>Your <code>INmeaAisMessageStreamProcessor</code> implementation must supply three methods. The <code>NmeaStreamParser</code> will call
+your <code>OnNext</code> method once for each complete AIS message (which might span multiple NMEA sentences; the limited length
+of NMEA sentences means that long AIS messages get fragmented). It calls <code>OnCompleted</code> after all messages have been
+processed. And from time to time it will call <code>Progress</code>. (It calls this once every 100,000 messages, and also right
+before <code>OnComplete</code>.) The most important of these is <code>OnNext</code>, which must have this signature:</p>
+<pre><code class="lang-csharp">void OnNext(
+    in NmeaLineParser firstLine,
+    in ReadOnlySpan&lt;byte&gt; asciiPayload,
+    uint padding);
+</code></pre>
+<p><strong>Note</strong>: you must process the message completely before returning—<code>NmeaStreamParser</code> reuses buffers to minimize,
+allocations, so it and guarantees only that the data passed to <code>OnNext</code> remains available until <code>OnNext</code> returns. See
+the <a href="#low-allocation-design">Low-allocation design</a> section later for more details</p>
+<p>These arguments may seem a little odd at first, because <code>NmeaLineParser</code> defines <code>Payload</code> and <code>Padding</code> properties,
+and in many cases these will report the same value as the 2nd and 3rd arguments. But in cases where a single AIS
+message is split across multiple NMEA sentences, the <code>firstLine</code> argument will provide only the first sentence,
+whereas the <code>asciiPayload</code> and <code>padding</code> will provide the entire payload, assembled from multiple
+individual sentences if necessary. You should therefore always use the 2nd and 3rd arguments to access the payload;
+the <code>firstLine</code> is provided so that you can get hold of the other data from the NMEA sentence.</p>
+<p><strong>Note</strong>: if you implement the <code>INmeaAisMessageStreamProcessor</code> interface, you will have access to the entire payload
+of any split messages, but there are two types of information you will not receive. First, if a split message is
+incomplete, the <code>NmeaStreamParser</code> will not pass it to your <code>INmeaAisMessageStreamProcessor</code>, so you will never see
+message fragments. Second, in cases where all fragments are present, you will not have access to the NMEA fields other
+than the payload for sentences other than the first fragment. In most cases this is fine because the only fields in
+the other fragments that are different are the ones used for indicating which fragment they are. However, if you really
+need to see everything, you can instead implement <code>INmeaLineStreamProcessor</code>. This passes you every single NMEA line,
+and makes no attempt to reassemble messages fragmented across multiple sentences.</p>
+<p>You will receive the payload as a <code>ReadOnySpan&lt;byte&gt;</code>. (That's true whichever of the two interfaces you implement–even
+if you use the lower-level <code>INmeaLineStreamProcessor</code>, the payloads are available through the <code>NmeaLineParser.Payload</code>
+property, which is of type <code>ReadOnlySpan&lt;byte&gt;</code>.) The first thing you'll typically want to do with this is discover
+which type of message you've got. You can do this with the <code>NmeaPayloadParser.PeekMessageType</code> method.</p>
+<pre><code class="lang-csharp">int messageType = NmeaPayloadParser.PeekMessageType(asciiPayload, padding);
+</code></pre>
+<p>This will determine how (or whether) you will go on to process the payload. Ais.Net provides various types for
+parsing different AIS message formats. Currently, 6 parsers are supplied, covering 8 message types:</p>
+<table>
+<thead>
+<tr>
+<th>Message type(s)</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1, 2, 3</td>
+<td>Position Report Class A</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Static Voyage Related Data</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Standard Class B CS Position Report</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Extended Class B CS Position Report</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Static Data Report</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Long Range AIS Broadcast message</td>
+</tr>
+</tbody>
+</table>
+<p>To use a parser, you construct it with the <code>ReadOnlySpan&lt;byte&gt;</code> for the payload, e.g.:</p>
+<pre><code class="lang-csharp">if (messageType &gt;= 1 &amp;&amp; messageType &lt;= 3)
+{
+    var parser = new NmeaAisPositionReportClassAParser(asciiPayload, padding);
+    Console.WriteLine($&quot;Position: {parser.Latitude10000thMins / 60000.0},{parser.Longitude10000thMins / 60000.0}&quot;);
+}
+</code></pre>
+<p>Each of the parser types defines a property for each field in the corresponding AIS message type. For the most part
+these are pretty straightforward. The one potentially surprising feature is that none of the text fields returns a
+<code>string</code>. That's because the goal of this library to to minimize allocations, and to return a <code>string</code> it is usually
+necessary to allocate space for it on the GC heap. (The only exception is if the string can have one of a small set of
+known values, in which case you can return the same one every time for any particular value, instead of necessarily
+allocating a new one every time.) Text is instead represented using <code>NmeaAisTextFieldParser</code>.</p>
+<p><code>NmeaAisTextFieldParser</code> lets you retrieve individual characters by index, or you can ask it to write the entire string
+in ASCII form into a <code>Span&lt;byte&gt;</code>. If you really want it as a <code>string</code> you can always do this:</p>
+<pre><code class="lang-csharp">var parser = new NmeaAisStaticAndVoyageRelatedDataParser(lineParser.Payload, lineParser.Padding);
+Span&lt;byte&gt; vesselNameAscii = stackalloc byte[(int)parser.VesselName.CharacterCount];
+parser.VesselName.WriteAsAscii(vesselNameAscii);
+// CAUTION: this will cause an allocation. Don't do this unless you have to
+string vesselName = Encoding.ASCII.GetString(vesselNameAscii);
+</code></pre>
+<p>By the way, the reason for copying the data into a separate <code>Span&lt;byte&gt;</code> first is that it is not stored in ASCII
+format in the AIS message. AIS uses its own 6-bit character encoding. The <code>NmeaAisTextFieldParser.WriteAsAscii</code>
+method converts from this into ASCII as it copies the data out.</p>
+<h2 id="low-allocation-design">Low-allocation design</h2>
+<p>Ais.Net is designed to minimize GC overhead. As with any library there is some initial memory
+overhead to pay simple to use the code, but once you are up and running it is possible to
+process messages with no per-message allocations.</p>
+<p>The benchmarks built into the library source repository include a test that extracts location
+information from a file containing 1 million messages, and this has exactly the same memory
+allocation characteristics as a test that reads 1,000, or 10 million messages, demonstrating
+that after the first use, we make zero allocations per-message.</p>
+<p>Ais.Net achieves this by taking advantage of <code>Span&lt;T&gt;</code> and related types which were added in
+.NET Core 2.1, and using associated language features added in C# 7.2. This makes Ais.Net
+somewhat different to use from other .NET AIS parsers.</p>
+<p>The <code>Span&lt;T&gt;</code> and <code>ReadOnlySpan&lt;T&gt;</code> types impose a constraint in exchange for the high
+performance they make possible: these types can only live on the stack. This prevents variables
+of these types from living in fields of other types unless those containing types are
+defined in the same way. (So if you define a type that has the same constraint—if you define
+a <code>ref struct</code> type, it too can only live on the stack—it is allowed to contain other
+<code>ref struct</code> types such as <code>Span&lt;T&gt;</code>.) For this reason the various payload parsers that
+Ais.Net defines, such as
+<a href="https://ais-dotnet.github.io/Ais.Net/api/Ais.Net.NmeaAisPositionReportClassAParser.html">NmeaAisPositionReportClassAParser</a>,
+can also only live on the stack. So you can do this:</p>
+<pre><code class="lang-csharp">public static (double Latitude, double Longitude) GetPosition(byte[] asciiNmeaLine)
+{
+    var parser = new NmeaAisPositionReportClassAParser(asciiNmeaLine);
+    return (parser.Latitude10000thMins / 600000, parser.Longitude10000thMins / 600000);
+}
+</code></pre>
+<p>But this will not work:</p>
+<pre><code class="lang-csharp">public class PositionExtractor
+{
+    // This will produce a compiler error, because you cannot have a ref struct
+    // a field in a non-ref-struct type.
+    private readonly NmeaAisPositionReportClassAParser parser;
+    public PositionExtractor(byte[] asciiNmeaLine)
+    {
+        this.parser = new NmeaAisPositionReportClassAParser(asciiNmeaLine);
+    }
+}
+</code></pre>
+<p>More subtly, this restriction prevents you from using <code>ref struct</code> types as local variable
+in <code>async</code> methods. To enable <code>async</code> methods to continue after an <code>await</code> completes
+asynchronously, C# needs to be able to store all local variables on the heap, which means
+those variables must not include any <code>ref struct</code> types. This means you cannot use the various
+Ais.Net <code>Parser</code> types as variables in such methods. If you need to parse an NMEA message from
+an asynchronous method, you can use a nested method, e.g.:</p>
+<pre><code class="lang-csharp">public static async Task&lt;(double latitude, double longitude)&gt; GetPositionAsync()
+{
+    ReadOnlyMemory&lt;byte&gt; line = await GetLineAsync();
+    return ParseLine();
+
+    (double latitude, double longitude) ParseLine()
+    {
+        var parser = new NmeaAisPositionReportClassAParser(line.Span, 0);
+        return (parser.Latitude10000thMins / 60000.0, parser.Longitude10000thMins / 60000.0);
+    }
+}
+</code></pre>
+<p>The code inside the nested <code>ParseLine()</code> method here would not compiler if it were in the containing
+<code>GetPositionAsync()</code> method, since that is <code>async</code>. But since the nested method itself is not, it is allowed to
+have local <code>ref struct</code> variables.</p>
 </article>
           </div>
           
@@ -79,7 +243,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/ais-dotnet/Ais.Net/blob/master/Documentation/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/ais-dotnet/Ais.Net/blob/feature/10-docs-conceptual/Documentation/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
