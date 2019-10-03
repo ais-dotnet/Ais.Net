@@ -124,14 +124,18 @@ Ais.Net achieves this by taking advantage of `Span<T>` and related types which w
 somewhat different to use from other .NET AIS parsers.
 
 The `Span<T>` and `ReadOnlySpan<T>` types impose a constraint in exchange for the high
-performance they make possible: these types can only live on the stack. This prevents variables
-of these types from living in fields of other types unless those containing types are
-defined in the same way. (So if you define a type that has the same constraint—if you define
-a `ref struct` type, it too can only live on the stack—it is allowed to contain other
-`ref struct` types such as `Span<T>`.) For this reason the various payload parsers that
-Ais.Net defines, such as
+performance they make possible: these types can only live on the stack. The C# compiler
+knows this because these types are declared as `ref struct`, and it will prevent you
+from using these types in ways that could end up on the heap. For example, if you try to
+define a `class` with a field of type `ReadOnlySpan<T>`, you get a compiler error, because
+instances of classes live on the heap. You'll get the same error with an ordinary `struct`, because
+although those often live on the stack, they can also live on the heap. (They might be
+boxed, or they could be an element in an array, or a field in some other heap-based instance.)
+You can use a `Span<T>` or `ReadOnlySpan<T>` (or any other `ref struct`) as a field only in
+another `ref struct`. Since the various payload parsers that Ais.Net defines, such as
 [NmeaAisPositionReportClassAParser](https://ais-dotnet.github.io/Ais.Net/api/Ais.Net.NmeaAisPositionReportClassAParser.html),
-can also only live on the stack. So you can do this:
+have `ReadOnlySpan<T>` fields, these parser types are all defined as `ref struct`,
+meaning that they can only live on the stack. So you can do this:
 
 ```csharp
 public static (double Latitude, double Longitude) GetPosition(byte[] asciiNmeaLine)
@@ -156,7 +160,7 @@ public class PositionExtractor
 }
 ```
 
-More subtly, this restriction prevents you from using `ref struct` types as local variable
+More subtly, this restriction prevents you from using `ref struct` types as local variables
 in `async` methods. To enable `async` methods to continue after an `await` completes
 asynchronously, C# needs to be able to store all local variables on the heap, which means
 those variables must not include any `ref struct` types. This means you cannot use the various
