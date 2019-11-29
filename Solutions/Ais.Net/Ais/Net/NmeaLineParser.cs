@@ -60,69 +60,35 @@ namespace Ais.Net
             byte talkerFirstChar = this.Sentence[1];
             byte talkerSecondChar = this.Sentence[2];
 
-            switch (talkerFirstChar)
+            this.AisTalker = talkerFirstChar switch
             {
-                case (byte)'A':
-                    switch (talkerSecondChar)
-                    {
-                        case (byte)'I':
-                            this.AisTalker = TalkerId.MobileStation;
-                            break;
-                        case (byte)'B':
-                            this.AisTalker = TalkerId.BaseStation;
-                            break;
-                        case (byte)'D':
-                            this.AisTalker = TalkerId.DependentBaseStation;
-                            break;
-                        case (byte)'N':
-                            this.AisTalker = TalkerId.AidToNavigationStation;
-                            break;
-                        case (byte)'R':
-                            this.AisTalker = TalkerId.ReceivingStation;
-                            break;
-                        case (byte)'S':
-                            this.AisTalker = TalkerId.LimitedBaseStation;
-                            break;
-                        case (byte)'T':
-                            this.AisTalker = TalkerId.TransmittingStation;
-                            break;
-                        case (byte)'X':
-                            this.AisTalker = TalkerId.RepeaterStation;
-                            break;
-                        default:
-                            throw new ArgumentException("Unrecognized talker id - cannot start with " + talkerFirstChar);
-                    }
+                (byte)'A' => talkerSecondChar switch
+                {
+                    (byte)'I' => TalkerId.MobileStation,
+                    (byte)'B' => TalkerId.BaseStation,
+                    (byte)'D' => TalkerId.DependentBaseStation,
+                    (byte)'N' => TalkerId.AidToNavigationStation,
+                    (byte)'R' => TalkerId.ReceivingStation,
+                    (byte)'S' => TalkerId.LimitedBaseStation,
+                    (byte)'T' => TalkerId.TransmittingStation,
+                    (byte)'X' => TalkerId.RepeaterStation,
+                    _ => throw new ArgumentException("Unrecognized talker id - cannot start with " + talkerFirstChar),
+                },
 
-                    break;
+                (byte)'B' => talkerSecondChar switch
+                {
+                    (byte)'S' => TalkerId.DeprecatedBaseStation,
+                    _ => throw new ArgumentException("Unrecognized talker id - cannot end with " + talkerSecondChar),
+                },
 
-                case (byte)'B':
-                    switch (talkerSecondChar)
-                    {
-                        case (byte)'S':
-                            this.AisTalker = TalkerId.DeprecatedBaseStation;
-                            break;
-                        default:
-                            throw new ArgumentException("Unrecognized talker id - cannot end with " + talkerSecondChar);
-                    }
+                (byte)'S' => talkerSecondChar switch
+                {
+                    (byte)'A' => TalkerId.PhysicalShoreStation,
+                    _ => throw new ArgumentException("Unrecognized talker id - cannot end with " + talkerSecondChar),
+                },
 
-                    break;
-
-                case (byte)'S':
-                    switch (talkerSecondChar)
-                    {
-                        case (byte)'A':
-                            this.AisTalker = TalkerId.PhysicalShoreStation;
-                            break;
-                        default:
-                            throw new ArgumentException("Unrecognized talker id - cannot end with " + talkerSecondChar);
-                    }
-
-                    break;
-
-                default:
-                    throw new ArgumentException("Unrecognized talker id");
-            }
-
+                _ => throw new ArgumentException("Unrecognized talker id"),
+            };
             if (this.Sentence.Slice(3, 3).SequenceEqual(VdmAscii))
             {
                 this.DataOrigin = VesselDataOrigin.Vdm;

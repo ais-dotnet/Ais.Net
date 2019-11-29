@@ -37,14 +37,12 @@ namespace Ais.Net.Benchmarks
             // orders of magnitude at a time: it means that test times in ms correspond to
             // per-message times in ns.)
             string[] testFileLines = File.ReadAllLines(TestPath1kLines);
-            using (var f = new StreamWriter(TestPath1mLines))
+            using var f = new StreamWriter(TestPath1mLines);
+            for (int i = 0; i < 1000; ++i)
             {
-                for (int i = 0; i < 1000; ++i)
+                foreach (string line in testFileLines)
                 {
-                    foreach (string line in testFileLines)
-                    {
-                        f.WriteLine(line);
-                    }
+                    f.WriteLine(line);
                 }
             }
         }
