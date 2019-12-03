@@ -28,10 +28,8 @@ namespace Ais.Net
             string path,
             INmeaAisMessageStreamProcessor processor)
         {
-            using (var adapter = new NmeaLineToAisStreamAdapter(processor))
-            {
-                await ParseFileAsync(path, adapter).ConfigureAwait(false);
-            }
+            using var adapter = new NmeaLineToAisStreamAdapter(processor);
+            await ParseFileAsync(path, adapter).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -45,10 +43,8 @@ namespace Ais.Net
             INmeaLineStreamProcessor processor)
         {
             // This turns off internal file stream buffering
-            using (var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, bufferSize: 1, useAsync: true))
-            {
-                await ParseStreamAsync(file, processor).ConfigureAwait(false);
-            }
+            using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, bufferSize: 1, useAsync: true);
+            await ParseStreamAsync(file, processor).ConfigureAwait(false);
         }
 
         /// <summary>
