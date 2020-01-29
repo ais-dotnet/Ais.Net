@@ -4,11 +4,19 @@
 
   <PropertyGroup>
     <!--
-    We need to build for .NET Core as well, because .NET Standard 2.0's Stream.Read doesn't
+    We need to target multiple versions, because .NET Standard 2.0's Stream.Read doesn't
     support Memory<T>, which is important for performance.
+    We target .NET Standard 2.0, because that offers maximum reach (and in particular, enables
+    .NET Framework projects to use this library).
+    We target .NET Standard 2.1 because that adds Memory<T> support to Stream.Read, meaning that
+    we will be able to get full performance on all .NET runtimes that support netstandard2.1
+    We also target .NET Core App 2.1 because that runtime also offers the Memory<T> support on
+    Stream.Read, but it does not support .NET Standard 2.1. So to offer the best possible
+    performance on that runtime, we have to offer a version that targets it. This matters
+    because .NET Core App 2.1 will remain in LTS (long term support) for a while.
     -->
     <TargetFramework></TargetFramework>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
