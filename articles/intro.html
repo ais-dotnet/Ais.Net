@@ -189,14 +189,18 @@ that after the first use, we make zero allocations per-message.</p>
 .NET Core 2.1, and using associated language features added in C# 7.2. This makes Ais.Net
 somewhat different to use from other .NET AIS parsers.</p>
 <p>The <code>Span&lt;T&gt;</code> and <code>ReadOnlySpan&lt;T&gt;</code> types impose a constraint in exchange for the high
-performance they make possible: these types can only live on the stack. This prevents variables
-of these types from living in fields of other types unless those containing types are
-defined in the same way. (So if you define a type that has the same constraint—if you define
-a <code>ref struct</code> type, it too can only live on the stack—it is allowed to contain other
-<code>ref struct</code> types such as <code>Span&lt;T&gt;</code>.) For this reason the various payload parsers that
-Ais.Net defines, such as
+performance they make possible: these types can only live on the stack. The C# compiler
+knows this because these types are declared as <code>ref struct</code>, and it will prevent you
+from using these types in ways that could end up on the heap. For example, if you try to
+define a <code>class</code> with a field of type <code>ReadOnlySpan&lt;T&gt;</code>, you get a compiler error, because
+instances of classes live on the heap. You'll get the same error with an ordinary <code>struct</code>, because
+although those often live on the stack, they can also live on the heap. (They might be
+boxed, or they could be an element in an array, or a field in some other heap-based instance.)
+You can use a <code>Span&lt;T&gt;</code> or <code>ReadOnlySpan&lt;T&gt;</code> (or any other <code>ref struct</code>) as a field only in
+another <code>ref struct</code>. Since the various payload parsers that Ais.Net defines, such as
 <a href="https://ais-dotnet.github.io/Ais.Net/api/Ais.Net.NmeaAisPositionReportClassAParser.html">NmeaAisPositionReportClassAParser</a>,
-can also only live on the stack. So you can do this:</p>
+have <code>ReadOnlySpan&lt;T&gt;</code> fields, these parser types are all defined as <code>ref struct</code>,
+meaning that they can only live on the stack. So you can do this:</p>
 <pre><code class="lang-csharp">public static (double Latitude, double Longitude) GetPosition(byte[] asciiNmeaLine)
 {
     var parser = new NmeaAisPositionReportClassAParser(asciiNmeaLine);
@@ -215,7 +219,7 @@ can also only live on the stack. So you can do this:</p>
     }
 }
 </code></pre>
-<p>More subtly, this restriction prevents you from using <code>ref struct</code> types as local variable
+<p>More subtly, this restriction prevents you from using <code>ref struct</code> types as local variables
 in <code>async</code> methods. To enable <code>async</code> methods to continue after an <code>await</code> completes
 asynchronously, C# needs to be able to store all local variables on the heap, which means
 those variables must not include any <code>ref struct</code> types. This means you cannot use the various
@@ -244,7 +248,7 @@ have local <code>ref struct</code> variables.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/ais-dotnet/Ais.Net/blob/feature/10-docs-conceptual/Documentation/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/ais-dotnet/Ais.Net/blob/heads/tags/0.3.0/Documentation/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
