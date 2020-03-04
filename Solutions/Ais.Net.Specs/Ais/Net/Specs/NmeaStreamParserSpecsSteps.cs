@@ -64,6 +64,12 @@ namespace Ais.Net.Specs
             Assert.AreEqual(count, this.processor.OnNextCalls.Count);
         }
 
+        [Then("OnError should have been called (.*) times")]
+        public void ThenOnErrorShouldHaveBeenCalledTimes(int count)
+        {
+            Assert.AreEqual(count, this.processor.OnErrorCalls.Count);
+        }
+
         [Then("line (.*) should have a tag block of '(.*)' and a sentence of '(.*)'")]
         public void ThenLineShouldHaveATagBlockOfAndASentenceOf(int line, string tagBlock, string sentence)
         {
@@ -72,11 +78,37 @@ namespace Ais.Net.Specs
             Assert.AreEqual(sentence, call.Sentence);
         }
 
+        [Then("the line error report (.*) should include the problematic line '(.*)'")]
+        public void ThenTheLineErrorReportShouldIncludeTheProblematicLine(int errorCallNumber, string line)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.AreEqual(line, call.Line);
+        }
+
+        [Then("the line error report (.*) should include an exception reporting that the expected exclamation mark is missing")]
+        public void ThenTheLineErrorReportShouldIncludeAnExceptionReportingThatTheExpectedExclamationMarkIsMissing(int errorCallNumber)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            Assert.AreEqual("Invalid data. Expected '!' at sentence start", e.Message);
+        }
+
+        [Then("the line error report (.*) should include the line number (.*)")]
+        public void ThenTheLineErrorReportShouldIncludeTheLineNumber(int errorCallNumber, int lineNumber)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.AreEqual(lineNumber, call.LineNumber);
+        }
+
         private class Processor : INmeaLineStreamProcessor
         {
             public bool IsComplete { get; private set; }
 
             public List<Line> OnNextCalls { get; } = new List<Line>();
+
+            public List<ErrorReport> OnErrorCalls { get; } = new List<ErrorReport>();
 
             public void OnCompleted()
             {
@@ -88,7 +120,12 @@ namespace Ais.Net.Specs
                 this.IsComplete = true;
             }
 
-            public void OnNext(in NmeaLineParser value)
+            public void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber)
+            {
+                this.OnErrorCalls.Add(new ErrorReport(Encoding.ASCII.GetString(line), error, lineNumber));
+            }
+
+            public void OnNext(in NmeaLineParser value, int lineNumber)
             {
                 if (this.IsComplete)
                 {
@@ -115,6 +152,22 @@ namespace Ais.Net.Specs
                 public string TagBlock { get; }
 
                 public string Sentence { get; }
+            }
+
+            public class ErrorReport
+            {
+                public ErrorReport(string line, Exception error, int lineNumber)
+                {
+                    this.Line = line;
+                    this.Error = error;
+                    this.LineNumber = lineNumber;
+                }
+
+                public string Line { get; }
+
+                public Exception Error { get; }
+
+                public int LineNumber { get; }
             }
         }
     }

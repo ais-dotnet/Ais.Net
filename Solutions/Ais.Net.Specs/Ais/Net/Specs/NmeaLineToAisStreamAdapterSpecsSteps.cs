@@ -17,6 +17,8 @@ namespace Ais.Net.Specs
         private readonly Processor processor = new Processor();
         private readonly NmeaLineToAisStreamAdapter adapter;
         private bool adapterOnCompleteCalled = false;
+        private Exception exceptionProvidedToProcessor;
+        private int lineNumber = 1;
 
         public NmeaLineToAisStreamAdapterSpecsSteps()
         {
@@ -39,7 +41,15 @@ namespace Ais.Net.Specs
         {
             byte[] ascii = Encoding.ASCII.GetBytes(line);
             var lineParser = new NmeaLineParser(ascii);
-            this.adapter.OnNext(lineParser);
+            this.adapter.OnNext(lineParser, this.lineNumber++);
+        }
+
+        [When("the line to message adapter receives an error report for content '(.*)' with line number (.*)")]
+        public void WhenTheLineToMessageAdapterReceivesAnErrorReportForContentWithLineNumber(string line, int lineNumber)
+        {
+            byte[] ascii = Encoding.ASCII.GetBytes(line);
+            this.exceptionProvidedToProcessor = new ArgumentException("That was never 5 minutes");
+            this.adapter.OnError(ascii, this.exceptionProvidedToProcessor, lineNumber);
         }
 
         [When("the line to message adapter receives a progress report of (.*), (.*), (.*), (.*), (.*)")]
@@ -81,6 +91,54 @@ namespace Ais.Net.Specs
             Assert.AreEqual(callCount, this.processor.ProgressCalls.Count);
         }
 
+        [Then("the ais message processor should receive (.*) error reports")]
+        public void ThenTheAisMessageProcessorShouldReceiveAnErrorReport(int errorCount)
+        {
+            Assert.AreEqual(errorCount, this.processor.OnErrorCalls.Count);
+        }
+
+        [Then("the message error report (.*) should include the problematic line '(.*)'")]
+        public void ThenTheMessageErrorReportShouldIncludeTheProblematicLine(int errorCallNumber, string line)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.AreEqual(line, call.Line);
+        }
+
+        [Then("the message error report (.*) should include the exception reported by the line stream parser")]
+        public void ThenTheMessageErrorReportShouldIncludeTheExceptionReportedByTheLineStreamParser(int errorCallNumber)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.AreSame(this.exceptionProvidedToProcessor, call.Error);
+        }
+
+        [Then("the message error report (.*) should include an exception reporting unexpected padding on a non-terminal message fragment")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingUnexpectedPaddingOnANon_TerminalMessageFragment(int errorCallNumber)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            Assert.AreEqual("Can only handle non-zero padding on the final message in a fragment", e.Message);
+        }
+
+        [Then(@"the message error report (.*) should include an exception reporting that it has received two message fragments with the same group id and position")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatItHasReceivedTwoMessageFragmentsWithTheSameGroupIdAndPosition(int errorCallNumber)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            string expectedStart = "Already received sentence ";
+            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
+        }
+
+        [Then("the message error report (.*) should include the line number (.*)")]
+        public void ThenTheMessageErrorReportShouldIncludeTheLineNumber(int errorCallNumber, int lineNumber)
+        {
+            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            Assert.AreEqual(lineNumber, call.LineNumber);
+        }
+
         [Then("progress report (.*) was (.*), (.*), (.*), (.*), (.*), (.*), (.*)")]
         public void ThenProgressReportWasFalse(
             int callIndex,
@@ -110,6 +168,8 @@ namespace Ais.Net.Specs
 
             public List<ProgressReport> ProgressCalls { get; } = new List<ProgressReport>();
 
+            public List<ErrorReport> OnErrorCalls { get; } = new List<ErrorReport>();
+
             public void OnCompleted()
             {
                 if (this.IsComplete)
@@ -118,6 +178,11 @@ namespace Ais.Net.Specs
                 }
 
                 this.IsComplete = true;
+            }
+
+            public void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber)
+            {
+                this.OnErrorCalls.Add(new ErrorReport(Encoding.ASCII.GetString(line), error, lineNumber));
             }
 
             public void OnNext(
@@ -207,6 +272,22 @@ namespace Ais.Net.Specs
                 public int NmeaLinesSinceLastUpdate { get; }
 
                 public int AisMessagesSinceLastUpdate { get; }
+            }
+
+            public class ErrorReport
+            {
+                public ErrorReport(string line, Exception error, int lineNumber)
+                {
+                    this.Line = line;
+                    this.Error = error;
+                    this.LineNumber = lineNumber;
+                }
+
+                public string Line { get; }
+
+                public Exception Error { get; }
+
+                public int LineNumber { get; }
             }
         }
     }

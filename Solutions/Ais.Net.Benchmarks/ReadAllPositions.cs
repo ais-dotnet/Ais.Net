@@ -80,6 +80,10 @@ namespace Ais.Net.Benchmarks
                 int ticksSinceLastUpdate)
             {
             }
+
+            public void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber)
+            {
+            }
         }
     }
 }

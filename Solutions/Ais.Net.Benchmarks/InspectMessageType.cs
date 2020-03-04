@@ -33,6 +33,10 @@ namespace Ais.Net.Benchmarks
             {
             }
 
+            public void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber)
+            {
+            }
+
             public void OnNext(in NmeaLineParser firstLine, in ReadOnlySpan<byte> asciiPayload, uint padding)
             {
                 int type = NmeaPayloadParser.PeekMessageType(asciiPayload, padding);

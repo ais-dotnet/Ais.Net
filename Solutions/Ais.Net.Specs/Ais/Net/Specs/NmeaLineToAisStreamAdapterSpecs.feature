@@ -192,6 +192,54 @@ Scenario: Progress reports
     And progress report 1 was false, 10, 7, 2345, 4, 3, 1111
     And progress report 2 was true, 13, 10, 2445, 3, 3, 100
 
+Scenario: Line stream parser reports error in non-fragmented message
+	When the line to message adapter receives an error report for content 'foobar' with line number 42
+	Then the ais message processor should receive 1 error reports
+	And the message error report 0 should include the problematic line 'foobar'
+	And the message error report 0 should include the exception reported by the line stream parser
+	And the message error report 0 should include the line number 42
+
+Scenario: Line stream parser reports error in first fragment of two-part message
+	When the line to message adapter receives an error report for content 'foobar' with line number 42
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:3-3-3451*5E\!AIVDM,3,3,9,A,0000000,0*2F'
+	Then the ais message processor should receive 1 error reports
+	And the message error report 0 should include the problematic line 'foobar'
+	And the message error report 0 should include the exception reported by the line stream parser
+	And the message error report 0 should include the line number 42
+
+Scenario: Line stream parser reports error in second fragment of two-part message
+	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	And the line to message adapter receives an error report for content 'foobar' with line number 42
+	Then the ais message processor should receive 1 error reports
+	And the message error report 0 should include the problematic line 'foobar'
+	And the message error report 0 should include the exception reported by the line stream parser
+	And the message error report 0 should include the line number 42
+
+Scenario: Line stream parser passes a message with padding that is the first of a two-part message
+	# ais.kystverket.no
+	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,1*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:2-2-8055*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
+	Then the ais message processor should receive 1 error reports
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,1*72'
+	And the message error report 0 should include an exception reporting unexpected padding on a non-terminal message fragment
+	And the message error report 0 should include the line number 1
+
+Scenario: Line stream parser passes the same sentence of a two-part message twice
+	# ais.kystverket.no
+	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:1-2-8055*55\!AIVDM,2,1,6,B,j`888888880,0*2B'
+	Then the ais message processor should receive 1 error reports
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\g:1-2-8055*55\!AIVDM,2,1,6,B,j`888888880,0*2B'
+	And the message error report 0 should include an exception reporting that it has received two message fragments with the same group id and position
+	And the message error report 0 should include the line number 2
+
+
+
 # TODO:
 # Got to end with unclosed fragments (#4067)
 # 2nd fragment received without first (#4067)

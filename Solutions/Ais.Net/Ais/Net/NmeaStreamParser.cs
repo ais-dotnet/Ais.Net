@@ -120,8 +120,16 @@ namespace Ais.Net
 
                         if (lineSpan.Length > 0)
                         {
-                            var parsedLine = new NmeaLineParser(lineSpan);
-                            processor.OnNext(parsedLine);
+                            try
+                            {
+                                var parsedLine = new NmeaLineParser(lineSpan);
+
+                                processor.OnNext(parsedLine, lines + 1);
+                            }
+                            catch (Exception x)
+                            {
+                                processor.OnError(lineSpan, x, lines + 1);
+                            }
                         }
 
                         remainingSequence = position.Value.Equals(remainingSequence.End)
