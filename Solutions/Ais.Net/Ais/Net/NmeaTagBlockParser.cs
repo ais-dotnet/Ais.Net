@@ -87,7 +87,7 @@ namespace Ais.Net
                         }
                         else
                         {
-                            this.Source = AdvanceToNextField(ref source);
+                            AdvanceToNextField(ref source);
                         }
 
                         break;
@@ -99,7 +99,7 @@ namespace Ais.Net
                         }
                         else
                         {
-                            this.Source = AdvanceToNextField(ref source);
+                            AdvanceToNextField(ref source);
                         }
 
                         break;

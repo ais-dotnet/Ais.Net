@@ -66,6 +66,16 @@ namespace Ais.Net.Specs
                 new NmeaLineToAisStreamAdapter(this.messageProcessor.Processor)).ConfigureAwait(false);
         }
 
+        [When("I parse the content by message with exceptions disabled")]
+        public async Task WhenIParseTheContentByMessageWithExceptionsDisabledAsync()
+        {
+            var options = new NmeaParserOptions { ThrowWhenTagBlockContainsUnknownFields = false };
+            await NmeaStreamParser.ParseStreamAsync(
+                new MemoryStream(Encoding.ASCII.GetBytes(this.content.ToString())),
+                new NmeaLineToAisStreamAdapter(this.messageProcessor.Processor, options),
+                options).ConfigureAwait(false);
+        }
+
         [Then(@"INmeaLineStreamProcessor\.OnComplete should have been called")]
         public void ThenOnCompleteShouldHaveBeenCalled()
         {
@@ -123,6 +133,17 @@ namespace Ais.Net.Specs
 
             var e = (ArgumentException)call.Error;
             Assert.AreEqual("Invalid data. Expected '!' at sentence start", e.Message);
+        }
+
+        [Then("the message error report (.*) should include an exception reporting that an unrecognized field is present")]
+        public void WhenTheMessageErrorReportShouldIncludeAnExceptionReportingThatAnUnrecognizedFieldIsPresent(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            const string expectedStart = "Unknown field type:";
+            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
         }
 
         [Then("the line error report (.*) should include the line number (.*)")]
