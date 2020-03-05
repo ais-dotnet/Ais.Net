@@ -17,6 +17,7 @@ namespace Ais.Net
     public class NmeaLineToAisStreamAdapter : INmeaLineStreamProcessor, IDisposable
     {
         private readonly INmeaAisMessageStreamProcessor messageProcessor;
+        private readonly NmeaParserOptions options;
         private readonly Dictionary<int, IMemoryOwner<byte>[]> messageFragments = new Dictionary<int, IMemoryOwner<byte>[]>();
         private int messagesProcessed = 0;
         private int messagesProcessedAtLastUpdate = 0;
@@ -28,8 +29,23 @@ namespace Ais.Net
         /// The message process to which complete AIS messages are to be passed.
         /// </param>
         public NmeaLineToAisStreamAdapter(INmeaAisMessageStreamProcessor messageProcessor)
+            : this(messageProcessor, new NmeaParserOptions())
+        {
+        }
+
+        /// <summary>
+        /// Creates a <see cref="NmeaLineToAisStreamAdapter"/>.
+        /// </summary>
+        /// <param name="messageProcessor">
+        /// The message process to which complete AIS messages are to be passed.
+        /// </param>
+        /// <param name="options">Configures parser behaviour.</param>
+        public NmeaLineToAisStreamAdapter(
+            INmeaAisMessageStreamProcessor messageProcessor,
+            NmeaParserOptions options)
         {
             this.messageProcessor = messageProcessor;
+            this.options = options;
         }
 
         /// <inheritdoc/>
@@ -94,7 +110,7 @@ namespace Ais.Net
                         break;
                     }
 
-                    var storedParsedLine = new NmeaLineParser(fragments[i].Memory.Span);
+                    var storedParsedLine = new NmeaLineParser(fragments[i].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields);
                     totalPayloadSize += storedParsedLine.Payload.Length;
                 }
 
@@ -108,7 +124,7 @@ namespace Ais.Net
 
                         for (int i = 0; i < fragments.Length; ++i)
                         {
-                            var storedParsedLine = new NmeaLineParser(fragments[i].Memory.Span);
+                            var storedParsedLine = new NmeaLineParser(fragments[i].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields);
                             ReadOnlySpan<byte> payload = storedParsedLine.Payload;
                             payload.CopyTo(reassemblyBuffer.Slice(reassemblyIndex, payload.Length));
                             reassemblyIndex += payload.Length;
@@ -116,7 +132,7 @@ namespace Ais.Net
                         }
 
                         this.messageProcessor.OnNext(
-                            new NmeaLineParser(fragments[0].Memory.Span),
+                            new NmeaLineParser(fragments[0].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields),
                             reassemblyBuffer.Slice(0, totalPayloadSize),
                             finalPadding);
                         this.messagesProcessed += 1;

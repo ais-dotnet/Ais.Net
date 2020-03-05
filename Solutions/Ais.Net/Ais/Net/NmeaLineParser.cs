@@ -16,12 +16,26 @@ namespace Ais.Net
         private const byte TagBlockMarker = (byte)'\\';
         private static readonly byte[] VdmAscii = Encoding.ASCII.GetBytes("VDM");
         private static readonly byte[] VdoAscii = Encoding.ASCII.GetBytes("VDO");
+        private readonly bool throwWhenTagBlockContainsUnknownFields;
 
         /// <summary>
         /// Creates a <see cref="NmeaLineParser"/>.
         /// </summary>
         /// <param name="line">The ASCII-encoded text containing the NMEA message.</param>
         public NmeaLineParser(ReadOnlySpan<byte> line)
+            : this(line, false)
+        {
+        }
+
+        /// <summary>
+        /// Creates a <see cref="NmeaLineParser"/>.
+        /// </summary>
+        /// <param name="line">The ASCII-encoded text containing the NMEA message.</param>
+        /// <param name="throwWhenTagBlockContainsUnknownFields">
+        /// Ignore non-standard and unsupported tag block field types. Useful when working with
+        /// data sources that add non-standard fields.
+        /// </param>
+        public NmeaLineParser(ReadOnlySpan<byte> line, bool throwWhenTagBlockContainsUnknownFields)
         {
             this.Line = line;
 
@@ -133,6 +147,7 @@ namespace Ais.Net
 
             remainingFields = remainingFields.Slice(nextComma + 1);
             this.Padding = (uint)GetSingleDigitField(ref remainingFields, true);
+            this.throwWhenTagBlockContainsUnknownFields = throwWhenTagBlockContainsUnknownFields;
         }
 
         /// <summary>
@@ -193,7 +208,7 @@ namespace Ais.Net
         /// <summary>
         /// Gets the details from the tag block.
         /// </summary>
-        public NmeaTagBlockParser TagBlock => new NmeaTagBlockParser(this.TagBlockAsciiWithoutDelimiters);
+        public NmeaTagBlockParser TagBlock => new NmeaTagBlockParser(this.TagBlockAsciiWithoutDelimiters, this.throwWhenTagBlockContainsUnknownFields);
 
         /// <summary>
         /// Gets the tag block part of the underlying data (excluding the delimiting '/'
