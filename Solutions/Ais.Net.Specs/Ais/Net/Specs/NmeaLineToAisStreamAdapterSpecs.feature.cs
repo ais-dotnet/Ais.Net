@@ -106,7 +106,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "P@50wwE:VJW6LS67H01<@,0*3C\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 18
- testRunner.Then("the ais message processor should receive 1 message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 19
     testRunner.And("in ais message 0 the payload should be \'33m9UtPP@50wwE:VJW6LS67H01<@\' with paddin" +
@@ -153,7 +153,7 @@ this.ScenarioInitialize(scenarioInfo);
                         ",6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 26
- testRunner.Then("the ais message processor should receive 0 messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -194,7 +194,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "*2B\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 33
- testRunner.Then("the ais message processor should receive 1 message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 35
     testRunner.And("in ais message 0 the payload should be \'53oGfN42=WRDhlHn221<4i@Dr22222222222220`1" +
@@ -251,7 +251,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "*2B\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 46
- testRunner.Then("the ais message processor should receive 2 message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 2 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 48
     testRunner.And("in ais message 0 the payload should be \'33m9UtPP@50wwE:VJW6LS67H01<@\' with paddin" +
@@ -316,7 +316,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 63
- testRunner.Then("the ais message processor should receive 1 message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 65
     testRunner.And("in ais message 0 the payload should be \'544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167" +
@@ -379,7 +379,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 80
- testRunner.Then("the ais message processor should receive 2 messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 2 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 82
     testRunner.And("in ais message 0 the payload should be \'53oGfN42=WRDhlHn221<4i@Dr22222222222220`1" +
@@ -484,7 +484,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "00F8:0h694gOtbgwqUoP06,0*73\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 117
- testRunner.Then("the ais message processor should receive 10 messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 10 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 119
     testRunner.And("in ais message 0 the payload should be \'33m9UtPP@50wwE:VJW6LS67H01<@\' with paddin" +
@@ -680,7 +680,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.And("the line to message adapter receives a progress report of true, 13, 2445, 3, 100", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 190
- testRunner.Then("the ais message processor should receive 3 progress reports", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.Progress should have been called 3 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 191
     testRunner.And("progress report 0 was false, 6, 4, 1234, 6, 4, 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -726,7 +726,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "ne number 42", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 197
- testRunner.Then("the ais message processor should receive 1 error reports", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 198
  testRunner.And("the message error report 0 should include the problematic line \'foobar\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -777,7 +777,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 206
- testRunner.Then("the ais message processor should receive 1 error reports", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 207
  testRunner.And("the message error report 0 should include the problematic line \'foobar\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -828,7 +828,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "ne number 42", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 214
- testRunner.Then("the ais message processor should receive 1 error reports", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 215
  testRunner.And("the message error report 0 should include the problematic line \'foobar\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -881,7 +881,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "*2B\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 224
- testRunner.Then("the ais message processor should receive 1 error reports", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 226
  testRunner.And("the message error report 0 should include the problematic line \'\\g:1-2-8055,s:99," +
@@ -934,7 +934,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "*2B\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 235
- testRunner.Then("the ais message processor should receive 1 error reports", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 237
  testRunner.And("the message error report 0 should include the problematic line \'\\g:1-2-8055*55\\!A" +

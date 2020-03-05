@@ -14,63 +14,63 @@ Feature: NmeaStreamParserSpecs
 
 Scenario: Empty file
 	Given no content
-	When I parse the content
-	Then OnComplete should have been called
-    And OnNext should have been called 0 times
+	When I parse the content by line
+	Then INmeaLineStreamProcessor.OnComplete should have been called
+    And INmeaLineStreamProcessor.OnNext should have been called 0 times
 
 Scenario: Single CRLF blank line only
 	Given a CRLF line ''
-	When I parse the content
-    Then OnNext should have been called 0 times
-	And OnComplete should have been called
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 0 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Single LF blank line only
 	Given a line ''
-	When I parse the content
-    Then OnNext should have been called 0 times
-	And OnComplete should have been called
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 0 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple CRLF blank lines only
 	Given a CRLF line ''
 	And a CRLF line ''
 	And a CRLF line ''
-	When I parse the content
-    Then OnNext should have been called 0 times
-	And OnComplete should have been called
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 0 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple LF blank lines only
 	Given a line ''
 	And a line ''
 	And a line ''
-	When I parse the content
-    Then OnNext should have been called 0 times
-	And OnComplete should have been called
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 0 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple mixed blank lines only
 	Given a CRLF line ''
 	And a line ''
 	And a CRLF line ''
-	When I parse the content
-    Then OnNext should have been called 0 times
-	And OnComplete should have been called
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 0 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Single line
 	# ais.kystverket.no
 	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-	When I parse the content
+	When I parse the content by line
 	# ais.kystverket.no
     Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-    Then OnNext should have been called 1 times
-	And OnComplete should have been called
+    Then INmeaLineStreamProcessor.OnNext should have been called 1 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Single line without newline only
 	# ais.kystverket.no
 	Given an unterminated line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-	When I parse the content
+	When I parse the content by line
 	# ais.kystverket.no
     Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-    Then OnNext should have been called 1 times
-	And OnComplete should have been called
+    Then INmeaLineStreamProcessor.OnNext should have been called 1 times
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines
 	# ais.kystverket.no
@@ -81,8 +81,8 @@ Scenario: Multiple lines
     And a line '\s:24,c:1567692878*35\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And a line '\s:772,c:1567693246*07\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	When I parse the content
-    Then OnNext should have been called 4 times
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 4 times
 	# ais.kystverket.no
     And line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	# ais.kystverket.no
@@ -91,7 +91,7 @@ Scenario: Multiple lines
     And line 2 should have a tag block of 's:24,c:1567692878*35' and a sentence of '!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And line 3 should have a tag block of 's:772,c:1567693246*07' and a sentence of '!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines where final line has no newline
 	# ais.kystverket.no
@@ -102,8 +102,8 @@ Scenario: Multiple lines where final line has no newline
     And a line '\s:24,c:1567692878*35\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And an unterminated line '\s:772,c:1567693246*07\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	When I parse the content
-    Then OnNext should have been called 4 times
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 4 times
 	# ais.kystverket.no
     And line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	# ais.kystverket.no
@@ -112,7 +112,7 @@ Scenario: Multiple lines where final line has no newline
     And line 2 should have a tag block of 's:24,c:1567692878*35' and a sentence of '!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And line 3 should have a tag block of 's:772,c:1567693246*07' and a sentence of '!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines with blanks at start
     Given a line ''
@@ -126,8 +126,8 @@ Scenario: Multiple lines with blanks at start
     And a line '\s:24,c:1567692878*35\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And a line '\s:772,c:1567693246*07\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	When I parse the content
-    Then OnNext should have been called 4 times
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 4 times
 	# ais.kystverket.no
     And line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	# ais.kystverket.no
@@ -136,7 +136,7 @@ Scenario: Multiple lines with blanks at start
     And line 2 should have a tag block of 's:24,c:1567692878*35' and a sentence of '!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And line 3 should have a tag block of 's:772,c:1567693246*07' and a sentence of '!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines with blanks in middle
 	# ais.kystverket.no
@@ -150,8 +150,8 @@ Scenario: Multiple lines with blanks in middle
     And a line '\s:24,c:1567692878*35\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And a line '\s:772,c:1567693246*07\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	When I parse the content
-    Then OnNext should have been called 4 times
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 4 times
 	# ais.kystverket.no
     And line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	# ais.kystverket.no
@@ -160,7 +160,7 @@ Scenario: Multiple lines with blanks in middle
     And line 2 should have a tag block of 's:24,c:1567692878*35' and a sentence of '!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And line 3 should have a tag block of 's:772,c:1567693246*07' and a sentence of '!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines with blanks at end
 	# ais.kystverket.no
@@ -174,8 +174,8 @@ Scenario: Multiple lines with blanks at end
     Given a line ''
     Given a line ''
     Given a line ''
-	When I parse the content
-    Then OnNext should have been called 4 times
+	When I parse the content by line
+    Then INmeaLineStreamProcessor.OnNext should have been called 4 times
 	# ais.kystverket.no
     And line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	# ais.kystverket.no
@@ -184,30 +184,30 @@ Scenario: Multiple lines with blanks at end
     And line 2 should have a tag block of 's:24,c:1567692878*35' and a sentence of '!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21'
 	# ais.kystverket.no
     And line 3 should have a tag block of 's:772,c:1567693246*07' and a sentence of '!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Single unparseable line
 	# ais.kystverket.no
 	Given a line 'I am not an NMEA message'
-	When I parse the content
+	When I parse the content by line
 	# ais.kystverket.no
-    Then OnNext should have been called 0 times
+    Then INmeaLineStreamProcessor.OnNext should have been called 0 times
     Then OnError should have been called 1 times
 	And the line error report 0 should include the problematic line 'I am not an NMEA message'
 	And the line error report 0 should include an exception reporting that the expected exclamation mark is missing
 	And the line error report 0 should include the line number 1
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: One unparseable line and one good line
 	# ais.kystverket.no
 	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	And a line 'I am not an NMEA message'
-	When I parse the content
+	When I parse the content by line
 	# ais.kystverket.no
     Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-    Then OnNext should have been called 1 times
+    Then INmeaLineStreamProcessor.OnNext should have been called 1 times
     Then OnError should have been called 1 times
 	And the line error report 0 should include the problematic line 'I am not an NMEA message'
 	And the line error report 0 should include an exception reporting that the expected exclamation mark is missing
 	And the line error report 0 should include the line number 2
-	And OnComplete should have been called
+	And INmeaLineStreamProcessor.OnComplete should have been called
