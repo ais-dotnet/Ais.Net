@@ -46,7 +46,7 @@ namespace Ais.Net
         }
 
         /// <inheritdoc/>
-        public void OnNext(in NmeaLineParser parsedLine)
+        public void OnNext(in NmeaLineParser parsedLine, int lineNumber)
         {
             if (parsedLine.TagBlockAsciiWithoutDelimiters.Length > 0 &&
                 parsedLine.TagBlock.SentenceGrouping.HasValue)
@@ -57,7 +57,10 @@ namespace Ais.Net
 
                 if (!isLastSentenceInGroup && parsedLine.Padding != 0)
                 {
-                    throw new ArgumentException("Can only handle non-zero padding on the final message in a fragment");
+                    this.messageProcessor.OnError(
+                        parsedLine.Line,
+                        new ArgumentException("Can only handle non-zero padding on the final message in a fragment"),
+                        lineNumber);
                 }
 
                 int groupId = sentenceGrouping.GroupId;
@@ -70,7 +73,10 @@ namespace Ais.Net
 
                 if (fragments[sentenceGrouping.SentenceNumber - 1] != null)
                 {
-                    throw new ArgumentException($"Already received sentence {sentenceGrouping.SentenceNumber} for group {groupId}");
+                    this.messageProcessor.OnError(
+                        parsedLine.Line,
+                        new ArgumentException($"Already received sentence {sentenceGrouping.SentenceNumber} for group {groupId}"),
+                        lineNumber);
                 }
 
                 IMemoryOwner<byte> buffer = MemoryPool<byte>.Shared.Rent(parsedLine.Line.Length);
@@ -124,6 +130,12 @@ namespace Ais.Net
                 this.messageProcessor.OnNext(parsedLine, parsedLine.Payload, parsedLine.Padding);
                 this.messagesProcessed += 1;
             }
+        }
+
+        /// <inheritdoc/>
+        public void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber)
+        {
+            this.messageProcessor.OnError(line, error, lineNumber);
         }
 
         /// <inheritdoc/>

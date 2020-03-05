@@ -185,3 +185,29 @@ Scenario: Multiple lines with blanks at end
 	# ais.kystverket.no
     And line 3 should have a tag block of 's:772,c:1567693246*07' and a sentence of '!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25'
 	And OnComplete should have been called
+
+Scenario: Single unparseable line
+	# ais.kystverket.no
+	Given a line 'I am not an NMEA message'
+	When I parse the content
+	# ais.kystverket.no
+    Then OnNext should have been called 0 times
+    Then OnError should have been called 1 times
+	And the line error report 0 should include the problematic line 'I am not an NMEA message'
+	And the line error report 0 should include an exception reporting that the expected exclamation mark is missing
+	And the line error report 0 should include the line number 1
+	And OnComplete should have been called
+
+Scenario: One unparseable line and one good line
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
+	And a line 'I am not an NMEA message'
+	When I parse the content
+	# ais.kystverket.no
+    Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
+    Then OnNext should have been called 1 times
+    Then OnError should have been called 1 times
+	And the line error report 0 should include the problematic line 'I am not an NMEA message'
+	And the line error report 0 should include an exception reporting that the expected exclamation mark is missing
+	And the line error report 0 should include the line number 2
+	And OnComplete should have been called

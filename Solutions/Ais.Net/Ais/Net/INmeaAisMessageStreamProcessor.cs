@@ -34,6 +34,15 @@ namespace Ais.Net
             uint padding);
 
         /// <summary>
+        /// Called when a line cannot be parsed, e.g. it does not contain a well-formed NMEA
+        /// message.
+        /// </summary>
+        /// <param name="line">The line that cannot be parsed.</param>
+        /// <param name="error">An exception describing the problem.</param>
+        /// <param name="lineNumber">The 1-based line number on which the error was detected.</param>
+        void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber);
+
+        /// <summary>
         /// Called when all lines have been processed.
         /// </summary>
         void OnCompleted();
