@@ -16,7 +16,7 @@ Scenario: Empty file
 	Given no content
 	When I parse the content by message
 	Then INmeaAisMessageStreamProcessor.OnComplete should have been called
-    And INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+	And INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
 
 Scenario: Single CRLF blank line only
 	Given a CRLF line ''
