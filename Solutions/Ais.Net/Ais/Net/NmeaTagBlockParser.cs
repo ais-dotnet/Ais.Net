@@ -19,6 +19,21 @@ namespace Ais.Net
         /// <c>/</c> delimiters.
         /// </param>
         public NmeaTagBlockParser(ReadOnlySpan<byte> source)
+            : this(source, false)
+        {
+        }
+
+        /// <summary>
+        /// Creates a <see cref="NmeaTagBlockParser"/>.
+        /// </summary>
+        /// <param name="source">The ASCII-encoded tag block, without the leading and trailing
+        /// <c>/</c> delimiters.
+        /// </param>
+        /// <param name="throwWhenTagBlockContainsUnknownFields">
+        /// Ignore non-standard and unsupported tag block field types. Useful when working with
+        /// data sources that add non-standard fields.
+        /// </param>
+        public NmeaTagBlockParser(ReadOnlySpan<byte> source, bool throwWhenTagBlockContainsUnknownFields)
         {
             this.SentenceGrouping = default;
             this.Source = ReadOnlySpan<byte>.Empty;
@@ -49,17 +64,7 @@ namespace Ais.Net
                         break;
 
                     case 's':
-                        int next = source.IndexOf((byte)',');
-                        if (next < 0)
-                        {
-                            this.Source = source;
-                            source = ReadOnlySpan<byte>.Empty;
-                        }
-                        else
-                        {
-                            this.Source = source.Slice(0, next);
-                            source = source.Slice(next + 1);
-                        }
+                        this.Source = AdvanceToNextField(ref source);
 
                         break;
 
@@ -76,10 +81,46 @@ namespace Ais.Net
                     case 'n':
                     case 'r':
                     case 't':
-                        throw new NotSupportedException("Unsupported field type: " + fieldType);
+                        if (throwWhenTagBlockContainsUnknownFields)
+                        {
+                            throw new NotSupportedException("Unsupported field type: " + fieldType);
+                        }
+                        else
+                        {
+                            AdvanceToNextField(ref source);
+                        }
+
+                        break;
 
                     default:
-                        throw new ArgumentException("Unknown field type: " + fieldType);
+                        if (throwWhenTagBlockContainsUnknownFields)
+                        {
+                            throw new ArgumentException("Unknown field type: " + fieldType);
+                        }
+                        else
+                        {
+                            AdvanceToNextField(ref source);
+                        }
+
+                        break;
+                }
+
+                static ReadOnlySpan<byte> AdvanceToNextField(ref ReadOnlySpan<byte> source)
+                {
+                    ReadOnlySpan<byte> result;
+                    int next = source.IndexOf((byte)',');
+                    if (next < 0)
+                    {
+                        result = source;
+                        source = ReadOnlySpan<byte>.Empty;
+                    }
+                    else
+                    {
+                        result = source.Slice(0, next);
+                        source = source.Slice(next + 1);
+                    }
+
+                    return result;
                 }
             }
         }

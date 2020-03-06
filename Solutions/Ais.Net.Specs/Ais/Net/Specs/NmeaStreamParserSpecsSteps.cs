@@ -16,7 +16,13 @@ namespace Ais.Net.Specs
     public class NmeaStreamParserSpecsSteps
     {
         private readonly StringBuilder content = new StringBuilder();
-        private readonly Processor processor = new Processor();
+        private readonly LineProcessor lineProcessor = new LineProcessor();
+        private readonly NmeaAisMessageStreamProcessorBindings messageProcessor;
+
+        public NmeaStreamParserSpecsSteps(NmeaAisMessageStreamProcessorBindings messageProcessor)
+        {
+            this.messageProcessor = messageProcessor;
+        }
 
         [Given("no content")]
         public void GivenNoContent()
@@ -44,36 +50,62 @@ namespace Ais.Net.Specs
             this.content.Append(line);
         }
 
-        [When("I parse the content")]
-        public async Task WhenIParseTheContentAsync()
+        [When("I parse the content by line")]
+        public async Task WhenIParseTheContentByLineAsync()
         {
             await NmeaStreamParser.ParseStreamAsync(
                 new MemoryStream(Encoding.ASCII.GetBytes(this.content.ToString())),
-                this.processor).ConfigureAwait(false);
+                this.lineProcessor).ConfigureAwait(false);
         }
 
-        [Then("OnComplete should have been called")]
+        [When("I parse the content by message")]
+        public async Task WhenIParseTheContentByMessageAsync()
+        {
+            await NmeaStreamParser.ParseStreamAsync(
+                new MemoryStream(Encoding.ASCII.GetBytes(this.content.ToString())),
+                new NmeaLineToAisStreamAdapter(this.messageProcessor.Processor)).ConfigureAwait(false);
+        }
+
+        [When("I parse the content by message with exceptions disabled")]
+        public async Task WhenIParseTheContentByMessageWithExceptionsDisabledAsync()
+        {
+            var options = new NmeaParserOptions { ThrowWhenTagBlockContainsUnknownFields = false };
+            await NmeaStreamParser.ParseStreamAsync(
+                new MemoryStream(Encoding.ASCII.GetBytes(this.content.ToString())),
+                new NmeaLineToAisStreamAdapter(this.messageProcessor.Processor, options),
+                options).ConfigureAwait(false);
+        }
+
+        [Then(@"INmeaLineStreamProcessor\.OnComplete should have been called")]
         public void ThenOnCompleteShouldHaveBeenCalled()
         {
-            Assert.IsTrue(this.processor.IsComplete);
+            Assert.IsTrue(this.lineProcessor.IsComplete);
         }
 
-        [Then("OnNext should have been called (.*) times")]
+        [Then(@"INmeaAisMessageStreamProcessor\.OnComplete should have been called")]
+        public void ThenINmeaAisMessageStreamProcessor_OnCompleteShouldHaveBeenCalled()
+        {
+            Assert.IsTrue(this.messageProcessor.IsComplete);
+        }
+
+        [Then("INmeaLineStreamProcessor.OnNext should have been called (.*) times")]
+        [Then("INmeaLineStreamProcessor.OnNext should have been called (.*) time")]
         public void ThenOnNextShouldHaveBeenCalledTimes(int count)
         {
-            Assert.AreEqual(count, this.processor.OnNextCalls.Count);
+            Assert.AreEqual(count, this.lineProcessor.OnNextCalls.Count);
         }
 
         [Then("OnError should have been called (.*) times")]
+        [Then("OnError should have been called (.*) time")]
         public void ThenOnErrorShouldHaveBeenCalledTimes(int count)
         {
-            Assert.AreEqual(count, this.processor.OnErrorCalls.Count);
+            Assert.AreEqual(count, this.lineProcessor.OnErrorCalls.Count);
         }
 
         [Then("line (.*) should have a tag block of '(.*)' and a sentence of '(.*)'")]
         public void ThenLineShouldHaveATagBlockOfAndASentenceOf(int line, string tagBlock, string sentence)
         {
-            Processor.Line call = this.processor.OnNextCalls[line];
+            LineProcessor.Line call = this.lineProcessor.OnNextCalls[line];
             Assert.AreEqual(tagBlock, call.TagBlock);
             Assert.AreEqual(sentence, call.Sentence);
         }
@@ -81,28 +113,60 @@ namespace Ais.Net.Specs
         [Then("the line error report (.*) should include the problematic line '(.*)'")]
         public void ThenTheLineErrorReportShouldIncludeTheProblematicLine(int errorCallNumber, string line)
         {
-            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            LineProcessor.ErrorReport call = this.lineProcessor.OnErrorCalls[errorCallNumber];
             Assert.AreEqual(line, call.Line);
         }
 
         [Then("the line error report (.*) should include an exception reporting that the expected exclamation mark is missing")]
         public void ThenTheLineErrorReportShouldIncludeAnExceptionReportingThatTheExpectedExclamationMarkIsMissing(int errorCallNumber)
         {
-            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            LineProcessor.ErrorReport call = this.lineProcessor.OnErrorCalls[errorCallNumber];
             Assert.IsInstanceOf<ArgumentException>(call.Error);
 
             var e = (ArgumentException)call.Error;
             Assert.AreEqual("Invalid data. Expected '!' at sentence start", e.Message);
         }
 
+        [Then("the message error report (.*) should include an exception reporting that the expected exclamation mark is missing")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatTheExpectedExclamationMarkIsMissing(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            Assert.AreEqual("Invalid data. Expected '!' at sentence start", e.Message);
+        }
+
+        [Then("the message error report (.*) should include an exception reporting that an unrecognized field is present")]
+        public void WhenTheMessageErrorReportShouldIncludeAnExceptionReportingThatAnUnrecognizedFieldIsPresent(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            const string expectedStart = "Unknown field type:";
+            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
+        }
+
+        [Then(@"the message error report (.*) should include an exception reporting that an unsupported field is present")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatAnUnsupportedFieldIsPresent(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<NotSupportedException>(call.Error);
+
+            var e = (NotSupportedException)call.Error;
+            const string expectedStart = "Unsupported field type:";
+            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
+        }
+
         [Then("the line error report (.*) should include the line number (.*)")]
         public void ThenTheLineErrorReportShouldIncludeTheLineNumber(int errorCallNumber, int lineNumber)
         {
-            Processor.ErrorReport call = this.processor.OnErrorCalls[errorCallNumber];
+            LineProcessor.ErrorReport call = this.lineProcessor.OnErrorCalls[errorCallNumber];
             Assert.AreEqual(lineNumber, call.LineNumber);
         }
 
-        private class Processor : INmeaLineStreamProcessor
+        private class LineProcessor : INmeaLineStreamProcessor
         {
             public bool IsComplete { get; private set; }
 
