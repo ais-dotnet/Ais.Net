@@ -81,6 +81,8 @@
       <DependentUpon>NmeaLineToAisStreamAdapterSpecs.feature</DependentUpon>
     </Compile>
     <Compile Update="Ais\Net\Specs\NmeaStreamParserByLineSpecs.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>NmeaStreamParserByLineSpecs.feature</DependentUpon>
     </Compile>
     <Compile Update="Ais\Net\Specs\NmeaStreamParserByMessageSpecs.feature.cs">
