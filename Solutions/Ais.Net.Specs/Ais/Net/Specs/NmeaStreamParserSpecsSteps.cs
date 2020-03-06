@@ -146,6 +146,17 @@ namespace Ais.Net.Specs
             Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
         }
 
+        [Then(@"the message error report (.*) should include an exception reporting that an unsupported field is present")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatAnUnsupportedFieldIsPresent(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<NotSupportedException>(call.Error);
+
+            var e = (NotSupportedException)call.Error;
+            const string expectedStart = "Unsupported field type:";
+            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
+        }
+
         [Then("the line error report (.*) should include the line number (.*)")]
         public void ThenTheLineErrorReportShouldIncludeTheLineNumber(int errorCallNumber, int lineNumber)
         {

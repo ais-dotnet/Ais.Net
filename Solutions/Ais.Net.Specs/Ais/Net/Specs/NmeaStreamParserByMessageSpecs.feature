@@ -232,3 +232,24 @@ Scenario: Single line with non-standard tag block field with exceptions disabled
     Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
     Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single line with standard but unsupported tag block field with exceptions enabled
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904,n:1*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
+	When I parse the content by message
+	# ais.kystverket.no
+    Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+    And INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+	And the message error report 0 should include the problematic line '\s:42,c:1567684904,n:1*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
+	And the message error report 0 should include an exception reporting that an unsupported field is present
+	And the message error report 0 should include the line number 1
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single line with standard but unsupported tag block field with exceptions disabled
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904,n:1*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
+	When I parse the content by message with exceptions disabled
+	# ais.kystverket.no
+    Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
+    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called

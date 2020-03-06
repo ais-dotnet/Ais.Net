@@ -1022,6 +1022,114 @@ this.ScenarioInitialize(scenarioInfo);
             }
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Single line with standard but unsupported tag block field with exceptions enabled" +
+            "")]
+        public virtual void SingleLineWithStandardButUnsupportedTagBlockFieldWithExceptionsEnabled()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Single line with standard but unsupported tag block field with exceptions enabled" +
+                    "", null, ((string[])(null)));
+#line 236
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 238
+ testRunner.Given("a line \'\\s:42,c:1567684904,n:1*38\\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78" +
+                        "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 239
+ testRunner.When("I parse the content by message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 241
+    testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 242
+    testRunner.And("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 243
+ testRunner.And("the message error report 0 should include the problematic line \'\\s:42,c:156768490" +
+                        "4,n:1*38\\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 244
+ testRunner.And("the message error report 0 should include an exception reporting that an unsuppor" +
+                        "ted field is present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 245
+ testRunner.And("the message error report 0 should include the line number 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 246
+ testRunner.And("INmeaAisMessageStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Single line with standard but unsupported tag block field with exceptions disable" +
+            "d")]
+        public virtual void SingleLineWithStandardButUnsupportedTagBlockFieldWithExceptionsDisabled()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Single line with standard but unsupported tag block field with exceptions disable" +
+                    "d", null, ((string[])(null)));
+#line 248
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 250
+ testRunner.Given("a line \'\\s:42,c:1567684904,n:1*38\\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78" +
+                        "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 251
+ testRunner.When("I parse the content by message with exceptions disabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 253
+    testRunner.Then("in ais message 0 the payload should be \'B3m:H900AP@b:79ae6:<OwnUoP06\' with paddin" +
+                        "g of 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 254
+    testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 255
+ testRunner.And("INmeaAisMessageStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
