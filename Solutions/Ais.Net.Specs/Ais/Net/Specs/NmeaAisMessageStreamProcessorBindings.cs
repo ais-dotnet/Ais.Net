@@ -64,6 +64,7 @@ namespace Ais.Net.Specs
         }
 
         [Then("INmeaAisMessageStreamProcessor.OnError should have been called (.*) times")]
+        [Then("INmeaAisMessageStreamProcessor.OnError should have been called (.*) time")]
         public void ThenTheAisMessageProcessorShouldReceiveAnErrorReport(int errorCount)
         {
             Assert.AreEqual(errorCount, this.OnErrorCalls.Count);

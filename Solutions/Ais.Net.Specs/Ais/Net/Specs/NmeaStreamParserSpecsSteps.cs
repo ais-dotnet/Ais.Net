@@ -89,12 +89,14 @@ namespace Ais.Net.Specs
         }
 
         [Then("INmeaLineStreamProcessor.OnNext should have been called (.*) times")]
+        [Then("INmeaLineStreamProcessor.OnNext should have been called (.*) time")]
         public void ThenOnNextShouldHaveBeenCalledTimes(int count)
         {
             Assert.AreEqual(count, this.lineProcessor.OnNextCalls.Count);
         }
 
         [Then("OnError should have been called (.*) times")]
+        [Then("OnError should have been called (.*) time")]
         public void ThenOnErrorShouldHaveBeenCalledTimes(int count)
         {
             Assert.AreEqual(count, this.lineProcessor.OnErrorCalls.Count);

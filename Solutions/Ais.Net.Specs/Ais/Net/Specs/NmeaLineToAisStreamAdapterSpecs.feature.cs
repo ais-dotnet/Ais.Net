@@ -316,7 +316,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 63
- testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 65
     testRunner.And("in ais message 0 the payload should be \'544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167" +
@@ -726,7 +726,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "ne number 42", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 197
- testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 198
  testRunner.And("the message error report 0 should include the problematic line \'foobar\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -777,7 +777,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 206
- testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 207
  testRunner.And("the message error report 0 should include the problematic line \'foobar\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -828,7 +828,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "ne number 42", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 214
- testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 215
  testRunner.And("the message error report 0 should include the problematic line \'foobar\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -881,7 +881,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "*2B\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 224
- testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 226
  testRunner.And("the message error report 0 should include the problematic line \'\\g:1-2-8055,s:99," +
@@ -934,7 +934,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "*2B\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 235
- testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaAisMessageStreamProcessor.OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 237
  testRunner.And("the message error report 0 should include the problematic line \'\\g:1-2-8055*55\\!A" +

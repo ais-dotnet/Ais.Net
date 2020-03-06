@@ -60,7 +60,7 @@ Scenario: Single line
 	When I parse the content by message
 	# ais.kystverket.no
     Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
-    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
+    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called
 
 Scenario: Single line without newline only
@@ -69,7 +69,7 @@ Scenario: Single line without newline only
 	When I parse the content by message
 	# ais.kystverket.no
     Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
-    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
+    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines
@@ -192,7 +192,7 @@ Scenario: Single unparseable line
 	When I parse the content by message
 	# ais.kystverket.no
     Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
-    Then INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+    Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line 'I am not an NMEA message'
 	And the message error report 0 should include an exception reporting that the expected exclamation mark is missing
 	And the message error report 0 should include the line number 1
@@ -205,8 +205,8 @@ Scenario: One unparseable line and one good line
 	When I parse the content by message
 	# ais.kystverket.no
     Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
-    And INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
-    And INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+    And INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
+    And INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line 'I am not an NMEA message'
 	And the message error report 0 should include an exception reporting that the expected exclamation mark is missing
 	And the message error report 0 should include the line number 2
@@ -218,7 +218,7 @@ Scenario: Single line with non-standard tag block field with exceptions enabled
 	When I parse the content by message
 	# ais.kystverket.no
     Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
-    And INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+    And INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line '\s:42,c:1567684904,q:u*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	And the message error report 0 should include an exception reporting that an unrecognized field is present
 	And the message error report 0 should include the line number 1
@@ -230,7 +230,7 @@ Scenario: Single line with non-standard tag block field with exceptions disabled
 	When I parse the content by message with exceptions disabled
 	# ais.kystverket.no
     Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
-    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
+    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called
 
 Scenario: Single line with standard but unsupported tag block field with exceptions enabled
@@ -239,7 +239,7 @@ Scenario: Single line with standard but unsupported tag block field with excepti
 	When I parse the content by message
 	# ais.kystverket.no
     Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
-    And INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+    And INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line '\s:42,c:1567684904,n:1*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
 	And the message error report 0 should include an exception reporting that an unsupported field is present
 	And the message error report 0 should include the line number 1
@@ -251,5 +251,5 @@ Scenario: Single line with standard but unsupported tag block field with excepti
 	When I parse the content by message with exceptions disabled
 	# ais.kystverket.no
     Then in ais message 0 the payload should be 'B3m:H900AP@b:79ae6:<OwnUoP06' with padding of 0
-    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
+    Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called

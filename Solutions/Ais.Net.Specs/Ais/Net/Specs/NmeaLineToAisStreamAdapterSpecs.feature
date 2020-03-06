@@ -60,7 +60,7 @@ Scenario: Three-fragment message fragments received adjacently
 	And the line to message adapter receives '\g:2-3-3451*5F\!AIVDM,3,2,9,A,<uH000167pF=2=nG0:0DRj0CQiC4jh00,0*4A'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:3-3-3451*5E\!AIVDM,3,3,9,A,0000000,0*2F'
-	Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 times
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	# ais.kystverket.no
     And in ais message 0 the payload should be '544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167pF=2=nG0:0DRj0CQiC4jh000000000' with padding of 0
     And in ais message 0 the source from the first NMEA line should be 27
@@ -194,7 +194,7 @@ Scenario: Progress reports
 
 Scenario: Line stream parser reports error in non-fragmented message
 	When the line to message adapter receives an error report for content 'foobar' with line number 42
-	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line 'foobar'
 	And the message error report 0 should include the exception reported by the line stream parser
 	And the message error report 0 should include the line number 42
@@ -203,7 +203,7 @@ Scenario: Line stream parser reports error in first fragment of two-part message
 	When the line to message adapter receives an error report for content 'foobar' with line number 42
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:3-3-3451*5E\!AIVDM,3,3,9,A,0000000,0*2F'
-	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line 'foobar'
 	And the message error report 0 should include the exception reported by the line stream parser
 	And the message error report 0 should include the line number 42
@@ -211,7 +211,7 @@ Scenario: Line stream parser reports error in first fragment of two-part message
 Scenario: Line stream parser reports error in second fragment of two-part message
 	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
 	And the line to message adapter receives an error report for content 'foobar' with line number 42
-	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line 'foobar'
 	And the message error report 0 should include the exception reported by the line stream parser
 	And the message error report 0 should include the line number 42
@@ -221,7 +221,7 @@ Scenario: Line stream parser passes a message with padding that is the first of 
 	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,1*72'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:2-2-8055*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
-	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	# ais.kystverket.no
 	And the message error report 0 should include the problematic line '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,1*72'
 	And the message error report 0 should include an exception reporting unexpected padding on a non-terminal message fragment
@@ -232,7 +232,7 @@ Scenario: Line stream parser passes the same sentence of a two-part message twic
 	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:1-2-8055*55\!AIVDM,2,1,6,B,j`888888880,0*2B'
-	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	# ais.kystverket.no
 	And the message error report 0 should include the problematic line '\g:1-2-8055*55\!AIVDM,2,1,6,B,j`888888880,0*2B'
 	And the message error report 0 should include an exception reporting that it has received two message fragments with the same group id and position

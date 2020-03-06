@@ -60,7 +60,7 @@ Scenario: Single line
 	When I parse the content by line
 	# ais.kystverket.no
     Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-    Then INmeaLineStreamProcessor.OnNext should have been called 1 times
+    Then INmeaLineStreamProcessor.OnNext should have been called 1 time
 	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Single line without newline only
@@ -69,7 +69,7 @@ Scenario: Single line without newline only
 	When I parse the content by line
 	# ais.kystverket.no
     Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-    Then INmeaLineStreamProcessor.OnNext should have been called 1 times
+    Then INmeaLineStreamProcessor.OnNext should have been called 1 time
 	And INmeaLineStreamProcessor.OnComplete should have been called
 
 Scenario: Multiple lines
@@ -192,7 +192,7 @@ Scenario: Single unparseable line
 	When I parse the content by line
 	# ais.kystverket.no
     Then INmeaLineStreamProcessor.OnNext should have been called 0 times
-    Then OnError should have been called 1 times
+    Then OnError should have been called 1 time
 	And the line error report 0 should include the problematic line 'I am not an NMEA message'
 	And the line error report 0 should include an exception reporting that the expected exclamation mark is missing
 	And the line error report 0 should include the line number 1
@@ -205,8 +205,8 @@ Scenario: One unparseable line and one good line
 	When I parse the content by line
 	# ais.kystverket.no
     Then line 0 should have a tag block of 's:42,c:1567684904*38' and a sentence of '!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78'
-    Then INmeaLineStreamProcessor.OnNext should have been called 1 times
-    Then OnError should have been called 1 times
+    Then INmeaLineStreamProcessor.OnNext should have been called 1 time
+    Then OnError should have been called 1 time
 	And the line error report 0 should include the problematic line 'I am not an NMEA message'
 	And the line error report 0 should include an exception reporting that the expected exclamation mark is missing
 	And the line error report 0 should include the line number 2
