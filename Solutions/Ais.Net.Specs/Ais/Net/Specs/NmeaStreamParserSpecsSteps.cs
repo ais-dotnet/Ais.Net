@@ -127,6 +127,16 @@ namespace Ais.Net.Specs
             Assert.AreEqual("Invalid data. Expected '!' at sentence start", e.Message);
         }
 
+        [Then(@"the message error report (.*) should include an exception reporting that the message appears to be truncated")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatTheMessageAppearsToBeTruncated(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            Assert.AreEqual("Invalid data. The message appears to have been truncated.", e.Message);
+        }
+
         [Then("the message error report (.*) should include an exception reporting that the expected exclamation mark is missing")]
         public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatTheExpectedExclamationMarkIsMissing(int errorCallNumber)
         {

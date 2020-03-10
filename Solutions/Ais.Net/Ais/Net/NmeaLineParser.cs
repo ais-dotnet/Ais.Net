@@ -66,6 +66,19 @@ namespace Ais.Net
 
             this.Sentence = line.Slice(sentenceStartIndex);
 
+            // Need at least the exclamation mark, talker, and origin (e.g. !AIVDM), then
+            // the two fragment fields are non-optional. The multi-sequence message ID is
+            // optional for non-fragmented messages, and apparently so is the channel.
+            // so prior to the payload, we've got at least this much:
+            // !AIVDM,1,1,,,
+            // Then there will need to be the final comma, the padding, the * and the checksum, e.g.
+            // ,0*3C
+            // So that's 18 characters before we get to any payload.
+            if (this.Sentence.Length < 18)
+            {
+                throw new ArgumentException("Invalid data. The message appears to have been truncated.");
+            }
+
             if (this.Sentence[0] != ExclamationMark)
             {
                 throw new ArgumentException("Invalid data. Expected '!' at sentence start");
