@@ -110,7 +110,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 19
-    testRunner.And("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -149,7 +149,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 24
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 25
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -191,7 +191,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 30
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 31
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -239,7 +239,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 38
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 39
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -287,7 +287,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 46
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 47
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -335,7 +335,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 54
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 55
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -377,11 +377,11 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 62
-    testRunner.Then("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.Then("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 63
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 64
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -424,11 +424,11 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 71
-    testRunner.Then("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.Then("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 72
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 73
  testRunner.And("INmeaLineStreamProcessor.OnComplete should have been called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -470,31 +470,31 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("a line \'\\s:3,c:1567692251*01\\!AIVDM,1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 81
-    testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 83
-    testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 84
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 85
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 87
-    testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 89
-    testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
+ testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
                         ",1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 91
-    testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
+ testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
                         "M,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 93
-    testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
+ testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
                         "DM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 94
@@ -537,32 +537,32 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("a line \'\\s:3,c:1567692251*01\\!AIVDM,1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 102
-    testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 104
-    testRunner.And("an unterminated line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3" +
+ testRunner.And("an unterminated line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3" +
                         "N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 105
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 106
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 108
-    testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 110
-    testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
+ testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
                         ",1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 112
-    testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
+ testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
                         "M,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 114
-    testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
+ testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
                         "DM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 115
@@ -599,13 +599,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 118
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 119
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 120
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 122
  testRunner.And("a line \'\\s:42,c:1567684904*38\\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -614,31 +614,31 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("a line \'\\s:3,c:1567692251*01\\!AIVDM,1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 126
-    testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 128
-    testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 129
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 130
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 132
-    testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 134
-    testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
+ testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
                         ",1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 136
-    testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
+ testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
                         "M,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 138
-    testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
+ testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
                         "DM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 139
@@ -681,40 +681,40 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("a line \'\\s:3,c:1567692251*01\\!AIVDM,1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 146
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 147
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 148
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 150
-    testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 152
-    testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 153
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 154
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 156
-    testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 158
-    testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
+ testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
                         ",1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 160
-    testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
+ testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
                         "M,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 162
-    testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
+ testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
                         "DM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 163
@@ -757,40 +757,40 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("a line \'\\s:3,c:1567692251*01\\!AIVDM,1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 171
-    testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:24,c:1567692878*35\\!AIVDM,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 173
-    testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a line \'\\s:772,c:1567693246*07\\!AIVDM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 174
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 175
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 176
-    testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a line \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 177
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 178
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 4 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 180
-    testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.And("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 182
-    testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
+ testRunner.And("line 1 should have a tag block of \'s:3,c:1567692251*01\' and a sentence of \'!AIVDM" +
                         ",1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 184
-    testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
+ testRunner.And("line 2 should have a tag block of \'s:24,c:1567692878*35\' and a sentence of \'!AIVD" +
                         "M,1,1,,B,13o`9@701j1Ej3vc;o3q@7SJ0D02,0*21\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 186
-    testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
+ testRunner.And("line 3 should have a tag block of \'s:772,c:1567693246*07\' and a sentence of \'!AIV" +
                         "DM,1,1,,,13o7g2001P0Lv<rSdVHf2h3N0000,0*25\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 187
@@ -833,10 +833,10 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 194
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 0 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 195
-    testRunner.Then("OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 196
  testRunner.And("the line error report 0 should include the problematic line \'I am not an NMEA mes" +
@@ -892,14 +892,14 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I parse the content by line", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 207
-    testRunner.Then("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
+ testRunner.Then("line 0 should have a tag block of \'s:42,c:1567684904*38\' and a sentence of \'!AIVD" +
                         "M,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0*78\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 208
-    testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("INmeaLineStreamProcessor.OnNext should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 209
-    testRunner.Then("OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("OnError should have been called 1 time", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 210
  testRunner.And("the line error report 0 should include the problematic line \'I am not an NMEA mes" +

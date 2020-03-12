@@ -187,14 +187,72 @@ Scenario: Multiple lines with blanks at end
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called
 
 Scenario: Single unparseable line
-	# ais.kystverket.no
 	Given a line 'I am not an NMEA message'
 	When I parse the content by message
-	# ais.kystverket.no
 	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
 	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
 	And the message error report 0 should include the problematic line 'I am not an NMEA message'
 	And the message error report 0 should include an exception reporting that the expected exclamation mark is missing
+	And the message error report 0 should include the line number 1
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single truncated line
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904,q:u*38\!AIVDM,1,1,,A,B'
+	When I parse the content by message
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\s:42,c:1567684904,q:u*38\!AIVDM,1,1,,A,B'
+	And the message error report 0 should include an exception reporting that the message appears to be incomplete
+	And the message error report 0 should include the line number 1
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single line where padding is missing
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06*78'
+	When I parse the content by message
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06*78'
+	And the message error report 0 should include an exception reporting that the padding is missing
+	And the message error report 0 should include the line number 1
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single line where padding comma present but value missing
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,*78'
+	When I parse the content by message
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,*78'
+	And the message error report 0 should include an exception reporting that the padding is missing
+	And the message error report 0 should include the line number 1
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single line where line truncated at padding comma
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,'
+	When I parse the content by message
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,'
+	And the message error report 0 should include an exception reporting that the padding is missing
+	And the message error report 0 should include the line number 1
+	And INmeaAisMessageStreamProcessor.OnComplete should have been called
+
+Scenario: Single line where checksum is missing
+	# ais.kystverket.no
+	Given a line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0'
+	When I parse the content by message
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\s:42,c:1567684904*38\!AIVDM,1,1,,A,B3m:H900AP@b:79ae6:<OwnUoP06,0'
+	And the message error report 0 should include an exception reporting that the checksum is missing
 	And the message error report 0 should include the line number 1
 	And INmeaAisMessageStreamProcessor.OnComplete should have been called
 
