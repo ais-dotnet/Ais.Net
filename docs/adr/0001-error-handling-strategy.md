@@ -22,6 +22,8 @@ void OnError(in ReadOnlySpan<byte> line, Exception error, int lineNumber);
 
 When the `NmeaLineParser` constructed by the `NmeaStreamParser` reports an error in the manner described above, the exception it throws will be passed to this `OnError` method, along with a span providing access to the problematic line's full content, and the line number within the stream at which the error was detected.
 
+There are also errors that can occur with fragmented messages. While each individual fragment might be well-formed, they might be wrong in combination. For example, it is not permitted for a fragmented message to have padding at the end of the first fragment. In these cases, which will be detected when working at the message level, we report errors through the same mechanism.
+
 
 ## Consequences
 
