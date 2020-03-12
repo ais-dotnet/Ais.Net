@@ -8,6 +8,7 @@ namespace Ais.Net
     using System.Buffers;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
 
     /// <summary>
     /// Processes NMEA message lines, and passes their payloads as complete AIS messages to an
@@ -150,14 +151,39 @@ namespace Ais.Net
                 this.messagesProcessed += 1;
             }
 
-            //if (this.messageFragments.Count > 0)
-            //{
-            //    Span<int> fragmentGroupIdsToRemove = stackalloc int[this.messageFragments.Count];
-            //    for (int i = 0; i < this.messageFragments.Count; ++i)
-            //    {
-            //        this.messageFragments.Values[this.messageFragments.Keys[]]
-            //    }
-            //}
+            if (this.messageFragments.Count > 0)
+            {
+                Span<int> fragmentGroupIdsToRemove = stackalloc int[this.messageFragments.Count];
+                int fragmentToRemoveCount = 0;
+                foreach (KeyValuePair<int, FragmentedMessage> kv in this.messageFragments)
+                {
+                    int sentencesSinceFirstFragment = lineNumber - kv.Value.LineNumber;
+                    if (sentencesSinceFirstFragment > this.options.MaximumUnmatchedFragmentAge)
+                    {
+                        fragmentGroupIdsToRemove[fragmentToRemoveCount++] = kv.Key;
+                    }
+                }
+
+                for (int i = 0; i < fragmentToRemoveCount; ++i)
+                {
+                    int groupId = fragmentGroupIdsToRemove[i];
+                    FragmentedMessage fragmentedMessage = this.messageFragments[groupId];
+                    IMemoryOwner<byte> lastMemoryOwner = fragmentedMessage.MemoryOwners.Last(mo => mo != null);
+
+                    ReadOnlySpan<byte> line = lastMemoryOwner.Memory.Span;
+                    int endOfMessages = line.IndexOf((byte)0);
+                    if (endOfMessages >= 0)
+                    {
+                        line = line.Slice(0, endOfMessages);
+                    }
+
+                    this.messageProcessor.OnError(
+                        line,
+                        new ArgumentException("Received incomplete fragmented message."),
+                        fragmentedMessage.LineNumber);
+                    this.messageFragments.Remove(groupId);
+                }
+            }
         }
 
         /// <inheritdoc/>

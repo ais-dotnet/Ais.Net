@@ -88,6 +88,8 @@ Scenario: Interleaved multi-fragment messages
     And in ais message 1 the timestamp from the first NMEA line should be 1567686150
 
 Scenario: Interleaved single and multi-fragment messages
+	# This test interleaves more extensively than we ever see in reality, so we have to extend our reassembly window
+	Given I have configured a MaximumUnmatchedFragmentAge of 10
 	# ais.kystverket.no
 	When the line to message adapter receives '\s:42,c:1567684904*38\!AIVDM,1,1,,B,33m9UtPP@50wwE:VJW6LS67H01<@,0*3C'
 	# ais.kystverket.no
@@ -157,6 +159,8 @@ Scenario: Interleaved single and multi-fragment messages
     And in ais message 9 the timestamp from the first NMEA line should be 1567693618
 
 Scenario: Progress reports
+	# This test interleaves more extensively than we ever see in reality, so we have to extend our reassembly window
+	Given I have configured a MaximumUnmatchedFragmentAge of 10
 	# ais.kystverket.no
 	When the line to message adapter receives '\s:42,c:1567684904*38\!AIVDM,1,1,,B,33m9UtPP@50wwE:VJW6LS67H01<@,0*3C'
 	# ais.kystverket.no
@@ -261,7 +265,7 @@ Scenario: Two-fragment message fragments received too many sentences in the midd
 	# ais.kystverket.no
 	And the message error report 0 should include the problematic line '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
 	And the message error report 0 should include an exception reporting that it received an incomplete set of fragments for a message
-	And the message error report 0 should include the line number 0
+	And the message error report 0 should include the line number 1
 
 
 

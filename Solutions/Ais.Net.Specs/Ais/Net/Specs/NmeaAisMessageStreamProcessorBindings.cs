@@ -105,8 +105,7 @@ namespace Ais.Net.Specs
             Assert.IsInstanceOf<ArgumentException>(call.Error);
 
             var e = (ArgumentException)call.Error;
-            const string expectedStart = "Received incomplete fragmented message ";
-            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
+            Assert.AreEqual("Received incomplete fragmented message.", e.Message);
         }
 
         [Then("the message error report (.*) should include the line number (.*)")]
