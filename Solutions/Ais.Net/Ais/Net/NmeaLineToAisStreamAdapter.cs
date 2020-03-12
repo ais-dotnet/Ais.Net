@@ -181,7 +181,7 @@ namespace Ais.Net
                         line,
                         new ArgumentException("Received incomplete fragmented message."),
                         fragmentedMessage.LineNumber);
-                    this.messageFragments.Remove(groupId);
+                    this.FreeMessageFragments(groupId);
                 }
             }
         }
