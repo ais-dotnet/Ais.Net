@@ -238,6 +238,31 @@ Scenario: Line stream parser passes the same sentence of a two-part message twic
 	And the message error report 0 should include an exception reporting that it has received two message fragments with the same group id and position
 	And the message error report 0 should include the line number 2
 
+Scenario: Two-fragment message fragments received too many sentences in the middle
+	Given I have configured a MaximumUnmatchedFragmentAge of 1
+	# ais.kystverket.no
+	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:42,c:1567684904*38\!AIVDM,1,1,,B,33m9UtPP@50wwE:VJW6LS67H01<@,0*3C'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:3,c:1567692251*01\!AIVDM,1,1,,A,13m9WS001d0K==pR=D?HB6WD0pJV,0*54,0*63'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:2-2-8055*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 2 times
+	Then INmeaAisMessageStreamProcessor.OnError should have been called 1 time
+	# ais.kystverket.no
+    And in ais message 0 the payload should be '33m9UtPP@50wwE:VJW6LS67H01<@' with padding of 0
+    And in ais message 0 the source from the first NMEA line should be 42
+    And in ais message 0 the timestamp from the first NMEA line should be 1567684904
+	# ais.kystverket.no
+    And in ais message 1 the payload should be '13m9WS001d0K==pR=D?HB6WD0pJV' with padding of 0
+    And in ais message 1 the source from the first NMEA line should be 3
+    And in ais message 1 the timestamp from the first NMEA line should be 1567692251
+	# ais.kystverket.no
+	And the message error report 0 should include the problematic line '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	And the message error report 0 should include an exception reporting that it received an incomplete set of fragments for a message
+	And the message error report 0 should include the line number 0
+
 
 
 # TODO:

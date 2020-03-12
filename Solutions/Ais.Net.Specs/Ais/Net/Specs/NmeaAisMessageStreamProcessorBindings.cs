@@ -98,6 +98,17 @@ namespace Ais.Net.Specs
             Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
         }
 
+        [Then("the message error report (.*) should include an exception reporting that it received an incomplete set of fragments for a message")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatItReceivedAnIncompleteSetOfFragmentsForAMessage(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            const string expectedStart = "Received incomplete fragmented message ";
+            Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
+        }
+
         [Then("the message error report (.*) should include the line number (.*)")]
         public void ThenTheMessageErrorReportShouldIncludeTheLineNumber(int errorCallNumber, int lineNumber)
         {
