@@ -127,14 +127,34 @@ namespace Ais.Net.Specs
             Assert.AreEqual("Invalid data. Expected '!' at sentence start", e.Message);
         }
 
-        [Then(@"the message error report (.*) should include an exception reporting that the message appears to be truncated")]
+        [Then("the message error report (.*) should include an exception reporting that the message appears to be incomplete")]
         public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatTheMessageAppearsToBeTruncated(int errorCallNumber)
         {
             NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
             Assert.IsInstanceOf<ArgumentException>(call.Error);
 
             var e = (ArgumentException)call.Error;
-            Assert.AreEqual("Invalid data. The message appears to have been truncated.", e.Message);
+            Assert.AreEqual("Invalid data. The message appears to be missing some characters - it may have been corrupted or truncated.", e.Message);
+        }
+
+        [Then("the message error report (.*) should include an exception reporting that the padding is missing")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatThePaddingIsMissing(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            Assert.AreEqual("Invalid data. Payload padding field not present - the message may have been corrupted or truncated", e.Message);
+        }
+
+        [Then("the message error report (.*) should include an exception reporting that the checksum is missing")]
+        public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatTheChecksumIsMissing(int errorCallNumber)
+        {
+            NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
+            Assert.IsInstanceOf<ArgumentException>(call.Error);
+
+            var e = (ArgumentException)call.Error;
+            Assert.AreEqual("Invalid data. Payload checksum not present - the message may have been corrupted or truncated", e.Message);
         }
 
         [Then("the message error report (.*) should include an exception reporting that the expected exclamation mark is missing")]
@@ -158,7 +178,7 @@ namespace Ais.Net.Specs
             Assert.AreEqual(expectedStart, e.Message.Substring(0, expectedStart.Length));
         }
 
-        [Then(@"the message error report (.*) should include an exception reporting that an unsupported field is present")]
+        [Then("the message error report (.*) should include an exception reporting that an unsupported field is present")]
         public void ThenTheMessageErrorReportShouldIncludeAnExceptionReportingThatAnUnsupportedFieldIsPresent(int errorCallNumber)
         {
             NmeaAisMessageStreamProcessorBindings.ErrorReport call = this.messageProcessor.OnErrorCalls[errorCallNumber];
