@@ -8,6 +8,7 @@ namespace Ais.Net
     using System.Buffers;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
 
     /// <summary>
     /// Processes NMEA message lines, and passes their payloads as complete AIS messages to an
@@ -18,7 +19,7 @@ namespace Ais.Net
     {
         private readonly INmeaAisMessageStreamProcessor messageProcessor;
         private readonly NmeaParserOptions options;
-        private readonly Dictionary<int, IMemoryOwner<byte>[]> messageFragments = new Dictionary<int, IMemoryOwner<byte>[]>();
+        private readonly Dictionary<int, FragmentedMessage> messageFragments = new Dictionary<int, FragmentedMessage>();
         private int messagesProcessed = 0;
         private int messagesProcessedAtLastUpdate = 0;
 
@@ -81,13 +82,16 @@ namespace Ais.Net
 
                 int groupId = sentenceGrouping.GroupId;
 
-                if (!this.messageFragments.TryGetValue(groupId, out IMemoryOwner<byte>[] fragments))
+                if (!this.messageFragments.TryGetValue(groupId, out FragmentedMessage fragments))
                 {
-                    fragments = new IMemoryOwner<byte>[sentenceGrouping.SentencesInGroup];
+                    fragments = new FragmentedMessage(
+                        new IMemoryOwner<byte>[sentenceGrouping.SentencesInGroup],
+                        lineNumber);
                     this.messageFragments.Add(groupId, fragments);
                 }
 
-                if (fragments[sentenceGrouping.SentenceNumber - 1] != null)
+                IMemoryOwner<byte>[] fragmentMemoryOwners = fragments.MemoryOwners;
+                if (fragmentMemoryOwners[sentenceGrouping.SentenceNumber - 1] != null)
                 {
                     this.messageProcessor.OnError(
                         parsedLine.Line,
@@ -96,21 +100,21 @@ namespace Ais.Net
                 }
 
                 IMemoryOwner<byte> buffer = MemoryPool<byte>.Shared.Rent(parsedLine.Line.Length);
-                fragments[sentenceGrouping.SentenceNumber - 1] = buffer;
+                fragmentMemoryOwners[sentenceGrouping.SentenceNumber - 1] = buffer;
                 parsedLine.Line.CopyTo(buffer.Memory.Span);
 
                 bool allFragmentsReceived = true;
                 int totalPayloadSize = 0;
 
-                for (int i = 0; i < fragments.Length; ++i)
+                for (int i = 0; i < fragmentMemoryOwners.Length; ++i)
                 {
-                    if (fragments[i] == null)
+                    if (fragmentMemoryOwners[i] == null)
                     {
                         allFragmentsReceived = false;
                         break;
                     }
 
-                    var storedParsedLine = new NmeaLineParser(fragments[i].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields);
+                    var storedParsedLine = new NmeaLineParser(fragmentMemoryOwners[i].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields);
                     totalPayloadSize += storedParsedLine.Payload.Length;
                 }
 
@@ -122,9 +126,9 @@ namespace Ais.Net
                         Span<byte> reassemblyBuffer = reassembly.Memory.Span;
                         uint finalPadding = 0;
 
-                        for (int i = 0; i < fragments.Length; ++i)
+                        for (int i = 0; i < fragmentMemoryOwners.Length; ++i)
                         {
-                            var storedParsedLine = new NmeaLineParser(fragments[i].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields);
+                            var storedParsedLine = new NmeaLineParser(fragmentMemoryOwners[i].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields);
                             ReadOnlySpan<byte> payload = storedParsedLine.Payload;
                             payload.CopyTo(reassemblyBuffer.Slice(reassemblyIndex, payload.Length));
                             reassemblyIndex += payload.Length;
@@ -132,7 +136,7 @@ namespace Ais.Net
                         }
 
                         this.messageProcessor.OnNext(
-                            new NmeaLineParser(fragments[0].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields),
+                            new NmeaLineParser(fragmentMemoryOwners[0].Memory.Span, this.options.ThrowWhenTagBlockContainsUnknownFields),
                             reassemblyBuffer.Slice(0, totalPayloadSize),
                             finalPadding);
                         this.messagesProcessed += 1;
@@ -145,6 +149,40 @@ namespace Ais.Net
             {
                 this.messageProcessor.OnNext(parsedLine, parsedLine.Payload, parsedLine.Padding);
                 this.messagesProcessed += 1;
+            }
+
+            if (this.messageFragments.Count > 0)
+            {
+                Span<int> fragmentGroupIdsToRemove = stackalloc int[this.messageFragments.Count];
+                int fragmentToRemoveCount = 0;
+                foreach (KeyValuePair<int, FragmentedMessage> kv in this.messageFragments)
+                {
+                    int sentencesSinceFirstFragment = lineNumber - kv.Value.LineNumber;
+                    if (sentencesSinceFirstFragment > this.options.MaximumUnmatchedFragmentAge)
+                    {
+                        fragmentGroupIdsToRemove[fragmentToRemoveCount++] = kv.Key;
+                    }
+                }
+
+                for (int i = 0; i < fragmentToRemoveCount; ++i)
+                {
+                    int groupId = fragmentGroupIdsToRemove[i];
+                    FragmentedMessage fragmentedMessage = this.messageFragments[groupId];
+                    IMemoryOwner<byte> lastMemoryOwner = fragmentedMessage.MemoryOwners.Last(mo => mo != null);
+
+                    ReadOnlySpan<byte> line = lastMemoryOwner.Memory.Span;
+                    int endOfMessages = line.IndexOf((byte)0);
+                    if (endOfMessages >= 0)
+                    {
+                        line = line.Slice(0, endOfMessages);
+                    }
+
+                    this.messageProcessor.OnError(
+                        line,
+                        new ArgumentException("Received incomplete fragmented message."),
+                        fragmentedMessage.LineNumber);
+                    this.FreeMessageFragments(groupId);
+                }
             }
         }
 
@@ -185,13 +223,26 @@ namespace Ais.Net
 
         private void FreeMessageFragments(int groupId)
         {
-            IMemoryOwner<byte>[] fragments = this.messageFragments[groupId];
+            IMemoryOwner<byte>[] fragments = this.messageFragments[groupId].MemoryOwners;
             for (int i = 0; i < fragments.Length; ++i)
             {
                 fragments[i]?.Dispose();
             }
 
             this.messageFragments.Remove(groupId);
+        }
+
+        private struct FragmentedMessage
+        {
+            public FragmentedMessage(IMemoryOwner<byte>[] memoryOwners, int lineNumber)
+            {
+                this.MemoryOwners = memoryOwners;
+                this.LineNumber = lineNumber;
+            }
+
+            public IMemoryOwner<byte>[] MemoryOwners { get; }
+
+            public int LineNumber { get; }
         }
     }
 }
