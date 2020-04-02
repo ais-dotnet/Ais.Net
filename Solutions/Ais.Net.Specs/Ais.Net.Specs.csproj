@@ -19,7 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.1.78" />
+    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.1.95" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.78" />
   </ItemGroup>
 
