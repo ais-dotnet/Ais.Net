@@ -9,6 +9,7 @@ namespace Ais.Net.Benchmarks
     using BenchmarkDotNet.Diagnosers;
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
+    using BenchmarkDotNet.Toolchains.InProcess.Emit;
 
     /// <summary>
     /// Program entry point type.
@@ -40,19 +41,35 @@ namespace Ais.Net.Benchmarks
         /// </remarks>
         private static void Main(string[] args)
         {
-            IConfig config = DefaultConfig.Instance.With(MemoryDiagnoser.Default);
-            if (args.Length > 0)
+            Job job = Job.Default;
+            IConfig config = DefaultConfig.Instance
+                .With(MemoryDiagnoser.Default);
+
+            if (args.Length == 1 && args[0] == "inprocess")
             {
-                string artifactsPath = args[0];
-                Directory.CreateDirectory(artifactsPath);
-                config = config.WithArtifactsPath(artifactsPath);
+                job = job
+                        .WithMinWarmupCount(2)
+                        .WithMaxWarmupCount(4)
+                        .With(InProcessEmitToolchain.Instance);
+                config = config.With(ConfigOptions.DisableOptimizationsValidator);
+            }
+            else
+            {
+                if (args.Length > 0)
+                {
+                    string artifactsPath = args[0];
+                    Directory.CreateDirectory(artifactsPath);
+                    config = config.WithArtifactsPath(artifactsPath);
+                }
+
+                if (args.Length > 1)
+                {
+                    string version = args[1];
+                    job = job.With(new Argument[] { new MsBuildArgument($"/p:Version={version}") });
+                }
             }
 
-            if (args.Length > 1)
-            {
-                string version = args[1];
-                config = config.With(Job.Default.With(new Argument[] { new MsBuildArgument($"/p:Version={version}") }));
-            }
+            config = config.With(job);
 
             BenchmarkRunner.Run<AisNetBenchmarks>(config);
         }
