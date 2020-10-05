@@ -27,6 +27,9 @@ jobs:
   auto_merge:
     name: Auto-squash the PR
     runs-on: ubuntu-18.04
+    # Don't run for PRs from forked repos
+    if:
+      github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Generate token
         id: generate_token
