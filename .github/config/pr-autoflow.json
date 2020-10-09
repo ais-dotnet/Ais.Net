@@ -1,0 +1,4 @@
+{
+  "AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS": "[\"Endjin.*\",\"Corvus.*\"]",
+  "AUTO_RELEASE_PACKAGE_WILDCARD_EXPRESSIONS": "[\"Corvus.*\"]"
+}
