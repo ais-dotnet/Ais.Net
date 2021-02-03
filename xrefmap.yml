@@ -141,6 +141,22 @@ references:
   isSpec: "True"
   fullName: Ais.Net.INmeaAisMessageStreamProcessor.OnCompleted
   nameWithType: INmeaAisMessageStreamProcessor.OnCompleted
+- uid: Ais.Net.INmeaAisMessageStreamProcessor.OnError(System.ReadOnlySpan{System.Byte}@,System.Exception,System.Int32)
+  name: OnError(ReadOnlySpan<Byte>, Exception, Int32)
+  href: api/Ais.Net.INmeaAisMessageStreamProcessor.html#Ais_Net_INmeaAisMessageStreamProcessor_OnError_System_ReadOnlySpan_System_Byte___System_Exception_System_Int32_
+  commentId: M:Ais.Net.INmeaAisMessageStreamProcessor.OnError(System.ReadOnlySpan{System.Byte}@,System.Exception,System.Int32)
+  name.vb: OnError(ByRef ReadOnlySpan(Of Byte), Exception, Int32)
+  fullName: Ais.Net.INmeaAisMessageStreamProcessor.OnError(System.ReadOnlySpan<System.Byte>, System.Exception, System.Int32)
+  fullName.vb: Ais.Net.INmeaAisMessageStreamProcessor.OnError(ByRef System.ReadOnlySpan(Of System.Byte), System.Exception, System.Int32)
+  nameWithType: INmeaAisMessageStreamProcessor.OnError(ReadOnlySpan<Byte>, Exception, Int32)
+  nameWithType.vb: INmeaAisMessageStreamProcessor.OnError(ByRef ReadOnlySpan(Of Byte), Exception, Int32)
+- uid: Ais.Net.INmeaAisMessageStreamProcessor.OnError*
+  name: OnError
+  href: api/Ais.Net.INmeaAisMessageStreamProcessor.html#Ais_Net_INmeaAisMessageStreamProcessor_OnError_
+  commentId: Overload:Ais.Net.INmeaAisMessageStreamProcessor.OnError
+  isSpec: "True"
+  fullName: Ais.Net.INmeaAisMessageStreamProcessor.OnError
+  nameWithType: INmeaAisMessageStreamProcessor.OnError
 - uid: Ais.Net.INmeaAisMessageStreamProcessor.OnNext(Ais.Net.NmeaLineParser@,System.ReadOnlySpan{System.Byte}@,System.UInt32)
   name: OnNext(NmeaLineParser, ReadOnlySpan<Byte>, UInt32)
   href: api/Ais.Net.INmeaAisMessageStreamProcessor.html#Ais_Net_INmeaAisMessageStreamProcessor_OnNext_Ais_Net_NmeaLineParser__System_ReadOnlySpan_System_Byte___System_UInt32_
@@ -189,15 +205,31 @@ references:
   isSpec: "True"
   fullName: Ais.Net.INmeaLineStreamProcessor.OnCompleted
   nameWithType: INmeaLineStreamProcessor.OnCompleted
-- uid: Ais.Net.INmeaLineStreamProcessor.OnNext(Ais.Net.NmeaLineParser@)
-  name: OnNext(NmeaLineParser)
-  href: api/Ais.Net.INmeaLineStreamProcessor.html#Ais_Net_INmeaLineStreamProcessor_OnNext_Ais_Net_NmeaLineParser__
-  commentId: M:Ais.Net.INmeaLineStreamProcessor.OnNext(Ais.Net.NmeaLineParser@)
-  name.vb: OnNext(ByRef NmeaLineParser)
-  fullName: Ais.Net.INmeaLineStreamProcessor.OnNext(Ais.Net.NmeaLineParser)
-  fullName.vb: Ais.Net.INmeaLineStreamProcessor.OnNext(ByRef Ais.Net.NmeaLineParser)
-  nameWithType: INmeaLineStreamProcessor.OnNext(NmeaLineParser)
-  nameWithType.vb: INmeaLineStreamProcessor.OnNext(ByRef NmeaLineParser)
+- uid: Ais.Net.INmeaLineStreamProcessor.OnError(System.ReadOnlySpan{System.Byte}@,System.Exception,System.Int32)
+  name: OnError(ReadOnlySpan<Byte>, Exception, Int32)
+  href: api/Ais.Net.INmeaLineStreamProcessor.html#Ais_Net_INmeaLineStreamProcessor_OnError_System_ReadOnlySpan_System_Byte___System_Exception_System_Int32_
+  commentId: M:Ais.Net.INmeaLineStreamProcessor.OnError(System.ReadOnlySpan{System.Byte}@,System.Exception,System.Int32)
+  name.vb: OnError(ByRef ReadOnlySpan(Of Byte), Exception, Int32)
+  fullName: Ais.Net.INmeaLineStreamProcessor.OnError(System.ReadOnlySpan<System.Byte>, System.Exception, System.Int32)
+  fullName.vb: Ais.Net.INmeaLineStreamProcessor.OnError(ByRef System.ReadOnlySpan(Of System.Byte), System.Exception, System.Int32)
+  nameWithType: INmeaLineStreamProcessor.OnError(ReadOnlySpan<Byte>, Exception, Int32)
+  nameWithType.vb: INmeaLineStreamProcessor.OnError(ByRef ReadOnlySpan(Of Byte), Exception, Int32)
+- uid: Ais.Net.INmeaLineStreamProcessor.OnError*
+  name: OnError
+  href: api/Ais.Net.INmeaLineStreamProcessor.html#Ais_Net_INmeaLineStreamProcessor_OnError_
+  commentId: Overload:Ais.Net.INmeaLineStreamProcessor.OnError
+  isSpec: "True"
+  fullName: Ais.Net.INmeaLineStreamProcessor.OnError
+  nameWithType: INmeaLineStreamProcessor.OnError
+- uid: Ais.Net.INmeaLineStreamProcessor.OnNext(Ais.Net.NmeaLineParser@,System.Int32)
+  name: OnNext(NmeaLineParser, Int32)
+  href: api/Ais.Net.INmeaLineStreamProcessor.html#Ais_Net_INmeaLineStreamProcessor_OnNext_Ais_Net_NmeaLineParser__System_Int32_
+  commentId: M:Ais.Net.INmeaLineStreamProcessor.OnNext(Ais.Net.NmeaLineParser@,System.Int32)
+  name.vb: OnNext(ByRef NmeaLineParser, Int32)
+  fullName: Ais.Net.INmeaLineStreamProcessor.OnNext(Ais.Net.NmeaLineParser, System.Int32)
+  fullName.vb: Ais.Net.INmeaLineStreamProcessor.OnNext(ByRef Ais.Net.NmeaLineParser, System.Int32)
+  nameWithType: INmeaLineStreamProcessor.OnNext(NmeaLineParser, Int32)
+  nameWithType.vb: INmeaLineStreamProcessor.OnNext(ByRef NmeaLineParser, Int32)
 - uid: Ais.Net.INmeaLineStreamProcessor.OnNext*
   name: OnNext
   href: api/Ais.Net.INmeaLineStreamProcessor.html#Ais_Net_INmeaLineStreamProcessor_OnNext_
@@ -2184,6 +2216,15 @@ references:
   fullName.vb: Ais.Net.NmeaLineParser.NmeaLineParser(System.ReadOnlySpan(Of System.Byte))
   nameWithType: NmeaLineParser.NmeaLineParser(ReadOnlySpan<Byte>)
   nameWithType.vb: NmeaLineParser.NmeaLineParser(ReadOnlySpan(Of Byte))
+- uid: Ais.Net.NmeaLineParser.#ctor(System.ReadOnlySpan{System.Byte},System.Boolean)
+  name: NmeaLineParser(ReadOnlySpan<Byte>, Boolean)
+  href: api/Ais.Net.NmeaLineParser.html#Ais_Net_NmeaLineParser__ctor_System_ReadOnlySpan_System_Byte__System_Boolean_
+  commentId: M:Ais.Net.NmeaLineParser.#ctor(System.ReadOnlySpan{System.Byte},System.Boolean)
+  name.vb: NmeaLineParser(ReadOnlySpan(Of Byte), Boolean)
+  fullName: Ais.Net.NmeaLineParser.NmeaLineParser(System.ReadOnlySpan<System.Byte>, System.Boolean)
+  fullName.vb: Ais.Net.NmeaLineParser.NmeaLineParser(System.ReadOnlySpan(Of System.Byte), System.Boolean)
+  nameWithType: NmeaLineParser.NmeaLineParser(ReadOnlySpan<Byte>, Boolean)
+  nameWithType.vb: NmeaLineParser.NmeaLineParser(ReadOnlySpan(Of Byte), Boolean)
 - uid: Ais.Net.NmeaLineParser.#ctor*
   name: NmeaLineParser
   href: api/Ais.Net.NmeaLineParser.html#Ais_Net_NmeaLineParser__ctor_
@@ -2203,6 +2244,12 @@ references:
   commentId: M:Ais.Net.NmeaLineToAisStreamAdapter.#ctor(Ais.Net.INmeaAisMessageStreamProcessor)
   fullName: Ais.Net.NmeaLineToAisStreamAdapter.NmeaLineToAisStreamAdapter(Ais.Net.INmeaAisMessageStreamProcessor)
   nameWithType: NmeaLineToAisStreamAdapter.NmeaLineToAisStreamAdapter(INmeaAisMessageStreamProcessor)
+- uid: Ais.Net.NmeaLineToAisStreamAdapter.#ctor(Ais.Net.INmeaAisMessageStreamProcessor,Ais.Net.NmeaParserOptions)
+  name: NmeaLineToAisStreamAdapter(INmeaAisMessageStreamProcessor, NmeaParserOptions)
+  href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter__ctor_Ais_Net_INmeaAisMessageStreamProcessor_Ais_Net_NmeaParserOptions_
+  commentId: M:Ais.Net.NmeaLineToAisStreamAdapter.#ctor(Ais.Net.INmeaAisMessageStreamProcessor,Ais.Net.NmeaParserOptions)
+  fullName: Ais.Net.NmeaLineToAisStreamAdapter.NmeaLineToAisStreamAdapter(Ais.Net.INmeaAisMessageStreamProcessor, Ais.Net.NmeaParserOptions)
+  nameWithType: NmeaLineToAisStreamAdapter.NmeaLineToAisStreamAdapter(INmeaAisMessageStreamProcessor, NmeaParserOptions)
 - uid: Ais.Net.NmeaLineToAisStreamAdapter.#ctor*
   name: NmeaLineToAisStreamAdapter
   href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter__ctor_
@@ -2236,15 +2283,31 @@ references:
   isSpec: "True"
   fullName: Ais.Net.NmeaLineToAisStreamAdapter.OnCompleted
   nameWithType: NmeaLineToAisStreamAdapter.OnCompleted
-- uid: Ais.Net.NmeaLineToAisStreamAdapter.OnNext(Ais.Net.NmeaLineParser@)
-  name: OnNext(NmeaLineParser)
-  href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter_OnNext_Ais_Net_NmeaLineParser__
-  commentId: M:Ais.Net.NmeaLineToAisStreamAdapter.OnNext(Ais.Net.NmeaLineParser@)
-  name.vb: OnNext(ByRef NmeaLineParser)
-  fullName: Ais.Net.NmeaLineToAisStreamAdapter.OnNext(Ais.Net.NmeaLineParser)
-  fullName.vb: Ais.Net.NmeaLineToAisStreamAdapter.OnNext(ByRef Ais.Net.NmeaLineParser)
-  nameWithType: NmeaLineToAisStreamAdapter.OnNext(NmeaLineParser)
-  nameWithType.vb: NmeaLineToAisStreamAdapter.OnNext(ByRef NmeaLineParser)
+- uid: Ais.Net.NmeaLineToAisStreamAdapter.OnError(System.ReadOnlySpan{System.Byte}@,System.Exception,System.Int32)
+  name: OnError(ReadOnlySpan<Byte>, Exception, Int32)
+  href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter_OnError_System_ReadOnlySpan_System_Byte___System_Exception_System_Int32_
+  commentId: M:Ais.Net.NmeaLineToAisStreamAdapter.OnError(System.ReadOnlySpan{System.Byte}@,System.Exception,System.Int32)
+  name.vb: OnError(ByRef ReadOnlySpan(Of Byte), Exception, Int32)
+  fullName: Ais.Net.NmeaLineToAisStreamAdapter.OnError(System.ReadOnlySpan<System.Byte>, System.Exception, System.Int32)
+  fullName.vb: Ais.Net.NmeaLineToAisStreamAdapter.OnError(ByRef System.ReadOnlySpan(Of System.Byte), System.Exception, System.Int32)
+  nameWithType: NmeaLineToAisStreamAdapter.OnError(ReadOnlySpan<Byte>, Exception, Int32)
+  nameWithType.vb: NmeaLineToAisStreamAdapter.OnError(ByRef ReadOnlySpan(Of Byte), Exception, Int32)
+- uid: Ais.Net.NmeaLineToAisStreamAdapter.OnError*
+  name: OnError
+  href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter_OnError_
+  commentId: Overload:Ais.Net.NmeaLineToAisStreamAdapter.OnError
+  isSpec: "True"
+  fullName: Ais.Net.NmeaLineToAisStreamAdapter.OnError
+  nameWithType: NmeaLineToAisStreamAdapter.OnError
+- uid: Ais.Net.NmeaLineToAisStreamAdapter.OnNext(Ais.Net.NmeaLineParser@,System.Int32)
+  name: OnNext(NmeaLineParser, Int32)
+  href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter_OnNext_Ais_Net_NmeaLineParser__System_Int32_
+  commentId: M:Ais.Net.NmeaLineToAisStreamAdapter.OnNext(Ais.Net.NmeaLineParser@,System.Int32)
+  name.vb: OnNext(ByRef NmeaLineParser, Int32)
+  fullName: Ais.Net.NmeaLineToAisStreamAdapter.OnNext(Ais.Net.NmeaLineParser, System.Int32)
+  fullName.vb: Ais.Net.NmeaLineToAisStreamAdapter.OnNext(ByRef Ais.Net.NmeaLineParser, System.Int32)
+  nameWithType: NmeaLineToAisStreamAdapter.OnNext(NmeaLineParser, Int32)
+  nameWithType.vb: NmeaLineToAisStreamAdapter.OnNext(ByRef NmeaLineParser, Int32)
 - uid: Ais.Net.NmeaLineToAisStreamAdapter.OnNext*
   name: OnNext
   href: api/Ais.Net.NmeaLineToAisStreamAdapter.html#Ais_Net_NmeaLineToAisStreamAdapter_OnNext_
@@ -2265,6 +2328,38 @@ references:
   isSpec: "True"
   fullName: Ais.Net.NmeaLineToAisStreamAdapter.Progress
   nameWithType: NmeaLineToAisStreamAdapter.Progress
+- uid: Ais.Net.NmeaParserOptions
+  name: NmeaParserOptions
+  href: api/Ais.Net.NmeaParserOptions.html
+  commentId: T:Ais.Net.NmeaParserOptions
+  fullName: Ais.Net.NmeaParserOptions
+  nameWithType: NmeaParserOptions
+- uid: Ais.Net.NmeaParserOptions.MaximumUnmatchedFragmentAge
+  name: MaximumUnmatchedFragmentAge
+  href: api/Ais.Net.NmeaParserOptions.html#Ais_Net_NmeaParserOptions_MaximumUnmatchedFragmentAge
+  commentId: P:Ais.Net.NmeaParserOptions.MaximumUnmatchedFragmentAge
+  fullName: Ais.Net.NmeaParserOptions.MaximumUnmatchedFragmentAge
+  nameWithType: NmeaParserOptions.MaximumUnmatchedFragmentAge
+- uid: Ais.Net.NmeaParserOptions.MaximumUnmatchedFragmentAge*
+  name: MaximumUnmatchedFragmentAge
+  href: api/Ais.Net.NmeaParserOptions.html#Ais_Net_NmeaParserOptions_MaximumUnmatchedFragmentAge_
+  commentId: Overload:Ais.Net.NmeaParserOptions.MaximumUnmatchedFragmentAge
+  isSpec: "True"
+  fullName: Ais.Net.NmeaParserOptions.MaximumUnmatchedFragmentAge
+  nameWithType: NmeaParserOptions.MaximumUnmatchedFragmentAge
+- uid: Ais.Net.NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
+  name: ThrowWhenTagBlockContainsUnknownFields
+  href: api/Ais.Net.NmeaParserOptions.html#Ais_Net_NmeaParserOptions_ThrowWhenTagBlockContainsUnknownFields
+  commentId: P:Ais.Net.NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
+  fullName: Ais.Net.NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
+  nameWithType: NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
+- uid: Ais.Net.NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields*
+  name: ThrowWhenTagBlockContainsUnknownFields
+  href: api/Ais.Net.NmeaParserOptions.html#Ais_Net_NmeaParserOptions_ThrowWhenTagBlockContainsUnknownFields_
+  commentId: Overload:Ais.Net.NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
+  isSpec: "True"
+  fullName: Ais.Net.NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
+  nameWithType: NmeaParserOptions.ThrowWhenTagBlockContainsUnknownFields
 - uid: Ais.Net.NmeaPayloadParser
   name: NmeaPayloadParser
   href: api/Ais.Net.NmeaPayloadParser.html
@@ -2299,12 +2394,24 @@ references:
   commentId: M:Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaAisMessageStreamProcessor)
   fullName: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String, Ais.Net.INmeaAisMessageStreamProcessor)
   nameWithType: NmeaStreamParser.ParseFileAsync(String, INmeaAisMessageStreamProcessor)
+- uid: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaAisMessageStreamProcessor,Ais.Net.NmeaParserOptions)
+  name: ParseFileAsync(String, INmeaAisMessageStreamProcessor, NmeaParserOptions)
+  href: api/Ais.Net.NmeaStreamParser.html#Ais_Net_NmeaStreamParser_ParseFileAsync_System_String_Ais_Net_INmeaAisMessageStreamProcessor_Ais_Net_NmeaParserOptions_
+  commentId: M:Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaAisMessageStreamProcessor,Ais.Net.NmeaParserOptions)
+  fullName: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String, Ais.Net.INmeaAisMessageStreamProcessor, Ais.Net.NmeaParserOptions)
+  nameWithType: NmeaStreamParser.ParseFileAsync(String, INmeaAisMessageStreamProcessor, NmeaParserOptions)
 - uid: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaLineStreamProcessor)
   name: ParseFileAsync(String, INmeaLineStreamProcessor)
   href: api/Ais.Net.NmeaStreamParser.html#Ais_Net_NmeaStreamParser_ParseFileAsync_System_String_Ais_Net_INmeaLineStreamProcessor_
   commentId: M:Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaLineStreamProcessor)
   fullName: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String, Ais.Net.INmeaLineStreamProcessor)
   nameWithType: NmeaStreamParser.ParseFileAsync(String, INmeaLineStreamProcessor)
+- uid: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaLineStreamProcessor,Ais.Net.NmeaParserOptions)
+  name: ParseFileAsync(String, INmeaLineStreamProcessor, NmeaParserOptions)
+  href: api/Ais.Net.NmeaStreamParser.html#Ais_Net_NmeaStreamParser_ParseFileAsync_System_String_Ais_Net_INmeaLineStreamProcessor_Ais_Net_NmeaParserOptions_
+  commentId: M:Ais.Net.NmeaStreamParser.ParseFileAsync(System.String,Ais.Net.INmeaLineStreamProcessor,Ais.Net.NmeaParserOptions)
+  fullName: Ais.Net.NmeaStreamParser.ParseFileAsync(System.String, Ais.Net.INmeaLineStreamProcessor, Ais.Net.NmeaParserOptions)
+  nameWithType: NmeaStreamParser.ParseFileAsync(String, INmeaLineStreamProcessor, NmeaParserOptions)
 - uid: Ais.Net.NmeaStreamParser.ParseFileAsync*
   name: ParseFileAsync
   href: api/Ais.Net.NmeaStreamParser.html#Ais_Net_NmeaStreamParser_ParseFileAsync_
@@ -2318,6 +2425,12 @@ references:
   commentId: M:Ais.Net.NmeaStreamParser.ParseStreamAsync(System.IO.Stream,Ais.Net.INmeaLineStreamProcessor)
   fullName: Ais.Net.NmeaStreamParser.ParseStreamAsync(System.IO.Stream, Ais.Net.INmeaLineStreamProcessor)
   nameWithType: NmeaStreamParser.ParseStreamAsync(Stream, INmeaLineStreamProcessor)
+- uid: Ais.Net.NmeaStreamParser.ParseStreamAsync(System.IO.Stream,Ais.Net.INmeaLineStreamProcessor,Ais.Net.NmeaParserOptions)
+  name: ParseStreamAsync(Stream, INmeaLineStreamProcessor, NmeaParserOptions)
+  href: api/Ais.Net.NmeaStreamParser.html#Ais_Net_NmeaStreamParser_ParseStreamAsync_System_IO_Stream_Ais_Net_INmeaLineStreamProcessor_Ais_Net_NmeaParserOptions_
+  commentId: M:Ais.Net.NmeaStreamParser.ParseStreamAsync(System.IO.Stream,Ais.Net.INmeaLineStreamProcessor,Ais.Net.NmeaParserOptions)
+  fullName: Ais.Net.NmeaStreamParser.ParseStreamAsync(System.IO.Stream, Ais.Net.INmeaLineStreamProcessor, Ais.Net.NmeaParserOptions)
+  nameWithType: NmeaStreamParser.ParseStreamAsync(Stream, INmeaLineStreamProcessor, NmeaParserOptions)
 - uid: Ais.Net.NmeaStreamParser.ParseStreamAsync*
   name: ParseStreamAsync
   href: api/Ais.Net.NmeaStreamParser.html#Ais_Net_NmeaStreamParser_ParseStreamAsync_
@@ -2340,6 +2453,15 @@ references:
   fullName.vb: Ais.Net.NmeaTagBlockParser.NmeaTagBlockParser(System.ReadOnlySpan(Of System.Byte))
   nameWithType: NmeaTagBlockParser.NmeaTagBlockParser(ReadOnlySpan<Byte>)
   nameWithType.vb: NmeaTagBlockParser.NmeaTagBlockParser(ReadOnlySpan(Of Byte))
+- uid: Ais.Net.NmeaTagBlockParser.#ctor(System.ReadOnlySpan{System.Byte},System.Boolean)
+  name: NmeaTagBlockParser(ReadOnlySpan<Byte>, Boolean)
+  href: api/Ais.Net.NmeaTagBlockParser.html#Ais_Net_NmeaTagBlockParser__ctor_System_ReadOnlySpan_System_Byte__System_Boolean_
+  commentId: M:Ais.Net.NmeaTagBlockParser.#ctor(System.ReadOnlySpan{System.Byte},System.Boolean)
+  name.vb: NmeaTagBlockParser(ReadOnlySpan(Of Byte), Boolean)
+  fullName: Ais.Net.NmeaTagBlockParser.NmeaTagBlockParser(System.ReadOnlySpan<System.Byte>, System.Boolean)
+  fullName.vb: Ais.Net.NmeaTagBlockParser.NmeaTagBlockParser(System.ReadOnlySpan(Of System.Byte), System.Boolean)
+  nameWithType: NmeaTagBlockParser.NmeaTagBlockParser(ReadOnlySpan<Byte>, Boolean)
+  nameWithType.vb: NmeaTagBlockParser.NmeaTagBlockParser(ReadOnlySpan(Of Byte), Boolean)
 - uid: Ais.Net.NmeaTagBlockParser.#ctor*
   name: NmeaTagBlockParser
   href: api/Ais.Net.NmeaTagBlockParser.html#Ais_Net_NmeaTagBlockParser__ctor_

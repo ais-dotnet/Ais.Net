@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.AisStrings.html",
-          "hash": "vb+bpDZ2TcD/diLrgkPOVA=="
+          "hash": "1KROcHj1yyTnvwxn7AU5QQ=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.ClassBRadioStatusType.html",
-          "hash": "LdFkt9pf2BGD+y7nFAnOhA=="
+          "hash": "jXIe0yoXWiPqjc9MR02/tA=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.ClassBUnit.html",
-          "hash": "wA/vnM3vr5IROqf96TQM4A=="
+          "hash": "AE2aXYc+zffdLQYS09zQVg=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.EpfdFixType.html",
-          "hash": "anD4rFBOcBEAjQAnIV3WzA=="
+          "hash": "czNk5KqSkhUlRl45y5Yawg=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.INmeaAisMessageStreamProcessor.html",
-          "hash": "YXrdgg+/4G8Ald71MPGjoA=="
+          "hash": "gu7+q5JXlLO8/65yLfsVPg=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.INmeaLineStreamProcessor.html",
-          "hash": "8zKMc0tfLSK9sGd6KQYxOQ=="
+          "hash": "Cf6EJigYkRyUJviE5JriJA=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.ManoeuvreIndicator.html",
-          "hash": "TyCfGyCj0v0PMJ4o/ur0KA=="
+          "hash": "at5S8K+jmvaGzWm/HXg3Cg=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NavigationStatus.html",
-          "hash": "Y4gf0DptGf+43Ei69+6xrg=="
+          "hash": "DRQDi6v/9Acs1OsNSHmK8A=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisBitVectorParser.html",
-          "hash": "rHVBUMAlZonIYY1fucKCbA=="
+          "hash": "rfbrSShlL2PUNx0nH5c+0A=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisLongRangeAisBroadcastParser.html",
-          "hash": "zBXWncPs4UXCGiQb9GQ8TQ=="
+          "hash": "+ukrn2cngZCsFnK5bF/EHQ=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisPositionReportClassAParser.html",
-          "hash": "efrcsan3GEnEgQRmcxA6AQ=="
+          "hash": "qFR0Qci7eb0IM1ZUUZInMA=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisPositionReportClassBParser.html",
-          "hash": "gozeYExmN8oKb2idi1ZAmw=="
+          "hash": "ujb9ndzl5APE3rBRgM/C/A=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisPositionReportExtendedClassBParser.html",
-          "hash": "ib5rhwMlmsmakXoCuBh0DA=="
+          "hash": "W2CT0H3x+/d+onxVSqkAPw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisStaticAndVoyageRelatedDataParser.html",
-          "hash": "lPqnJqvU51heL0Jt1BmcXg=="
+          "hash": "cEj7sDdcjvAMJVRyz5Ul/A=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisStaticDataReportParser.html",
-          "hash": "yUEivQmvomBypUkTUrc1Uw=="
+          "hash": "8KZKli5vY236g1FUwYJ2jw=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisStaticDataReportParserPartA.html",
-          "hash": "jJSaWRG/mTxlaBVHm5W9Nw=="
+          "hash": "w3v21nK03YdAf26t4ffC/g=="
         }
       },
       "is_incremental": false,
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisStaticDataReportParserPartB.html",
-          "hash": "3MB73uomlmV4wfqoKPiUOQ=="
+          "hash": "f2yG4R8CR+jfuicKKFoEVw=="
         }
       },
       "is_incremental": false,
@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaAisTextFieldParser.html",
-          "hash": "oMOgTXe0A1fTC+Tlgf4gFw=="
+          "hash": "ZO7319XmCBXUpzakpricvg=="
         }
       },
       "is_incremental": false,
@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaLineParser.html",
-          "hash": "LtO3Mq4zxt8SeUO4aH03Pg=="
+          "hash": "Ehv5uqcIkfvW+effZOQjDQ=="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaLineToAisStreamAdapter.html",
-          "hash": "3Dx+MiNBSWq6S6t1yvBIPw=="
+          "hash": "gWKI+3LV/U0vgiXZ9JE6Lw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Ais.Net.NmeaParserOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Ais.Net.NmeaParserOptions.html",
+          "hash": "33jdDubsBw5S0dBAwBjHGQ=="
         }
       },
       "is_incremental": false,
@@ -249,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaPayloadParser.html",
-          "hash": "CXNAc1N5yN1N3nRl7ck4tw=="
+          "hash": "ZpfttDBZ+2xh51WVkKH58Q=="
         }
       },
       "is_incremental": false,
@@ -261,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaStreamParser.html",
-          "hash": "MvZ8F0k21dtTuSdJZI2guA=="
+          "hash": "Olufk2+NTyctxcUsxmTakg=="
         }
       },
       "is_incremental": false,
@@ -273,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaTagBlockParser.html",
-          "hash": "7DOw+LNtB3tcXj/8wBodQw=="
+          "hash": "Vr3L10ot7Qj3qzvBTh9BuQ=="
         }
       },
       "is_incremental": false,
@@ -285,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.NmeaTagBlockSentenceGrouping.html",
-          "hash": "xSA080MzgLqPHcJC3p8DCQ=="
+          "hash": "bSS/b0GyRzMNyyOtX0K5mg=="
         }
       },
       "is_incremental": false,
@@ -297,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.RadioSyncState.html",
-          "hash": "E1O1SySRT5wo4zrGXstkhQ=="
+          "hash": "wDDElKB1c2LjaxpqgDqPMg=="
         }
       },
       "is_incremental": false,
@@ -309,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.ShipType.html",
-          "hash": "c+hC2dt6vemyJ/ljPN+Rbw=="
+          "hash": "egWxUbqqj5SZ4AIplPgCSQ=="
         }
       },
       "is_incremental": false,
@@ -321,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.TalkerId.html",
-          "hash": "RY2tUvPAEXvcOTtopt/uxQ=="
+          "hash": "tgmH1czFrAp50nLvVti9Sg=="
         }
       },
       "is_incremental": false,
@@ -333,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.VesselDataOrigin.html",
-          "hash": "qCJxs6ZNZ04U2INkxe2i8A=="
+          "hash": "ByIADN3mWnhl002kZwZvFw=="
         }
       },
       "is_incremental": false,
@@ -345,7 +357,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Ais.Net.html",
-          "hash": "ZafWG0JB0AGEAAjrmmDFMg=="
+          "hash": "V/8QT6ltbtS7wTqseljq8Q=="
         }
       },
       "is_incremental": false,
@@ -357,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Nhb3DO6IHLG5UBXzeBMjIQ=="
+          "hash": "l+d48+ny2j4lS8S+UuOWMA=="
         }
       },
       "is_incremental": false,
@@ -369,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "AdRWEhu/hHCVw0rHOWlSyA=="
+          "hash": "PoE0PMn4GStM9XMc/2dBNg=="
         }
       },
       "is_incremental": false,
@@ -393,7 +405,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "HcbT7I/dXNjJpFcdL8LmUQ=="
+          "hash": "YE9ts//dhGJNz2+SmFX9qg=="
         }
       },
       "is_incremental": false,
@@ -432,7 +444,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 29,
+          "total_file_count": 30,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
