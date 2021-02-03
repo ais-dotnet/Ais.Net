@@ -22,6 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\PackageIcon.png" Pack="true" PackagePath="images\"/>
+    <None Include="$(SolutionDir)PackageIcon.png" Pack="true" PackagePath="images/"/>
   </ItemGroup>
 </Project>
