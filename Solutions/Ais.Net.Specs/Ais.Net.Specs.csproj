@@ -10,8 +10,8 @@
     <NoWarn>RCS1029;RCS1089;SA1600;CS1591;SA1633;SA1649</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.3" />
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.1.0" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.2.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ais.Net\Ais.Net.csproj" />
