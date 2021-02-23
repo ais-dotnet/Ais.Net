@@ -24,12 +24,31 @@ on:
   status: {}
 
 jobs:
+  check_pr_from_fork:
+    name: Check PR from fork
+    runs-on: ubuntu-18.04
+    outputs: 
+      is_forked_pr: ${{ steps.check_pr_source.outputs.result }}
+    steps:
+      - name: Check PR source
+        id: check_pr_source
+        uses: actions/github-script@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # For PR-based events returns 'true' when the HEAD originates from a forked repo
+          # We do this to avoid security issues
+          script: |
+            return ( !(context.payload.pull_request) ? false : (
+              context.payload.pull_request.head.repo.full_name !== context.payload.pull_request.base.repo.full_name)
+            );
+
   auto_merge:
     name: Auto-squash the PR
     runs-on: ubuntu-18.04
-    # Don't process PRs from forked repos
-    if:
-      github.event.pull_request.head.repo.full_name == github.repository
+    # Don't run when the triggering event originates from a forked repos
+    needs: check_pr_from_fork
+    if: |
+      needs.check_pr_from_fork.outputs.is_forked_pr == 'false'
     steps:
       - name: Generate token
         id: generate_token
@@ -37,6 +56,30 @@ jobs:
         with:
           app_id: ${{ secrets.ENDJIN_BOT_APP_ID }}
           private_key: ${{ secrets.ENDJIN_BOT_PRIVATE_KEY }}
+      # This may not be strictly required, but should keep unmerged, closed PRs cleaner
+      - name: Remove 'autosquash' label from closed PRs
+        id: remove_autosquash_label_from_closed_prs
+        uses: actions/github-script@v2
+        with:
+          github-token: '${{ steps.generate_token.outputs.token }}'
+          script: |
+            const pulls = await github.search.issuesAndPullRequests({
+              q: 'is:pr is:closed label:autosquash',
+            });
+            core.info(`pulls: ${pulls.data.items}`)
+            const repoUrl = `https://api.github.com/repos/${context.payload.repository.owner.login}/${context.payload.repository.name}`
+            const prs_to_unlabel = pulls.data.items.
+                                          filter(function (x) { return x.repository_url == repoUrl; }).
+                                          map(p=>p.number);
+            for (const i of prs_to_unlabel) {
+              core.info(`Removing label 'autosquash' from issue #${i}`)
+              github.issues.removeLabel({
+                owner: context.payload.repository.owner.login,
+                repo: context.payload.repository.name,
+                issue_number: i,
+                name: 'autosquash'
+              });
+            }
       - uses: endjin/autosquash@v2.2
         with:
           github_token: '${{ steps.generate_token.outputs.token }}'
