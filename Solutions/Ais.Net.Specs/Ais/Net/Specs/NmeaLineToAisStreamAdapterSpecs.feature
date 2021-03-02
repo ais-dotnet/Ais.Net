@@ -25,11 +25,27 @@ Scenario: First fragment of two-part message received
 	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
 	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
 
+Scenario: First fragment of two-part message without grouping in header received
+	# ais.kystverket.no
+	When the line to message adapter receives '\s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 0 times
+
 Scenario: Two-fragment message fragments received adjacently
 	# ais.kystverket.no
 	When the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:2-2-8055*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
+	# ais.kystverket.no
+    And in ais message 0 the payload should be '53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4lj`888888880' with padding of 2
+    And in ais message 0 the source from the first NMEA line should be 99
+    And in ais message 0 the timestamp from the first NMEA line should be 1567685556
+
+Scenario: Two-fragment message fragments without grouping in header received adjacently
+	# ais.kystverket.no
+	When the line to message adapter receives '\s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:99*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
 	Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	# ais.kystverket.no
     And in ais message 0 the payload should be '53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4lj`888888880' with padding of 2
@@ -53,6 +69,23 @@ Scenario: Two-fragment message fragments received with single-fragment message i
     And in ais message 1 the source from the first NMEA line should be 99
     And in ais message 1 the timestamp from the first NMEA line should be 1567685556
 
+Scenario: Two-fragment message fragments without grouping in header received with single-fragment message in the middle
+	# ais.kystverket.no
+	When the line to message adapter receives '\s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:42,c:1567684904*38\!AIVDM,1,1,,B,33m9UtPP@50wwE:VJW6LS67H01<@,0*3C'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:99*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 2 times
+	# ais.kystverket.no
+    And in ais message 0 the payload should be '33m9UtPP@50wwE:VJW6LS67H01<@' with padding of 0
+    And in ais message 0 the source from the first NMEA line should be 42
+    And in ais message 0 the timestamp from the first NMEA line should be 1567684904
+	# ais.kystverket.no
+    And in ais message 1 the payload should be '53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4lj`888888880' with padding of 2
+    And in ais message 1 the source from the first NMEA line should be 99
+    And in ais message 1 the timestamp from the first NMEA line should be 1567685556
+
 Scenario: Three-fragment message fragments received adjacently
 	# ais.kystverket.no
 	When the line to message adapter receives '\g:1-3-3451,s:27,c:1567686150*40\!AIVDM,3,1,9,A,544MR0827oeaD<u0000lDdP4pTf0duAA,0*17'
@@ -60,6 +93,19 @@ Scenario: Three-fragment message fragments received adjacently
 	And the line to message adapter receives '\g:2-3-3451*5F\!AIVDM,3,2,9,A,<uH000167pF=2=nG0:0DRj0CQiC4jh00,0*4A'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:3-3-3451*5E\!AIVDM,3,3,9,A,0000000,0*2F'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
+	# ais.kystverket.no
+    And in ais message 0 the payload should be '544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167pF=2=nG0:0DRj0CQiC4jh000000000' with padding of 0
+    And in ais message 0 the source from the first NMEA line should be 27
+    And in ais message 0 the timestamp from the first NMEA line should be 1567686150
+
+Scenario: Three-fragment message fragments without grouping in header received adjacently
+	# ais.kystverket.no
+	When the line to message adapter receives '\s:27,c:1567686150*40\!AIVDM,3,1,9,A,544MR0827oeaD<u0000lDdP4pTf0duAA,0*17'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:27*5F\!AIVDM,3,2,9,A,<uH000167pF=2=nG0:0DRj0CQiC4jh00,0*4A'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:27*5E\!AIVDM,3,3,9,A,0000000,0*2F'
 	Then INmeaAisMessageStreamProcessor.OnNext should have been called 1 time
 	# ais.kystverket.no
     And in ais message 0 the payload should be '544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167pF=2=nG0:0DRj0CQiC4jh000000000' with padding of 0
@@ -75,6 +121,48 @@ Scenario: Interleaved multi-fragment messages
 	And the line to message adapter receives '\g:2-3-3451*5F\!AIVDM,3,2,9,A,<uH000167pF=2=nG0:0DRj0CQiC4jh00,0*4A'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:2-2-8055*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:3-3-3451*5E\!AIVDM,3,3,9,A,0000000,0*2F'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 2 times
+	# ais.kystverket.no
+    And in ais message 0 the payload should be '53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4lj`888888880' with padding of 2
+    And in ais message 0 the source from the first NMEA line should be 99
+    And in ais message 0 the timestamp from the first NMEA line should be 1567685556
+	# ais.kystverket.no
+    And in ais message 1 the payload should be '544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167pF=2=nG0:0DRj0CQiC4jh000000000' with padding of 0
+    And in ais message 1 the source from the first NMEA line should be 27
+    And in ais message 1 the timestamp from the first NMEA line should be 1567686150
+
+Scenario: Interleaved multi-fragment messages without grouping in header
+	# ais.kystverket.no
+	When the line to message adapter receives '\s:27,c:1567686150*40\!AIVDM,3,1,9,A,544MR0827oeaD<u0000lDdP4pTf0duAA,0*17'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:99,c:1567685556*4E\!AIVDM,2,1,6,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:27,*5F\!AIVDM,3,2,9,A,<uH000167pF=2=nG0:0DRj0CQiC4jh00,0*4A'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:99,*55\!AIVDM,2,2,6,B,j`888888880,2*2B'
+	# ais.kystverket.no
+	And the line to message adapter receives '\s:27*5E\!AIVDM,3,3,9,A,0000000,0*2F'
+	Then INmeaAisMessageStreamProcessor.OnNext should have been called 2 times
+	# ais.kystverket.no
+    And in ais message 0 the payload should be '53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4lj`888888880' with padding of 2
+    And in ais message 0 the source from the first NMEA line should be 99
+    And in ais message 0 the timestamp from the first NMEA line should be 1567685556
+	# ais.kystverket.no
+    And in ais message 1 the payload should be '544MR0827oeaD<u0000lDdP4pTf0duAA<uH000167pF=2=nG0:0DRj0CQiC4jh000000000' with padding of 0
+    And in ais message 1 the source from the first NMEA line should be 27
+    And in ais message 1 the timestamp from the first NMEA line should be 1567686150
+
+Scenario: Interleaved multi-fragment messages distinguished only by grouping in header
+	# ais.kystverket.no
+	When the line to message adapter receives '\g:1-3-3451,s:27,c:1567686150*40\!AIVDM,3,1,9,A,544MR0827oeaD<u0000lDdP4pTf0duAA,0*17'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:1-2-8055,s:99,c:1567685556*4E\!AIVDM,2,1,9,B,53oGfN42=WRDhlHn221<4i@Dr22222222222220`1@O6640Ht50Skp4mR`4l,0*72'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:2-3-3451*5F\!AIVDM,3,2,9,A,<uH000167pF=2=nG0:0DRj0CQiC4jh00,0*4A'
+	# ais.kystverket.no
+	And the line to message adapter receives '\g:2-2-8055*55\!AIVDM,2,2,9,B,j`888888880,2*2B'
 	# ais.kystverket.no
 	And the line to message adapter receives '\g:3-3-3451*5E\!AIVDM,3,3,9,A,0000000,0*2F'
 	Then INmeaAisMessageStreamProcessor.OnNext should have been called 2 times

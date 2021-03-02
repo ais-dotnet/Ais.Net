@@ -64,13 +64,48 @@ namespace Ais.Net
         /// <inheritdoc/>
         public void OnNext(in NmeaLineParser parsedLine, int lineNumber)
         {
-            if (parsedLine.TagBlockAsciiWithoutDelimiters.Length > 0 &&
-                parsedLine.TagBlock.SentenceGrouping.HasValue)
+            // Work out whether this is a fragmented message.
+            // There are two different ways to indicate fragmentation: in the AIS sentence, or in
+            // the NMEA header. Some systems do not provide any NMEA-header-level fragmentation
+            // information, in which case we must rely on the AIS level. The AIS layer will always
+            // report fragmentation, so you might think that it would be OK always to use that, and
+            // to ignore the NMEA header grouping information. However, in cases where both are
+            // available, we prefer the NMEA header grouping information.
+            // The NMEA header is prefereable because in an AIS sentence, the group IDs can only
+            // be in the range 1-9, whereas the NMEA header allows longer IDs.
+            // There's a possibility of false aliases (fragments of different messages having the
+            // same id) when we rely on the AIS id. Base stations that combine and relay messages
+            // should take steps to avoid that, but in cases where the base station has added a
+            // group ID in the sentence header, it might be relying on that for uniqueness, and
+            // therefore not bothering to adjust within the AIS layer.
+            bool sentenceGroupHeaderPresent =
+                parsedLine.TagBlockAsciiWithoutDelimiters.Length > 0 &&
+                parsedLine.TagBlock.SentenceGrouping.HasValue;
+            bool sentenceIsFragment = sentenceGroupHeaderPresent || parsedLine.TotalFragmentCount > 1;
+
+            if (sentenceIsFragment)
             {
-                NmeaTagBlockSentenceGrouping sentenceGrouping = parsedLine.TagBlock.SentenceGrouping.Value;
+                bool isLastSentenceInGroup;
+                int groupId;
+                int sentencesInGroup;
+                int oneBasedSentenceNumber;
+                if (sentenceGroupHeaderPresent)
+                {
+                    NmeaTagBlockSentenceGrouping sentenceGrouping = parsedLine.TagBlock.SentenceGrouping.Value;
 
-                bool isLastSentenceInGroup = sentenceGrouping.SentenceNumber == sentenceGrouping.SentencesInGroup;
+                    groupId = sentenceGrouping.GroupId;
+                    oneBasedSentenceNumber = sentenceGrouping.SentenceNumber;
+                    sentencesInGroup = sentenceGrouping.SentencesInGroup;
+                }
+                else
+                {
+                    isLastSentenceInGroup = parsedLine.FragmentNumberOneBased == parsedLine.TotalFragmentCount;
+                    groupId = parsedLine.MultiSequenceMessageId[0];
+                    oneBasedSentenceNumber = parsedLine.FragmentNumberOneBased;
+                    sentencesInGroup = parsedLine.TotalFragmentCount;
+                }
 
+                isLastSentenceInGroup = oneBasedSentenceNumber == sentencesInGroup;
                 if (!isLastSentenceInGroup && parsedLine.Padding != 0)
                 {
                     this.messageProcessor.OnError(
@@ -79,27 +114,25 @@ namespace Ais.Net
                         lineNumber);
                 }
 
-                int groupId = sentenceGrouping.GroupId;
-
                 if (!this.messageFragments.TryGetValue(groupId, out FragmentedMessage fragments))
                 {
                     fragments = new FragmentedMessage(
-                        sentenceGrouping.SentencesInGroup,
+                        sentencesInGroup,
                         lineNumber);
                     this.messageFragments.Add(groupId, fragments);
                 }
 
                 Span<byte[]> fragmentBuffers = fragments.Buffers;
-                if (fragmentBuffers[sentenceGrouping.SentenceNumber - 1] != null)
+                if (fragmentBuffers[oneBasedSentenceNumber - 1] != null)
                 {
                     this.messageProcessor.OnError(
                         parsedLine.Line,
-                        new ArgumentException($"Already received sentence {sentenceGrouping.SentenceNumber} for group {groupId}"),
+                        new ArgumentException($"Already received sentence {oneBasedSentenceNumber} for group {groupId}"),
                         lineNumber);
                 }
 
                 byte[] buffer = ArrayPool<byte>.Shared.Rent(parsedLine.Line.Length);
-                fragmentBuffers[sentenceGrouping.SentenceNumber - 1] = buffer;
+                fragmentBuffers[oneBasedSentenceNumber - 1] = buffer;
                 parsedLine.Line.CopyTo(buffer);
 
                 bool allFragmentsReceived = true;

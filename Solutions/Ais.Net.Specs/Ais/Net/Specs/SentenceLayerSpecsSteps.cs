@@ -42,6 +42,13 @@ namespace Ais.Net.Specs
             this.When(string.Format(AivdmExamples.MessageFragmentFormat, currentFragment, totalFragments, sequentialMessageId, sentenceGroupId));
         }
 
+        [When("I parse a message fragment part (.*) of (.*) with message id (.*) and no sentence group id")]
+        public void WhenIParseAMessageFragmentPartOfWithMessageIdAndNoSentenceGroupId(
+            int currentFragment, int totalFragments, string sequentialMessageId)
+        {
+            this.When(string.Format(AivdmExamples.MessageFragmentWithoutGroupInHeaderFormat, currentFragment, totalFragments, sequentialMessageId));
+        }
+
         [When("I parse a non-fragmented message")]
         public void WhenIParseANon_FragmentedMessage()
         {
