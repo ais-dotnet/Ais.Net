@@ -86,6 +86,24 @@ Scenario Outline: Fragmented messages
 		| 3              | 2               | 0                   | 3451            |
 		| 3              | 3               | 0                   | 3451            |
 
+# Some sources produce fragmented messages without the sentence group IDs in the header, so we have to rely purely on
+# the fragment IDs in the AIVDM/AIVDO layer
+
+Scenario Outline: Fragmented messages without group ids in header
+	When I parse a message fragment part <currentFragment> of <totalFragments> with message id <sequentialMessageId> and no sentence group id
+	Then the TotalFragmentCount is '<totalFragments>'
+	And the FragmentNumberOneBased is '<currentFragment>'
+	And the MultiSequenceMessageId is '<sequentialMessageId>'
+
+	Examples:
+		| totalFragments | currentFragment | sequentialMessageId |
+		| 2              | 1               | 6                   |
+		| 2              | 2               | 6                   |
+		| 3              | 1               | 0                   |
+		| 3              | 2               | 0                   |
+		| 3              | 3               | 0                   |
+
+
 Scenario Outline: Radio channel code
 	When I parse a message with a radio channel code of '<channelCode>'
 	Then the ChannelCode is '<channelCode>'
