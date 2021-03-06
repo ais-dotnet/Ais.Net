@@ -64,7 +64,7 @@ The data used by the Ais.Net executable specifications and samples is licensed u
 
 ## Project Sponsor
 
-This project is sponsored by [endjin](https://endjin.com), a UK based Microsoft Gold Partner for Cloud Platform, Data Platform, Data Analytics, DevOps, and a Power BI Partner.
+This project is sponsored by [endjin](https://endjin.com), a UK based Microsoft Gold Partner for Cloud Platform, Data Platform, Data Analytics, DevOps, a Power BI Partner, and .NET Foundation Corporate Sponsors.
 
 For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us). 
 
