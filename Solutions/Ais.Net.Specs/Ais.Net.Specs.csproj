@@ -1,9 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Common.NetCore_3_1.proj" />
-
   <PropertyGroup>
-
     <IsPackable>false</IsPackable>
     <!--
     Note: SA1633 and SA1649 are disabled because of a bug introduced by SpecFlow 3.1.
@@ -11,29 +9,15 @@
     -->
     <NoWarn>RCS1029;RCS1089;SA1600;CS1591;SA1633;SA1649</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.3" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.1.78" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.78" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.3.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Ais.Net\Ais.Net.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.8.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Ais\Net\Specs\AisMessageTypes\LongRangeAisBroadcastParserSpecs.feature.cs">
       <DesignTime>True</DesignTime>
@@ -101,5 +85,4 @@
       <DependentUpon>SentenceLayerSpecs.feature</DependentUpon>
     </Compile>
   </ItemGroup>
-
 </Project>
