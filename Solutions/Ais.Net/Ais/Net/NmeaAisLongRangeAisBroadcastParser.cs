@@ -79,7 +79,7 @@ namespace Ais.Net
         public uint SpeedOverGroundTenths => this.bits.GetUnsignedInteger(6, 79);
 
         /// <summary>
-        /// Gets the vessel's course over ground in units of one tenth of a degree.
+        /// Gets the vessel's course over ground in degrees.
         /// </summary>
         public uint CourseOverGroundDegrees => this.bits.GetUnsignedInteger(9, 85);
 
