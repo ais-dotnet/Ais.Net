@@ -65,7 +65,7 @@ namespace Ais.Net
         HighSpeedCraftNoAdditionalInformation = 49,
 
         PilotVessel = 50,
-        SearchAndRescueCessel = 51,
+        SearchAndRescueVessel = 51,
         Tug = 52,
         PortTender = 53,
         AntiPollutionEquipment = 54,
