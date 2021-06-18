@@ -3046,12 +3046,12 @@ references:
   commentId: F:Ais.Net.ShipType.Sailing
   fullName: Ais.Net.ShipType.Sailing
   nameWithType: ShipType.Sailing
-- uid: Ais.Net.ShipType.SearchAndRescueCessel
-  name: SearchAndRescueCessel
-  href: api/Ais.Net.ShipType.html#Ais_Net_ShipType_SearchAndRescueCessel
-  commentId: F:Ais.Net.ShipType.SearchAndRescueCessel
-  fullName: Ais.Net.ShipType.SearchAndRescueCessel
-  nameWithType: ShipType.SearchAndRescueCessel
+- uid: Ais.Net.ShipType.SearchAndRescueVessel
+  name: SearchAndRescueVessel
+  href: api/Ais.Net.ShipType.html#Ais_Net_ShipType_SearchAndRescueVessel
+  commentId: F:Ais.Net.ShipType.SearchAndRescueVessel
+  fullName: Ais.Net.ShipType.SearchAndRescueVessel
+  nameWithType: ShipType.SearchAndRescueVessel
 - uid: Ais.Net.ShipType.SpareLocalVessel56
   name: SpareLocalVessel56
   href: api/Ais.Net.ShipType.html#Ais_Net_ShipType_SpareLocalVessel56
