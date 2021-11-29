@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Common.NetCore_3_1.proj" />
+  <Import Project="..\Common.Net.proj" />
   <PropertyGroup>
+	<TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <!--
     Note: SA1633 and SA1649 are disabled because of a bug introduced by SpecFlow 3.1.
@@ -11,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.4.5" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.4.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ais.Net\Ais.Net.csproj" />
@@ -84,5 +85,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SentenceLayerSpecs.feature</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
