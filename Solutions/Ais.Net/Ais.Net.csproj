@@ -15,19 +15,24 @@
     performance on that runtime, we have to offer a version that targets it. This matters
     because .NET Core App 2.1 will remain in LTS (long term support) for a while.
     -->
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework></TargetFramework>
+    <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.IO.Pipelines" Version="4.7.4" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
+  
   <PropertyGroup>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <PackageDescription>High performance, zero allocation AIS message decoder, which can process millions of AIVDM/AIVDO sentences per second on a single core. Sponsored by endjin.</PackageDescription>
     <PackageTags>ais;aisvdm;aivdo;nmea;marine;gis;iot;aiforearth;endjin</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.IO.Pipelines" Version="6.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1">
