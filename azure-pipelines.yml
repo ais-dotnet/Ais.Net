@@ -21,6 +21,13 @@ jobs:
     service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
     service_connection_github: $(Endjin_Service_Connection_GitHub)
     solution_to_build: $(Endjin_Solution_To_Build)
+    preCustomEnvironmentVariables:
+    - task: UseDotNet@2
+    displayName: 'Install .NET SDK 6.0'
+    inputs:
+        packageType: sdk
+        version: 6.0.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
     postSpecs:
     - task: DotNetCoreCLI@2
       displayName: 'Run benchmarks'
