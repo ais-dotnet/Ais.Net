@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
   <Import Project="..\Common.Net.proj" />
 
   <PropertyGroup>
-	<TargetFramework>net6.0</TargetFramework>
-    <OutputType>Exe</OutputType>
+	<OutputType>Exe</OutputType>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
