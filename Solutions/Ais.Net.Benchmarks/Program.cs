@@ -43,15 +43,15 @@ namespace Ais.Net.Benchmarks
         {
             Job job = Job.Default;
             IConfig config = DefaultConfig.Instance
-                .With(MemoryDiagnoser.Default);
+                .AddDiagnoser(MemoryDiagnoser.Default);
 
             if (args.Length == 1 && args[0] == "inprocess")
             {
                 job = job
                         .WithMinWarmupCount(2)
                         .WithMaxWarmupCount(4)
-                        .With(InProcessEmitToolchain.Instance);
-                config = config.With(ConfigOptions.DisableOptimizationsValidator);
+                        .WithToolchain(InProcessEmitToolchain.Instance);
+                config = config.WithOptions(ConfigOptions.DisableOptimizationsValidator);
             }
             else
             {
@@ -65,11 +65,11 @@ namespace Ais.Net.Benchmarks
                 if (args.Length > 1)
                 {
                     string version = args[1];
-                    job = job.With(new Argument[] { new MsBuildArgument($"/p:Version={version}") });
+                    job = job.WithArguments(new Argument[] { new MsBuildArgument($"/p:Version={version}") });
                 }
             }
 
-            config = config.With(job);
+            config = config.AddJob(job);
 
             BenchmarkRunner.Run<AisNetBenchmarks>(config);
         }

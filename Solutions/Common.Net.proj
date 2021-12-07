@@ -7,7 +7,7 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace />
     <DocumentationFile>$(OutputPath)$(TargetFramework.ToLowerInvariant())\$(AssemblyName).xml</DocumentationFile>
-    <Copyright>Copyright (c) Endjin Limited 2019. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) Endjin Limited 2021. All rights reserved.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup>
