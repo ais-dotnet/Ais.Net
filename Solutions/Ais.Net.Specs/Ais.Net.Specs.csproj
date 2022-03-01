@@ -16,7 +16,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.4.9" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.4.10" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ais.Net\Ais.Net.csproj" />
