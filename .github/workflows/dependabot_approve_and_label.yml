@@ -3,6 +3,10 @@ on:
   pull_request:
     types: [opened, reopened]
     
+permissions:
+  issues: write
+  pull-requests: write
+    
 jobs:
   evaluate_dependabot_pr:
     runs-on: ubuntu-latest
@@ -42,7 +46,7 @@ jobs:
           echo "is_interesting_package (merge) : ${{ steps.parse_dependabot_pr_automerge.outputs.is_interesting_package }}"
           echo "is_interesting_package (release) : ${{ steps.parse_dependabot_pr_autorelease.outputs.is_interesting_package }}"
           echo "semver_increment : ${{ steps.parse_dependabot_pr_automerge.outputs.semver_increment }}"
-
+  
   approve:
     runs-on: ubuntu-latest
     needs: evaluate_dependabot_pr
@@ -62,19 +66,13 @@ jobs:
           echo "to_version       : ${{needs.evaluate_dependabot_pr.outputs.version_to}}"
           echo "<------------------------------------------------>"
         shell: bash
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.ENDJIN_BOT_APP_ID }}
-          private_key: ${{ secrets.ENDJIN_BOT_PRIVATE_KEY }}
       - name: Approve pull request
         if: |
           needs.evaluate_dependabot_pr.outputs.is_auto_merge_candidate == 'True' &&
           (needs.evaluate_dependabot_pr.outputs.semver_increment == 'minor' || needs.evaluate_dependabot_pr.outputs.semver_increment == 'patch')
         uses: andrewmusgrave/automatic-pull-request-review@0.0.2
         with:
-          repo-token: '${{ steps.generate_token.outputs.token }}'
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
           event: APPROVE
           body: 'Thank you dependabot 🎊'
       - name: 'Update PR body'
@@ -83,7 +81,7 @@ jobs:
           (needs.evaluate_dependabot_pr.outputs.semver_increment == 'minor' || needs.evaluate_dependabot_pr.outputs.semver_increment == 'patch')
         uses: actions/github-script@v2
         with:
-          github-token: '${{ steps.generate_token.outputs.token }}'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
           script: |
             await github.pulls.update({
               owner: context.payload.repository.owner.login,
@@ -91,18 +89,11 @@ jobs:
               pull_number: context.payload.pull_request.number,
               body: "Bumps '${{needs.evaluate_dependabot_pr.outputs.dependency_name}}' from ${{needs.evaluate_dependabot_pr.outputs.version_from}} to ${{needs.evaluate_dependabot_pr.outputs.version_to}}"
             })
-
   label:
     runs-on: ubuntu-latest
     needs: evaluate_dependabot_pr
     name: Label
     steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.ENDJIN_BOT_APP_ID }}
-          private_key: ${{ secrets.ENDJIN_BOT_PRIVATE_KEY }}
       - name: 'Label auto-mergeable dependabot PRs with "autosquash"'
         if: |
           (github.actor == 'dependabot[bot]' || github.actor == 'dependjinbot[bot]' || github.actor == 'nektos/act') &&
@@ -110,7 +101,7 @@ jobs:
           (needs.evaluate_dependabot_pr.outputs.semver_increment == 'minor' || needs.evaluate_dependabot_pr.outputs.semver_increment == 'patch')
         uses: actions/github-script@v2
         with:
-          github-token: '${{ steps.generate_token.outputs.token }}'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
           script: |
             await github.issues.addLabels({
               owner: context.payload.repository.owner.login,
