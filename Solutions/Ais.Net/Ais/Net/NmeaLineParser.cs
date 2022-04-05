@@ -47,7 +47,7 @@ namespace Ais.Net
 
                 if (tagBlockEndIndex < 0)
                 {
-                    throw new ArgumentException("Invalid data. Unclosed tag block");
+                    throw new ArgumentException("Invalid data. Unclosed tag block", nameof(line));
                 }
 
                 this.TagBlockAsciiWithoutDelimiters = line.Slice(1, tagBlockEndIndex);
@@ -76,12 +76,12 @@ namespace Ais.Net
             // So that's 18 characters before we get to any payload.
             if (this.Sentence.Length < 18)
             {
-                throw new ArgumentException("Invalid data. The message appears to be missing some characters - it may have been corrupted or truncated.");
+                throw new ArgumentException("Invalid data. The message appears to be missing some characters - it may have been corrupted or truncated.", nameof(line));
             }
 
             if (this.Sentence[0] != ExclamationMark)
             {
-                throw new ArgumentException("Invalid data. Expected '!' at sentence start");
+                throw new ArgumentException("Invalid data. Expected '!' at sentence start", nameof(line));
             }
 
             byte talkerFirstChar = this.Sentence[1];
@@ -99,19 +99,19 @@ namespace Ais.Net
                     (byte)'S' => TalkerId.LimitedBaseStation,
                     (byte)'T' => TalkerId.TransmittingStation,
                     (byte)'X' => TalkerId.RepeaterStation,
-                    _ => throw new ArgumentException("Invalid data. Unrecognized talker id - cannot start with " + talkerFirstChar),
+                    _ => throw new ArgumentException("Invalid data. Unrecognized talker id - cannot start with " + talkerFirstChar, nameof(line)),
                 },
 
                 (byte)'B' => talkerSecondChar switch
                 {
                     (byte)'S' => TalkerId.DeprecatedBaseStation,
-                    _ => throw new ArgumentException("Invalid data. Unrecognized talker id - cannot end with " + talkerSecondChar),
+                    _ => throw new ArgumentException("Invalid data. Unrecognized talker id - cannot end with " + talkerSecondChar, nameof(line)),
                 },
 
                 (byte)'S' => talkerSecondChar switch
                 {
                     (byte)'A' => TalkerId.PhysicalShoreStation,
-                    _ => throw new ArgumentException("Invalid data. Unrecognized talker id - cannot end with " + talkerSecondChar),
+                    _ => throw new ArgumentException("Invalid data. Unrecognized talker id - cannot end with " + talkerSecondChar, nameof(line)),
                 },
 
                 _ => throw new ArgumentException("Invalid data. Unrecognized talker id"),
@@ -126,12 +126,12 @@ namespace Ais.Net
             }
             else
             {
-                throw new ArgumentException("Invalid data. Unrecognized origin in AIS talker ID - must be VDM or VDO");
+                throw new ArgumentException("Invalid data. Unrecognized origin in AIS talker ID - must be VDM or VDO", nameof(line));
             }
 
             if (this.Sentence[6] != (byte)',')
             {
-                throw new ArgumentException("Invalid data. Talker ID must be followed by ','");
+                throw new ArgumentException("Invalid data. Talker ID must be followed by ','", nameof(line));
             }
 
             ReadOnlySpan<byte> remainingFields = this.Sentence.Slice(7);
@@ -148,7 +148,7 @@ namespace Ais.Net
 
             if (nextComma > 1)
             {
-                throw new ArgumentException("Invalid data. Channel code must be only one character");
+                throw new ArgumentException("Invalid data. Channel code must be only one character", nameof(line));
             }
 
             this.ChannelCode = nextComma == 0 ? default : (char)remainingFields[0];
@@ -158,7 +158,7 @@ namespace Ais.Net
 
             if (nextComma < 0 || remainingFields.Length <= (nextComma + 1) || !char.IsDigit((char)remainingFields[nextComma + 1]))
             {
-                throw new ArgumentException("Invalid data. Payload padding field not present - the message may have been corrupted or truncated");
+                throw new ArgumentException("Invalid data. Payload padding field not present - the message may have been corrupted or truncated", nameof(line));
             }
 
             this.Payload = remainingFields.Slice(0, nextComma);
@@ -167,7 +167,7 @@ namespace Ais.Net
 
             if (remainingFields.Length < 4)
             {
-                throw new ArgumentException("Invalid data. Payload checksum not present - the message may have been corrupted or truncated");
+                throw new ArgumentException("Invalid data. Payload checksum not present - the message may have been corrupted or truncated", nameof(line));
             }
 
             this.Padding = (uint)GetSingleDigitField(ref remainingFields, true);
