@@ -35,6 +35,7 @@ namespace Ais.Net
         /// Ignore non-standard and unsupported tag block field types. Useful when working with
         /// data sources that add non-standard fields.
         /// </param>
+        /// <exception cref="System.ArgumentException"><paramref name="line"/> contains unparsable data.</exception>
         public NmeaLineParser(ReadOnlySpan<byte> line, bool throwWhenTagBlockContainsUnknownFields)
         {
             this.Line = line;
