@@ -15,7 +15,7 @@ resources:
       endpoint: ais-dotnet-github
 
 jobs:
-- template: templates/build.and.release.yml@recommended_practices
+- template: templates/build.and.release.scripted.yml@recommended_practices
   parameters:
     vmImage: 'ubuntu-latest'
     service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
