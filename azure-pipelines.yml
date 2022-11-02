@@ -41,7 +41,8 @@ jobs:
         artifactName: 'benchmark'
         PathtoPublish: '$(Build.SourcesDirectory)/Solutions/Ais.Net.Benchmarks/BenchmarkDotNet.Artifacts/results'
     compileTasksServiceConnection: endjin-acr-reader
-    
+    netSDKversion: '6.x'
+
     - bash: |
         wget -q https://github.com/dotnet/docfx/releases/download/v2.45.1/docfx.zip
         unzip docfx.zip -d docfx
