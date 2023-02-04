@@ -19,7 +19,7 @@
   Id: 0449cadc-0078-4094-b019-520d75cc6cbb
   Measures:
   - Score: 3
-    Description: 75+
+    Description: 75
 - Name: Benchmarks
   Id: 64ed80dc-d354-45a9-9a56-c32437306afa
   Measures:
@@ -43,7 +43,7 @@
 - Name: Date of Last IP Review
   Id: da4ed776-0365-4d8a-a297-c4e91a14d646
   Measures:
-  - Date: 2021-02-03T00:00:00.0000000
+  - Date: 2021-02-03
 - Name: Framework Version
   Id: 6c0402b3-f0e3-4bd7-83fe-04bb6dca7924
   Measures:
