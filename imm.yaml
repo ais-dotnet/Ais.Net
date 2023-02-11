@@ -1,126 +1,95 @@
--
-    Name: 'Shared Engineering Standards'
-    Id: 74e29f9b-6dca-4161-8fdd-b468a1eb185d
-    Measures:
-        -
-            Score: 1
-            Description: Configured
--
-    Name: 'Coding Standards'
-    Id: f6f6490f-9493-4dc3-a674-15584fa951d8
-    Measures:
-        -
-            Score: 1
-            Description: 'Enforced via tooling'
--
-    Name: 'Executable Specifications'
-    Id: bb49fb94-6ab5-40c3-a6da-dfd2e9bc4b00
-    Measures:
-        -
-            Score: 1
-            Description: 'Specs which cover golden path / APIs have full OpenAPI Definition'
-        -
-            Score: 1
-            Description: Specs which cover common failure cases
--
-    Name: 'Code Coverage'
-    Id: 0449cadc-0078-4094-b019-520d75cc6cbb
-    Measures:
-        -
-            Score: 3
-            Description: '75+'
--
-    Name: Benchmarks
-    Id: 64ed80dc-d354-45a9-9a56-c32437306afa
-    Measures:
-        -
-            Score: 1
-            Description: Benchmarks which cover baseline performance
--
-    Name: 'Reference Documentation'
-    Id: 2a7fc206-d578-41b0-85f6-a28b6b0fec5f
-    Measures:
-        -
-            Score: 2
-            Description: 'Technical Fellow quality'
--
-    Name: 'Design & Implementation Documentation'
-    Id: f026d5a2-ce1a-4e04-af15-5a35792b164b
-    Measures:
-        -
-            Score: 0
-            Description: None
--
-    Name: 'How-to Documentation'
-    Id: 145f2e3d-bb05-4ced-989b-7fb218fc6705
-    Measures:
-        -
-            Score: 0
-            Description: None
--
-    Name: 'Date of Last IP Review'
-    Id: da4ed776-0365-4d8a-a297-c4e91a14d646
-    Measures:
-        -
-            Date: 2021-02-03
--
-    Name: 'Framework Version'
-    Id: 6c0402b3-f0e3-4bd7-83fe-04bb6dca7924
-    Measures:
-        -
-            Framework: netcoreapp3.1
--
-    Name: 'Associated Work Items'
-    Id: 79b8ff50-7378-4f29-b07c-bcd80746bfd4
-    Measures:
-        -
-            Score: 0
-            Description: None
--
-    Name: 'Source Code Availability'
-    Id: 30e1b40b-b27d-4631-b38d-3172426593ca
-    Measures:
-        -
-            Score: 3
-            Description: 'Public OSS'
--
-    Name: License
-    Id: d96b5bdc-62c7-47b6-bcc4-de31127c08b7
-    Measures:
-        -
-            Score: 1
-            Description: 'Copyright headers in each source file'
-        -
-            Score: 1
-            Description: 'License in Source & Packages'
-        -
-            Score: 1
-            Description: 'Contributor License Agreement Configured in Repo'
--
-    Name: 'Production Use'
-    Id: 87ee2c3e-b17a-4939-b969-2c9c034d05d7
-    Measures:
-        -
-            Score: 1
-            Description: 'Accepted by a customer'
--
-    Name: Insights
-    Id: 71a02488-2dc9-4d25-94fa-8c2346169f8b
-    OptOut: true
--
-    Name: Packaging
-    Id: 547fd9f5-9caf-449f-82d9-4fba9e7ce13a
-    Measures:
-        -
-            Score: 1
-            Description: Packaged
-        -
-            Score: 1
-            Description: Versioned
-        -
-            Score: 1
-            Description: Discoverable
--
-    Name: Deployment
-    Id: edea4593-d2dd-485b-bc1b-aaaf18f098f9
-    OptOut: true
+- Name: Shared Engineering Standards
+  Id: 74e29f9b-6dca-4161-8fdd-b468a1eb185d
+  Measures:
+  - Score: 1
+    Description: Configured
+- Name: Coding Standards
+  Id: f6f6490f-9493-4dc3-a674-15584fa951d8
+  Measures:
+  - Score: 1
+    Description: Enforced via tooling
+- Name: Executable Specifications
+  Id: bb49fb94-6ab5-40c3-a6da-dfd2e9bc4b00
+  Measures:
+  - Score: 1
+    Description: Specs which cover golden path / APIs have full OpenAPI Definition
+  - Score: 1
+    Description: Specs which cover common failure cases
+- Name: Code Coverage
+  Id: 0449cadc-0078-4094-b019-520d75cc6cbb
+  Measures:
+  - Score: 3
+    Description: 75+
+- Name: Benchmarks
+  Id: 64ed80dc-d354-45a9-9a56-c32437306afa
+  Measures:
+  - Score: 1
+    Description: Benchmarks which cover baseline performance
+- Name: Reference Documentation
+  Id: 2a7fc206-d578-41b0-85f6-a28b6b0fec5f
+  Measures:
+  - Score: 2
+    Description: Technical Fellow quality
+- Name: Design & Implementation Documentation
+  Id: f026d5a2-ce1a-4e04-af15-5a35792b164b
+  Measures:
+  - Score: 0
+    Description: None
+- Name: How-to Documentation
+  Id: 145f2e3d-bb05-4ced-989b-7fb218fc6705
+  Measures:
+  - Score: 0
+    Description: None
+- Name: Date of Last IP Review
+  Id: da4ed776-0365-4d8a-a297-c4e91a14d646
+  Measures:
+  - Date: 2021-02-03
+- Name: Framework Version
+  Id: 6c0402b3-f0e3-4bd7-83fe-04bb6dca7924
+  Measures:
+  - Framework: netcoreapp3.1
+- Name: Associated Work Items
+  Id: 79b8ff50-7378-4f29-b07c-bcd80746bfd4
+  Measures:
+  - Score: 0
+    Description: None
+- Name: Source Code Availability
+  Id: 30e1b40b-b27d-4631-b38d-3172426593ca
+  Measures:
+  - Score: 3
+    Description: Public OSS
+- Name: License
+  Id: d96b5bdc-62c7-47b6-bcc4-de31127c08b7
+  Measures:
+  - Score: 1
+    Description: Copyright headers in each source file
+  - Score: 1
+    Description: License in Source & Packages
+  - Score: 1
+    Description: Contributor License Agreement Configured in Repo
+- Name: Production Use
+  Id: 87ee2c3e-b17a-4939-b969-2c9c034d05d7
+  Measures:
+  - Score: 1
+    Description: Accepted by a customer
+- Name: Insights
+  Id: 71a02488-2dc9-4d25-94fa-8c2346169f8b
+  OptOut: true
+- Name: Packaging
+  Id: 547fd9f5-9caf-449f-82d9-4fba9e7ce13a
+  Measures:
+  - Score: 1
+    Description: Packaged
+  - Score: 1
+    Description: Versioned
+  - Score: 1
+    Description: Discoverable
+- Name: Deployment
+  Id: edea4593-d2dd-485b-bc1b-aaaf18f098f9
+  OptOut: true
+- Name: OpenChain
+  Id: 66efac1a-662c-40cf-b4ec-8b34c29e9fd7
+  Measures:
+  - Score: 0
+    Description: SBOM Available
+
