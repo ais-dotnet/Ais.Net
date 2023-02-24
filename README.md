@@ -111,3 +111,6 @@ The IMM is endjin's IP quality framework.
 [![Production Use](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/rule/87ee2c3e-b17a-4939-b969-2c9c034d05d7?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/rule/87ee2c3e-b17a-4939-b969-2c9c034d05d7?cache=false)
 
 [![Packaging](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/rule/547fd9f5-9caf-449f-82d9-4fba9e7ce13a?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/rule/547fd9f5-9caf-449f-82d9-4fba9e7ce13a?cache=false)
+
+[![OpenChain](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/ais-dotnet/Ais.Net/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)
+
