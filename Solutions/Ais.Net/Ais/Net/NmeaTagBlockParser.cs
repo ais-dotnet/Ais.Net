@@ -60,7 +60,7 @@ namespace Ais.Net
                 switch (fieldType)
                 {
                     case 'g':
-                        this.SentenceGrouping = this.ParseSentenceGrouping(ref source);
+                        this.SentenceGrouping = ParseSentenceGrouping(ref source);
                         break;
 
                     case 's':
@@ -105,7 +105,7 @@ namespace Ais.Net
                         break;
                 }
 
-                static ReadOnlySpan<byte> AdvanceToNextField(ref ReadOnlySpan<byte> source)
+                static ReadOnlySpan<byte> AdvanceToNextField(scoped ref ReadOnlySpan<byte> source)
                 {
                     ReadOnlySpan<byte> result;
                     int next = source.IndexOf((byte)',');
@@ -140,7 +140,7 @@ namespace Ais.Net
         /// </summary>
         public long? UnixTimestamp { get; }
 
-        private static bool GetEnd(in ReadOnlySpan<byte> source, char? delimiter, out ReadOnlySpan<byte> remaining, out int length)
+        private static bool GetEnd(ref ReadOnlySpan<byte> source, char? delimiter, out int length)
         {
             if (delimiter.HasValue)
             {
@@ -148,11 +148,10 @@ namespace Ais.Net
 
                 if (length < 0)
                 {
-                    remaining = source;
                     return false;
                 }
 
-                remaining = source.Slice(length + 1);
+                source = source.Slice(length + 1);
             }
             else
             {
@@ -161,12 +160,12 @@ namespace Ais.Net
 
                 if (isLastField)
                 {
-                    remaining = ReadOnlySpan<byte>.Empty;
                     length = source.Length;
+                    source = ReadOnlySpan<byte>.Empty;
                 }
                 else
                 {
-                    remaining = source.Slice(length + 1);
+                    source = source.Slice(length + 1);
                 }
             }
 
@@ -177,18 +176,17 @@ namespace Ais.Net
         {
             result = default;
 
-            if (!GetEnd(source, delimiter, out ReadOnlySpan<byte> remaining, out int length))
+            ReadOnlySpan<byte> original = source;
+            if (!GetEnd(ref source, delimiter, out int length))
             {
                 return false;
             }
 
-            if (!Utf8Parser.TryParse(source, out result, out int consumed)
+            if (!Utf8Parser.TryParse(original, out result, out int consumed)
                 || consumed != length)
             {
                 return false;
             }
-
-            source = remaining;
 
             return true;
         }
@@ -197,23 +195,22 @@ namespace Ais.Net
         {
             result = default;
 
-            if (!GetEnd(source, delimiter, out ReadOnlySpan<byte> remaining, out int length))
+            ReadOnlySpan<byte> original = source;
+            if (!GetEnd(ref source, delimiter, out int length))
             {
                 return false;
             }
 
-            if (!Utf8Parser.TryParse(source, out result, out int consumed)
+            if (!Utf8Parser.TryParse(original, out result, out int consumed)
                 || consumed != length)
             {
                 return false;
             }
 
-            source = remaining;
-
             return true;
         }
 
-        private NmeaTagBlockSentenceGrouping ParseSentenceGrouping(ref ReadOnlySpan<byte> source)
+        private static NmeaTagBlockSentenceGrouping ParseSentenceGrouping(ref ReadOnlySpan<byte> source)
         {
             if (!ParseDelimitedInt(ref source, out int sentenceNumber, '-'))
             {
