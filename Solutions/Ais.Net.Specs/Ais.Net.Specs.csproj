@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
 
   <Import Project="..\Common.Net.proj" />
@@ -16,6 +16,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.6.0" />
   </ItemGroup>
   <ItemGroup>
@@ -78,16 +80,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>NmeaStreamParserByMessageSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\ParsePayloadSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ParsePayloadSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\SentenceLayerSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SentenceLayerSpecs.feature</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
