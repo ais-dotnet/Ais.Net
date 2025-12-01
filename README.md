@@ -1,6 +1,6 @@
 # Ais.Net
-[![#](https://img.shields.io/nuget/v/Ais.Net.svg)](https://www.nuget.org/packages/Ais.Net/) [![Build Status](https://dev.azure.com/endjin-labs/Ais.Net/_apis/build/status/ais-dotnet.Ais.Net?branchName=master)](https://dev.azure.com/endjin-labs/Ais.Net/_build/latest?definitionId=2&branchName=master)
-[![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
+[![#](https://img.shields.io/nuget/v/Ais.Net.svg)](https://www.nuget.org/packages/Ais.Net/)
+[![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/main/LICENSE)
 [![GitHub license](https://img.shields.io/badge/License-NLOD-blue.svg)](https://data.norge.no/nlod/en/2.0)
 [![IMM](https://imm.endjin.com/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)](https://imm.endjin.com/api/imm/github/ais-dotnet/Ais.Net/total?cache=false)
 
@@ -50,7 +50,7 @@ matter how many messages you process.
 
 ## Licenses
 
-[![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/ais-dotnet/Ais.Net/main/LICENSE)
 
 Ais.Net is available under the [GNU Affero General Public License v3.0 (GNU AGPLv3)](https://choosealicense.com/licenses/agpl-3.0/) open source license. The AGPLv3 is a Copyleft license, and is ideal for use cases such as open source projects with open source distribution, student/academic purposes, hobby projects, internal research projects without external distribution, or other projects where all GNU Affero General Public License v3.0 obligations can be met. 
 
