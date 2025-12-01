@@ -334,9 +334,15 @@ ASALocalRun/
 
 # Cobertura code coverage file
 coverage.cobertura.xml
+/_codeCoverage/**
 
 # VS Code config files
 /.vscode
 
 # Generated SpecFlow files
 *.feature.cs
+
+# SBOMs
+*.sbom.*
+
+_packages/**
