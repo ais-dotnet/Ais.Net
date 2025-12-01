@@ -60,7 +60,7 @@ namespace Ais.Net
                 switch (fieldType)
                 {
                     case 'g':
-                        this.SentenceGrouping = this.ParseSentenceGrouping(ref source);
+                        this.SentenceGrouping = ParseSentenceGrouping(ref source);
                         break;
 
                     case 's':
@@ -105,7 +105,7 @@ namespace Ais.Net
                         break;
                 }
 
-                static ReadOnlySpan<byte> AdvanceToNextField(ref ReadOnlySpan<byte> source)
+                static ReadOnlySpan<byte> AdvanceToNextField(scoped ref ReadOnlySpan<byte> source)
                 {
                     ReadOnlySpan<byte> result;
                     int next = source.IndexOf((byte)',');
@@ -140,7 +140,7 @@ namespace Ais.Net
         /// </summary>
         public long? UnixTimestamp { get; }
 
-        private static bool GetEnd(in ReadOnlySpan<byte> source, char? delimiter, out ReadOnlySpan<byte> remaining, out int length)
+        private static bool GetEnd(scoped in ReadOnlySpan<byte> source, char? delimiter, out ReadOnlySpan<byte> remaining, out int length)
         {
             if (delimiter.HasValue)
             {
@@ -213,7 +213,7 @@ namespace Ais.Net
             return true;
         }
 
-        private NmeaTagBlockSentenceGrouping ParseSentenceGrouping(ref ReadOnlySpan<byte> source)
+        private static NmeaTagBlockSentenceGrouping ParseSentenceGrouping(scoped ref ReadOnlySpan<byte> source)
         {
             if (!ParseDelimitedInt(ref source, out int sentenceNumber, '-'))
             {
