@@ -10,7 +10,7 @@ namespace Ais.Net.Specs
     using System.Text;
     using System.Threading.Tasks;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class NmeaStreamParserSpecsSteps

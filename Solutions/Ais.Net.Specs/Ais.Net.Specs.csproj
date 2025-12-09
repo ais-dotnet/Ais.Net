@@ -8,76 +8,15 @@
 
   <PropertyGroup>
 	<IsPackable>false</IsPackable>
-    <!--
-    Note: SA1633 and SA1649 are disabled because of a bug introduced by SpecFlow 3.1.
-    If https://github.com/SpecFlowOSS/SpecFlow/pull/1790 is ever successfully merged, we should re-enable them.
-    -->
-    <NoWarn>RCS1029;RCS1089;SA1600;CS1591;SA1633;SA1649</NoWarn>
+    <NoWarn>RCS1029;RCS1089;SA1600;CS1591</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.6.0" />
+    <PackageReference Include="Corvus.Testing.ReqnRoll.NUnit" Version="4.0.5" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Ais.Net\Ais.Net.csproj" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Ais\Net\Specs\AisMessageTypes\LongRangeAisBroadcastParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LongRangeAisBroadcastParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\AisMessageTypes\PositionReportClassAParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PositionReportClassAParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\AisMessageTypes\PositionReportClassBParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PositionReportClassBParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\AisStringsSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AisStringsSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\AisMessageTypes\PositionReportExtendedClassBParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PositionReportExtendedClassBParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\AisMessageTypes\StaticAndVoyageRelatedDataParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StaticAndVoyageRelatedDataParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\AisMessageTypes\StaticDataReportParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StaticDataReportParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\NmeaAisBitVectorParserSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NmeaAisBitVectorParserSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\NmeaLineToAisStreamAdapterSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NmeaLineToAisStreamAdapterSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\NmeaStreamParserByLineSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NmeaStreamParserByLineSpecs.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Ais\Net\Specs\NmeaStreamParserByMessageSpecs.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NmeaStreamParserByMessageSpecs.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
+
 </Project>

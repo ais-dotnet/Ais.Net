@@ -6,7 +6,7 @@ namespace Ais.Net.Specs
 {
     using System.Text;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class NmeaAisBitVectorParserSpecsSteps
