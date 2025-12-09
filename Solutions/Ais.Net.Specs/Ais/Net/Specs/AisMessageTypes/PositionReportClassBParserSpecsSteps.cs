@@ -7,7 +7,7 @@ namespace Ais.Net.Specs.AisMessageTypes
     using System.Text;
     using Ais.Net;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class PositionReportClassBParserSpecsSteps
