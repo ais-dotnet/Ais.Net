@@ -29,6 +29,7 @@ permissions:
   actions: write  # enable cache clean-up
   checks: write  # enable test result annotations
   contents: write  # enable creating releases
+  id-token: write  # enable NuGet.org Trusted Publishing (OIDC)
   issues: read
   packages: write  # enable publishing packages
   pull-requests: write  # enable test result annotations
@@ -47,7 +48,12 @@ jobs:
       with:
         environmentVariablesYaml: |
           BUILDVAR_NuGetPublishSource: "${{ startsWith(github.ref, 'refs/tags/') && 'https://api.nuget.org/v3/index.json' || format('https://nuget.pkg.github.com/{0}/index.json', github.repository_owner) }}"
+          # Trusted Publishing only applies to nuget.org - GitHub Packages publishing still uses NUGET_API_KEY
+          ZF_BUILD_DOTNET_NUGET_USE_TRUSTED_PUBLISHING: ${{ startsWith(github.ref, 'refs/tags/') && vars.ZF_BUILD_DOTNET_NUGET_USE_TRUSTED_PUBLISHING || 'false' }}
+          ZF_BUILD_DOTNET_NUGET_TRUSTED_PUBLISHING_USER: ${{ vars.ZF_BUILD_DOTNET_NUGET_TRUSTED_PUBLISHING_USER }}
         secretsYaml: |
+          # This repo still builds with Endjin.RecommendedPractices.Build, which does not read the Trusted Publishing
+          # settings above, so nuget.org publishing keeps using the API key until the build moves to ZeroFailed.
           NUGET_API_KEY: "${{ startsWith(github.ref, 'refs/tags/') && secrets.NUGET_APIKEY || secrets.BUILD_PUBLISHER_PAT }}"
         secretsEncryptionKey: ${{ secrets.SHARED_WORKFLOW_KEY }}
 
