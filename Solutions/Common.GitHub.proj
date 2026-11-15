@@ -1,6 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <GitHubOrg>ais-dotnet</GitHubOrg>
-    <GitHubProject>Ais.Net</GitHubProject>
-  </PropertyGroup>
-</Project>

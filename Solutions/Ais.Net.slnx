@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../.gitignore" />
+    <File Path="../global.json" />
+    <File Path="../GitVersion.yml" />
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="Directory.Packages.props" />
+    <File Path="stylecop.json" />
+  </Folder>
+  <Project Path="Ais.Net/Ais.Net.csproj" />
+  <Project Path="Ais.Net.Specs/Ais.Net.Specs.csproj" />
+  <Project Path="Ais.Net.Benchmarks/Ais.Net.Benchmarks.csproj" />
+</Solution>

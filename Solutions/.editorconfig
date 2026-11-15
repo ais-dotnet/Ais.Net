@@ -68,3 +68,8 @@ dotnet_style_qualification_for_field = true:suggestion
 dotnet_style_qualification_for_method = true:suggestion
 dotnet_style_qualification_for_property = true:suggestion
 dotnet_style_qualification_for_event = true:suggestion
+# StyleCop rules (moved from StyleCop.ruleset)
+
+# StyleCop's insistence that constructors' summaries must always start with exactly
+# the same boilerplate text is not deeply helpful.
+dotnet_diagnostic.SA1642.severity = none

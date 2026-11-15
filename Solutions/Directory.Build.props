@@ -1,0 +1,54 @@
+<Project>
+
+  <!--
+    Settings shared by every project in the solution. This replaces the Common.*.proj files that each
+    project used to import by hand.
+  -->
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <DebugType>portable</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);RCS1029;RCS1089</NoWarn>
+
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatSpecificWarningsAsErrors />
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--
+      Mark CI builds so that the compiler normalises the source paths it embeds, which makes the build
+      deterministic. An explicit -p:ContinuousIntegrationBuild=... still wins.
+    -->
+    <ContinuousIntegrationBuild Condition="'$(ContinuousIntegrationBuild)' == '' and '$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild Condition="'$(ContinuousIntegrationBuild)' == '' and '$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Package metadata. The license, description and tags are set in each packable project. -->
+    <Authors>Endjin Limited</Authors>
+    <Copyright>Copyright (c) Endjin Limited 2021. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/ais-dotnet/Ais.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ais-dotnet/Ais.Net.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>images\PackageIcon.png</PackageIcon>
+    <PackageReleaseNotes>See https://github.com/ais-dotnet/Ais.Net/releases/</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+    <!--
+      Source Link. The .NET SDK has included Source Link since .NET 8, so no
+      Microsoft.SourceLink.GitHub package reference is needed.
+    -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)PackageIcon.png" Pack="true" PackagePath="images/" Visible="false" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+</Project>
