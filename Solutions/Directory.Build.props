@@ -28,7 +28,7 @@
   <PropertyGroup>
     <!-- Package metadata. The license, description and tags are set in each packable project. -->
     <Authors>Endjin Limited</Authors>
-    <Copyright>Copyright (c) Endjin Limited 2021. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) Endjin Limited 2026. All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/ais-dotnet/Ais.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ais-dotnet/Ais.Net.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
