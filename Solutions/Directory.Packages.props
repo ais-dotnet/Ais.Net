@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Ais.Net.Specs">
-    <PackageVersion Include="Corvus.Testing.ReqnRoll.NUnit" Version="4.0.5" />
+    <PackageVersion Include="Corvus.Testing.ReqnRoll.NUnit" Version="5.0.3" />
   </ItemGroup>
 
   <ItemGroup Label="Ais.Net.Benchmarks">

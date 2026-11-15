@@ -62,10 +62,6 @@ jobs:
       id: run_build
       with:
         netSdkVersion: '10.x'
-        # The test project also targets net8.0 and net9.0, so their runtimes are needed to run the tests
-        additionalNetSdkVersion: |
-          8.0.x
-          9.0.x
         # workflow_dispatch inputs are always strings, the type property is just for the UI
         forcePublish: ${{ github.event.inputs.forcePublish == 'true' }}
         buildEnv: ${{ steps.prepareEnvVarsAndSecrets.outputs.environmentVariablesYamlBase64 }}
