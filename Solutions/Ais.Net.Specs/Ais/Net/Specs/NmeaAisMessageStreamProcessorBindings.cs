@@ -1,4 +1,4 @@
-﻿// <copyright file="NmeaLineToAisStreamAdapterSpecsSteps.cs" company="Endjin Limited">
+﻿// <copyright file="NmeaAisMessageStreamProcessorBindings.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ namespace Ais.Net.Specs
     using System.Collections.Generic;
     using System.Text;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class NmeaAisMessageStreamProcessorBindings

@@ -6,7 +6,7 @@ namespace Ais.Net.Specs
 {
     using Ais.Net;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class AisStringsSpecsSteps
@@ -16,8 +16,8 @@ namespace Ais.Net.Specs
         public static void TestString(string expected, int fieldSizeInChars, in NmeaAisTextFieldParser parser)
         {
             // Although text fields are supposed to be padded with '@' characters, it's common
-            // for real transponders to be set up to use spaces instead. And since SpecFlow
-            // doesn't make is straightforward to include a space at the start or end of a test
+            // for real transponders to be set up to use spaces instead. And since Reqnroll
+            // doesn't make it straightforward to include a space at the start or end of a test
             // string, we should pad out with spaces by default, because tests can explicitly
             // pad with @ in cases where that's what's expected.
             expected = expected.PadRight(fieldSizeInChars, ' ');
