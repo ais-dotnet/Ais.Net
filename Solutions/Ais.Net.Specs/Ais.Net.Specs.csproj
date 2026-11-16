@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Corvus.Testing.ReqnRoll.NUnit" Version="4.0.5" />
+    <PackageReference Include="Corvus.Testing.ReqnRoll.NUnit" Version="5.0.3" />
   </ItemGroup>
   
   <ItemGroup>
