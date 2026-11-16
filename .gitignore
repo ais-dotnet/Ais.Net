@@ -346,3 +346,8 @@ coverage.cobertura.xml
 *.sbom.*
 
 _packages/**
+# ZeroFailed installed extensions
+/.zf/extensions/
+
+# Local NuGet feed used by the build when no publish source is configured
+/_local-nuget-feed/

@@ -1,17 +1,18 @@
+#Requires -Version 7.4
 <#
 .SYNOPSIS
     Runs a .NET flavoured build process.
 .DESCRIPTION
-    This script was scaffolded using a template from the Endjin.RecommendedPractices.Build PowerShell module.
-    It uses the InvokeBuild module to orchestrate an opinonated software build process for .NET solutions.
+    This script was scaffolded using a template from the ZeroFailed project.
+    It uses the InvokeBuild module to orchestrate an opinionated software build process for .NET solutions.
 .EXAMPLE
     PS C:\> ./build.ps1
-    Downloads any missing module dependencies (Endjin.RecommendedPractices.Build & InvokeBuild) and executes
+    Downloads any missing module dependencies (ZeroFailed & InvokeBuild) and executes
     the build process.
 .PARAMETER Tasks
     Optionally override the default task executed as the entry-point of the build.
 .PARAMETER Configuration
-    The build configuration, defaults to 'Release'.
+    The build configuration, defaults to 'Debug'.
 .PARAMETER BuildRepositoryUri
     Optional URI that supports pulling MSBuild logic from a web endpoint (e.g. a GitHub blob).
 .PARAMETER SourcesDir
@@ -26,14 +27,22 @@
     The logging verbosity.
 .PARAMETER Clean
     When true, the .NET solution will be cleaned and all output/intermediate folders deleted.
-.PARAMETER BuildModulePath
-    The path to import the Endjin.RecommendedPractices.Build module from. This is useful when
-    testing pre-release versions of the Endjin.RecommendedPractices.Build that are not yet
-    available in the PowerShell Gallery.
-.PARAMETER BuildModuleVersion
-    The version of the Endjin.RecommendedPractices.Build module to import. This is useful when
-    testing pre-release versions of the Endjin.RecommendedPractices.Build that are not yet
-    available in the PowerShell Gallery.
+.PARAMETER ZfModulePath
+    The path to import the ZeroFailed module from, instead of installing it. This is useful when testing a local
+    copy of ZeroFailed.
+.PARAMETER ZfModuleVersion
+    The version of the ZeroFailed module to install and import.
+.PARAMETER ZfModuleRepository
+    The PowerShell repository to install the ZeroFailed module from: a registered repository name, or a URL. For a
+    URL, a repository that is already registered with that URL (and any credentials it has) is used. Otherwise, the
+    URL is registered as a new repository. The default is the ZeroFailed GitHub Packages feed. GitHub Packages needs
+    a token, even for public packages: when the GITHUB_TOKEN or GH_TOKEN environment variable is set, it is used as
+    the credential. If the module cannot be installed from this repository, it is installed from PSGallery.
+.PARAMETER ZfExtensionsLockMode
+    How the ZeroFailed extensions lock file is used. 'Write' resolves the extensions and updates the lock file.
+    'Frozen' installs the versions in the lock file, and fails if the extensions differ from it. 'Off' does not
+    use the lock file. Defaults to 'Frozen' in GitHub Actions, and to 'Write' elsewhere. The
+    ZF_EXTENSIONS_LOCK_MODE environment variable takes precedence over this parameter.
 .PARAMETER InvokeBuildModuleVersion
     The version of the InvokeBuild module to be used.
 #>
@@ -68,107 +77,112 @@ param (
     [switch] $Clean,
 
     [Parameter()]
-    [string] $BuildModulePath,
+    [string] $ZfModulePath,
 
     [Parameter()]
-    [version] $BuildModuleVersion = "1.5.14",
+    [string] $ZfModuleVersion = "2.0.1",
 
     [Parameter()]
-    [string] $BuildModulePackageVersion = $BuildModuleVersion,
+    [string] $ZfModuleRepository = "https://nuget.pkg.github.com/zerofailed/index.json",
 
     [Parameter()]
-    [version] $InvokeBuildModuleVersion = "5.11.3"
+    [ValidateSet("Write","Frozen","Off")]
+    [string] $ZfExtensionsLockMode = ($env:GITHUB_ACTIONS -eq "true" ? "Frozen" : "Write"),
+
+    [Parameter()]
+    [version] $InvokeBuildModuleVersion = "5.14.23"
 )
-
-$ErrorActionPreference = $ErrorActionPreference ? $ErrorActionPreference : 'Stop'
-$InformationPreference = 'Continue'
-
+$ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $PSCommandPath
 
 #region InvokeBuild setup
-if (!(Get-Module -ListAvailable InvokeBuild)) {
-    Install-Module InvokeBuild -RequiredVersion $InvokeBuildModuleVersion -Scope CurrentUser -Force -Repository PSGallery
-}
-Import-Module InvokeBuild
 # This handles calling the build engine when this file is run like a normal PowerShell script
 # (i.e. avoids the need to have another script to setup the InvokeBuild environment and issue the 'Invoke-Build' command )
 if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
+    if (!(Get-InstalledPSResource InvokeBuild -Version $InvokeBuildModuleVersion -ErrorAction Ignore)) {
+        # InvokeBuild is only published to PSGallery, which sometimes fails, so retry the install
+        for ($attempt = 1; ; $attempt++) {
+            try {
+                Install-PSResource InvokeBuild -Version $InvokeBuildModuleVersion -Scope CurrentUser -TrustRepository -Repository PSGallery
+                break
+            }
+            catch {
+                if ($attempt -ge 3) { throw }
+                Write-Warning "Could not install InvokeBuild $InvokeBuildModuleVersion (attempt $attempt of 3), so retrying: $($_.Exception.Message)"
+                Start-Sleep -Seconds (5 * $attempt)
+            }
+        }
+    }
     try {
         Invoke-Build $Tasks $MyInvocation.MyCommand.Path @PSBoundParameters
     }
     catch {
-        $_.ScriptStackTrace
-        throw
+        Write-Host -f Yellow "`n`n***`n*** Build Failure Summary - check previous logs for more details`n***"
+        Write-Host -f Yellow $_.Exception.Message
+        Write-Host -f Yellow $_.ScriptStackTrace
+        exit 1
     }
     return
 }
 #endregion
 
-#region Import shared tasks and initialise build framework
-if (!($BuildModulePath)) {
-    if (!(Get-Module -ListAvailable Endjin.RecommendedPractices.Build | ? { $_.Version -eq $BuildModuleVersion })) {
-        Write-Information "Installing 'Endjin.RecommendedPractices.Build' module..."
-        Install-Module Endjin.RecommendedPractices.Build -RequiredVersion $BuildModulePackageVersion -Scope CurrentUser -Force -Repository PSGallery -AllowPrerelease:$($BuildModulePackageVersion -match "-")
+#region Initialise build framework
+$splat = @{ Force = $true; Verbose = $false}
+if (!($ZfModulePath)) {
+    if (!(Get-InstalledPSResource ZeroFailed -Version $ZfModuleVersion -ErrorAction Ignore)) {
+        # Support a repository URL, re-using any existing registration for it (and its credentials)
+        if ($ZfModuleRepository -match '://') {
+            $uri = $ZfModuleRepository
+            $ZfModuleRepository = (Get-PSResourceRepository | ? Uri -eq $uri | Select-Object -First 1).Name ?? ($uri -replace '\W','_')
+            $null = Get-PSResourceRepository $ZfModuleRepository -ErrorAction Ignore || Register-PSResourceRepository $ZfModuleRepository -Uri $uri
+        }
+        $installSplat = @{
+            Name = 'ZeroFailed'
+            Version = $ZfModuleVersion
+            Repository = $ZfModuleRepository
+            Scope = 'CurrentUser'
+            TrustRepository = $true
+        }
+        # GitHub Packages needs a token to install any package, even a public one. In GitHub Actions, the
+        # workflow's token is in GITHUB_TOKEN or GH_TOKEN, depending on the action that runs this script.
+        $gitHubToken = $env:GITHUB_TOKEN ? $env:GITHUB_TOKEN : $env:GH_TOKEN
+        if ($gitHubToken -and (Get-PSResourceRepository $ZfModuleRepository).Uri.Host -eq 'nuget.pkg.github.com') {
+            $installSplat.Credential = [pscredential]::new('token', (ConvertTo-SecureString $gitHubToken -AsPlainText -Force))
+        }
+        try {
+            Install-PSResource @installSplat
+        }
+        catch {
+            if ($ZfModuleRepository -eq 'PSGallery') { throw }
+            Write-Warning "Could not install ZeroFailed $ZfModuleVersion from '$ZfModuleRepository', so trying PSGallery: $($_.Exception.Message)"
+            $installSplat.Remove('Credential')
+            $installSplat.Repository = 'PSGallery'
+            Install-PSResource @installSplat
+        }
     }
-    $BuildModulePath = "Endjin.RecommendedPractices.Build"
+    # Import the module's manifest by its path. A package from GitHub Packages is installed in a lower-case
+    # 'zerofailed' folder, which 'Import-Module ZeroFailed' does not find on a case-sensitive file system (Linux).
+    $installed = Get-InstalledPSResource ZeroFailed -Version $ZfModuleVersion | Select-Object -First 1
+    $ZfModulePath = Join-Path $installed.InstalledLocation $installed.Name ($ZfModuleVersion -split '-')[0] 'ZeroFailed.psd1'
+    if (!(Test-Path $ZfModulePath)) {
+        throw "The ZeroFailed module manifest is not in the expected location: $ZfModulePath"
+    }
 }
 else {
-    Write-Information "BuildModulePath: $BuildModulePath"
+    Write-Host "ZfModulePath: $ZfModulePath"
 }
-Import-Module $BuildModulePath -RequiredVersion $BuildModuleVersion -Force
-
-# Load the build process & tasks
-. Endjin.RecommendedPractices.Build.tasks
+$splat.Add("Name", $ZfModulePath)
+# Ensure only 1 version of the module is loaded
+Get-Module ZeroFailed | Remove-Module
+Import-Module @splat
+$ver = ("{0} {1}" -f (Get-Module ZeroFailed).Version, (Get-Module ZeroFailed).PrivateData.PsData.PreRelease).Trim()
+Write-Host "Using ZeroFailed module version: $ver from $ZfModulePath"
 #endregion
 
+# ZeroFailed reads the extensions lock mode from this variable, unless ZF_EXTENSIONS_LOCK_MODE is set
+$zerofailedExtensionsLockMode = $ZfExtensionsLockMode
 
-#
-# Build process control options
-#
-$SkipInit = $false
-$SkipVersion = $false
-$SkipBuild = $false
-$CleanBuild = $Clean
-$SkipTest = $false
-$SkipTestReport = $false
-$SkipAnalysis = $false
-$SkipPackage = $false
-$SkipPublish = $false
+$PSModuleAutoloadingPreference = 'none'
 
-
-#
-# Build process configuration
-#
-$SolutionToBuild = (Resolve-Path (Join-Path $here ".\Solutions\Ais.Net.sln")).Path
-
-#
-# Specify files to exclude from code coverage
-# This option is for excluding generated code
-# - Use file path or directory path with globbing (e.g dir1/*.cs)
-# - Use single or multiple paths (separated by comma) (e.g. **/dir1/class1.cs,**/dir2/*.cs,**/dir3/**/*.cs)
-#
-$ExcludeFilesFromCodeCoverage = ""
-
-# Synopsis: Build, Test and Package
-task . FullBuild
-
-
-# build extensibility tasks
-task RunFirst {}
-task PreInit {}
-task PostInit {}
-task PreVersion {}
-task PostVersion {}
-task PreBuild {}
-task PostBuild {}
-task PreTest {}
-task PostTest {}
-task PreTestReport {}
-task PostTestReport {}
-task PreAnalysis {}
-task PostAnalysis {}
-task PrePackage {}
-task PostPackage {}
-task PrePublish {}
-task PostPublish {}
-task RunLast {}
+# Load the build configuration
+. $here/.zf/config.ps1
