@@ -68,3 +68,14 @@ dotnet_style_qualification_for_field = true:suggestion
 dotnet_style_qualification_for_method = true:suggestion
 dotnet_style_qualification_for_property = true:suggestion
 dotnet_style_qualification_for_event = true:suggestion
+# StyleCop rules (moved from StyleCop.ruleset)
+
+# StyleCop's insistence that constructors' summaries must always start with exactly
+# the same boilerplate text is not deeply helpful.
+dotnet_diagnostic.SA1642.severity = none
+
+# Rules added by StyleCop.Analyzers releases after 1.1.118. They are turned off so that the
+# package update needs no changes to the C# files.
+dotnet_diagnostic.SA1143.severity = none
+dotnet_diagnostic.SA1315.severity = none
+dotnet_diagnostic.SA1629.severity = none

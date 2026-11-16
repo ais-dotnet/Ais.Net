@@ -1,0 +1,24 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup Label="All projects">
+    <GlobalPackageReference Include="StyleCop.Analyzers" Version="1.3.180" />
+  </ItemGroup>
+
+  <ItemGroup Label="Ais.Net">
+    <PackageVersion Include="System.IO.Pipelines" Version="11.0.0" />
+    <PackageVersion Include="System.Memory" Version="4.6.3" />
+  </ItemGroup>
+
+  <ItemGroup Label="Ais.Net.Specs">
+    <PackageVersion Include="Corvus.Testing.ReqnRoll.NUnit" Version="5.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Label="Ais.Net.Benchmarks">
+    <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
+  </ItemGroup>
+
+</Project>

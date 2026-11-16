@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\Common.Net.proj" />
-
   <PropertyGroup>
     <!--
     We need to target multiple versions, because .NET Standard 2.0's Stream.Read doesn't
@@ -11,16 +9,15 @@
     We target .NET Standard 2.1 because that adds Memory<T> support to Stream.Read, meaning that
     we will be able to get full performance on all .NET runtimes that support netstandard2.1
     -->
-    <TargetFramework></TargetFramework>
     <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IO.Pipelines" Version="10.0.3" />
+    <PackageReference Include="System.IO.Pipelines" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Memory" Version="4.6.3" />
+    <PackageReference Include="System.Memory" />
   </ItemGroup>
   
   <PropertyGroup>

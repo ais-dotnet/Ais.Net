@@ -1,4 +1,13 @@
 <Project>
+  <PropertyGroup>
+    <!--
+    Every file declares its namespace explicitly, so there is no root namespace. This is set here, not
+    in Directory.Build.props, because the SDK sets RootNamespace to the project name after
+    Directory.Build.props is imported.
+    -->
+    <RootNamespace />
+  </PropertyGroup>
+
   <ItemGroup>
     <!--
     Ensure that if anyone adds a local.settings.json, it will get copied to the output folder
